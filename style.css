@@ -30,12 +30,12 @@ p{margin-bottom: 10px}
 #frame{position:relative;padding-top:1px;}
 #frame.fix{position:fixed;z-index:0;top:0;left: 0;right: 0;bottom: 0;overflow: hidden}
 
-#header-main,#footer-main{padding-left:50px;padding-right:50px;}
+
 #article-main{margin:80px 50px;}
 
 
 /* HEADER **************************************************/
-#header-main{position:absolute;z-index:1001;top:0;left:0;right:0;height: 80px;line-height: 80px;background-color: #FFF;}
+#header-main{position:absolute;z-index:1001;top:0;left:50px;right:50px;height: 80px;line-height: 80px;background-color: #FFF;}
 #header-main.fixed{position:fixed;top:-90px;}
 #header-main.fixed.open{top:0;}
 
@@ -71,9 +71,13 @@ p{margin-bottom: 10px}
 .menu-tertiary-container li.current a{color:#999;text-decoration: underline;cursor: default;}
 
 .work{}
-.work figure{display:block;float:left;width:33.33333333%;}
+.work figure{display:block;float:left;width:0%;opacity:0; transition:width .5s,opacity .5s;-webkit-transition:width .5s,opacity .5s;-moz-transition:width .5s,opacity .5s;overflow: hidden}
+.work figure img{display:block;height:auto !important;}
 
-.work figure img{display:block;width:100% !important;height:auto !important;}
+.work figure.visible{width:33.33333333%;opacity:1;}
+.work figure.autosize-img img{width:100% !important;}
+
+
 .work figure a{display:block;position:relative;overflow: hidden}
 .work figure a figcaption{display:block;position:absolute;top: 0;left: 0;right: 0;bottom: 0;background-color: rgba(0,0,0,.6);color:#FFF;opacity:0;
 transition:opacity .2s;-webkit-transition:opacity .2s;-moz-transition:opacity .2s;}
@@ -86,7 +90,6 @@ transition:all .2s;-webkit-transition:all .2s;-moz-transition:all .2s;}
 
 
 
-.work figure.hide {width:0;opacity:0;}
 
 /* BOXES **************************************************/
 .work-main .text-box{max-width:960px;margin:0 auto;padding:40px 20px;text-align: center}

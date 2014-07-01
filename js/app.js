@@ -40,33 +40,64 @@ var pablocazorla = function(){
 	},
 	WORKLIST = {
 		init : function(){
-			$('.work-list').each(function(){
+			this.$workList = $('.work-list');
+			this.$figures = this.$workList.find('figure');
+
+			if(this.$figures.length > 0){
+				this.set();
+			}
+
+/*
+			.each(function(){
 				var $figures = $(this).find('figure'),
 					$menus = $('.header-work').find('.menu-item a'),
 					current = 'all';
 
-				$menus.click(function(e){
-					e.preventDefault();
+				
+
+			});*/
+		},
+		set : function(){
+			var self = this,
+				setWidth = function(){
+					var w =Math.round(self.$workList.width()/3);
+					self.$figures.find('img').width(w);
+				};
+			setWidth();
+			$window.resize(setWidth);
+
+			var $menus = $('.header-work').find('.menu-item a'),
+				current = 'all',
+				enabled = true;
+
+			$menus.click(function(e){
+				e.preventDefault();
+				if(enabled){
 					var cl = $(this).text().toLowerCase().replace(/ /g,'-');
 					if(cl.indexOf('all-')!=-1){cl = 'all';}
 
 					if(cl != current){
+						enabled = false;
+						self.$figures.removeClass('autosize-img');
 						if(cl == 'all'){
-							$figures.slideDown(250);
+							self.$figures.addClass('visible');
 						}else{
 							if(current == 'all'){
-								$figures.not('.'+cl).slideUp(250);
+								self.$figures.not('.'+cl).removeClass('visible');
 							}else{
-								$figures.filter('.'+current).slideUp(250);
-								$figures.filter('.'+cl).slideDown(250);
+								self.$figures.filter('.'+current).removeClass('visible');
+								self.$figures.filter('.'+cl).addClass('visible');
 							}
 						}						
 						current = cl;
+						setTimeout(function(){
+							self.$figures.addClass('autosize-img');
+							enabled = true;
+						},600);
 						$menus.parent().removeClass('current');
 						$(this).parent().addClass('current');
-					}					
-				});
-
+					}
+				}			
 			});
 		}
 	};

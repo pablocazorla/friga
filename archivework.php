@@ -11,7 +11,7 @@
 			$category = get_the_category(); 
 			$categoryClass = str_replace(" ","-",strtolower($category[0]->cat_name));
 			?>	   
-			<figure class="<?php echo $categoryClass;?>">						
+			<figure class="<?php echo $categoryClass;?> visible autosize-img">						
 				<a href="<?php the_permalink(); ?>" rel="<?php the_ID();?>">					
 					<?php if(has_post_thumbnail()): the_post_thumbnail('thumbnail'); endif; ?>
 					<figcaption>
