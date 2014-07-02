@@ -1,4 +1,7 @@
+<?php $async = $_GET['async']; ?>
+<?php if (!$async){?>
 <?php get_header(); ?>
+<?php } ?>
 	<article id="article-main" class="work-main">
 		<header class="header-work text-box">
 			<h1>Work</h1>
@@ -12,7 +15,7 @@
 			$categoryClass = str_replace(" ","-",strtolower($category[0]->cat_name));
 			?>	   
 			<figure class="<?php echo $categoryClass;?> visible autosize-img">						
-				<a href="<?php the_permalink(); ?>" rel="<?php the_ID();?>">					
+				<a href="<?php the_permalink(); ?>" rel="<?php the_ID();?>" class="alink">					
 					<?php if(has_post_thumbnail()): the_post_thumbnail('thumbnail'); endif; ?>
 					<figcaption>
 						<div>
@@ -28,4 +31,6 @@
 			<?php endif; ?>
 		</section>		
 	</article>
+<?php if (!$async){?>
 <?php get_footer(); ?>
+<?php } ?>

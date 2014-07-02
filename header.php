@@ -38,11 +38,11 @@
 	
 	<?php wp_head(); ?>	
 </head>
-<body>
+<body>	
+	<header id="header-main">
+		<a href="<?php bloginfo( 'url' ); ?>" class="brand alink">pablo cazorla</a>
+		<menu id="menu-main">
+			<?php  wp_nav_menu();?>
+		</menu>
+	</header>
 	<div id="frame">
-		<header id="header-main">
-			<a href="<?php bloginfo( 'url' ); ?>" class="brand">pablo cazorla</a>
-			<menu id="menu-main">
-				<?php  wp_nav_menu();?>
-			</menu>
-		</header>

@@ -1,8 +1,8 @@
 var pablocazorla = function(){
 	var $window = $(window),
 		$header = $('#header-main'),
-
-
+		$frame = $('#frame'),
+		$ajaxDimmer = $('#ajax-dimmer'),
 
 	HEADER = {
 		minFixHeight : 160,
@@ -42,20 +42,9 @@ var pablocazorla = function(){
 		init : function(){
 			this.$workList = $('.work-list');
 			this.$figures = this.$workList.find('figure');
-
 			if(this.$figures.length > 0){
 				this.set();
 			}
-
-/*
-			.each(function(){
-				var $figures = $(this).find('figure'),
-					$menus = $('.header-work').find('.menu-item a'),
-					current = 'all';
-
-				
-
-			});*/
 		},
 		set : function(){
 			var self = this,
@@ -100,12 +89,49 @@ var pablocazorla = function(){
 				}			
 			});
 		}
+	},
+	AJAXNAV = {		
+		init : function(){
+			this.$link = $('.alink, #menu-principal a, .category a, .widget-container a');
+			var self = this;
+			this.$link.each(function(){
+				self.set($(this));
+			});
+		},
+		set : function($this){
+			var url = $this.attr('href');
+
+
+
+
+			$this.click(function(e){
+				e.preventDefault();
+				if(url != window.location.href){
+					$ajaxDimmer.fadeIn(200);
+					$.ajax({
+					  url: url + '?async=true',
+					  success : function(data){
+					  	$frame.addClass('fix').html(data);
+					  	$window.scrollTop(0);
+						$ajaxDimmer.fadeOut(200,function(){
+							$frame.removeClass('fix');
+							window.location.href = url;
+						});				  	
+					  },
+					  error : function(){
+					  	window.location.href = url;
+					  }
+					});
+				}
+			});
+		}
 	};
 
 
 
 	HEADER.init();
 	WORKLIST.init();
+	AJAXNAV.init();
 
 	
 };

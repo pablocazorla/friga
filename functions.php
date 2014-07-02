@@ -30,7 +30,7 @@ return $src[0];
 * CUSTOM EXCERPT
 ***********************************************/
 function custom_excerpt_length( $length ) {
-	return 34;
+	return 14;
 }
 add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
 /***********************************************/
