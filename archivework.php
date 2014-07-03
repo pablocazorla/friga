@@ -2,18 +2,22 @@
 <?php if (!$async){?>
 <?php get_header(); ?>
 <?php } ?>
+<?php $cat_name = single_cat_title('',false);?>
 	<article id="article-main" class="work-main">
 		<header class="header-work text-box">
-			<h1>Work</h1>
-			<p>The Amazon Kindle team approached Character to concept and develop a cross-media advertising campaign to promote their latest, most advanced e-reader device, Kindle Paperwhite.</p>
-			<?php wp_nav_menu(array('menu' => 'Tertiary' ));?>
+			<h1><?php echo $cat_name; ?></h1>
+			<p><?php echo category_description(); ?></p>
+			<?php wp_nav_menu(array('menu' => $cat_name.'Menu' ));?>
 		</header>
 		<section class="work work-list clearfix">
 			<?php if (have_posts()) :?>
-			<?php while (have_posts()) : the_post();
-			$category = get_the_category(); 
-			$categoryClass = str_replace(" ","-",strtolower($category[0]->cat_name));
-			?>	   
+			<?php while (have_posts()) : the_post();?>
+			<?php
+				$categoryClass = "";
+				foreach((get_the_category()) as $category) { 
+				   $categoryClass = $categoryClass." ".str_replace(" ","-",strtolower($category->cat_name));
+				} 
+			?>
 			<figure class="<?php echo $categoryClass;?> visible autosize-img">						
 				<a href="<?php the_permalink(); ?>" rel="<?php the_ID();?>" class="alink">					
 					<?php if(has_post_thumbnail()): the_post_thumbnail('thumbnail'); endif; ?>

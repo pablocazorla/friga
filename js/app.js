@@ -99,14 +99,10 @@ var pablocazorla = function(){
 			});
 		},
 		set : function($this){
-			var url = $this.attr('href');
-
-
-
-
+			var url = $.trim($this.attr('href'));
 			$this.click(function(e){
 				e.preventDefault();
-				if(url != window.location.href){
+				if(url != window.location.href && url != '#'){
 					$ajaxDimmer.fadeIn(200);
 					$.ajax({
 					  url: url + '?async=true',

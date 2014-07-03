@@ -51,8 +51,28 @@ p{margin-bottom: 10px}
 #header-main .brand{float:left;}
 
 
-#menu-main{float:right;display: block;}
-#menu-main li{float:left;margin-left: 15px}
+#menu-main{float:right;display: block;height: 60px;line-height: 60px;margin: 10px -30px 0 0}
+#menu-main li{display: block;float:left;position: relative;}
+#menu-main li a{display: block;padding:0 30px;color:#666;}
+
+
+
+
+#menu-main .dropdown > a:after{position: absolute;top:50%;margin-top:-2px; left:13px;z-index:1005;display:block;content: '';width: 0;height: 0;border-style: solid;border-width: 6px 5px;border-color: #999 transparent transparent;}
+
+
+
+
+
+#menu-main .dropdown .sub-menu{display:none;position: absolute;z-index:1002;top:0;left:50%;width:150px;margin-left:-75px;padding-top:60px;background-color: #333;text-align: center;}
+#menu-main .dropdown .sub-menu li{margin:0;float: none}
+#menu-main .dropdown .sub-menu li a{color:#FFF;}
+
+#menu-main .dropdown.open > a:after{display:none;}
+#menu-main .dropdown.open > a{color:#AAA;position:relative;z-index:1003;border-bottom:1px solid #AAA;cursor:default;}
+#menu-main .dropdown.open > a:hover{text-decoration:none;}
+
+#menu-main .dropdown.open .sub-menu{display:block;}
 
 /* ARTICLE **************************************************/
 #article-main{background-color: #EEE;position:relative;z-index: 2}
@@ -65,11 +85,11 @@ p{margin-bottom: 10px}
 
 
 
-.menu-tertiary-container{text-align: center;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
-.menu-tertiary-container li{font-size:14px;line-height:1em;display: inline-block;padding:0 10px 0 15px;position:relative;min-width: 140px;border-left: solid 1px #999;}
-.menu-tertiary-container li:first-child{border-left: none;}
+.header-work .menu{text-align: center;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
+.header-work .menu li{font-size:14px;line-height:1em;display: inline-block;padding:0 10px 0 15px;position:relative;min-width: 140px;border-left: solid 1px #999;}
+.header-work .menu li:first-child{border-left: none;}
 
-.menu-tertiary-container li.current a{color:#999;text-decoration: underline;cursor: default;}
+.header-work .menu li.current a{color:#999;text-decoration: underline;cursor: default;}
 
 .work{}
 .work figure{display:block;float:left;width:0%;opacity:0; transition:width .5s,opacity .5s;-webkit-transition:width .5s,opacity .5s;-moz-transition:width .5s,opacity .5s;overflow: hidden}
