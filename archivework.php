@@ -6,7 +6,7 @@
 	<article id="article-main" class="work-main">
 		<header class="header-work text-box">
 			<h1><?php echo $cat_name; ?></h1>
-			<p><?php echo category_description(); ?></p>
+			<?php echo category_description(); ?>
 			<?php wp_nav_menu(array('menu' => $cat_name.'Menu' ));?>
 		</header>
 		<section class="work work-list clearfix">

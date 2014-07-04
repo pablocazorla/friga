@@ -102,7 +102,7 @@ var pablocazorla = function(){
 			var url = $.trim($this.attr('href'));
 			$this.click(function(e){
 				e.preventDefault();
-				if(url != window.location.href && url != '#'){
+				if(url != window.location.href && !$this.parent().hasClass('dropdown')){
 					$ajaxDimmer.fadeIn(200);
 					$.ajax({
 					  url: url + '?async=true',
@@ -121,6 +121,44 @@ var pablocazorla = function(){
 				}
 			});
 		}
+	},
+	DROPDOWN = {
+		init : function(){
+			$('.dropdown a').each(function(){
+				var $this = $(this),
+					open = false,
+					overThis = false,
+					close = function(){
+						if(open && !overThis){
+							open = false;
+							$this.parent().removeClass('open');
+						}
+						overThis = false;
+					};
+
+				$this.click(function(e){
+					e.preventDefault();
+					if(!open){
+						open = true;
+						$this.parent().addClass('open');
+						overThis = true;
+					}
+				});
+				$window.click(close).scroll(close).resize(close);
+			});
+		}
+	},
+	PREPAINT = {
+		init : function(){
+			var $pre = $('pre').not('.no-print').addClass('prettyprint');
+			$('pre.html').each(function(){
+				$(this).text($(this).html());
+			});
+			
+			if($pre.length > 0){
+				$.getScript('//google-code-prettify.googlecode.com/svn/loader/run_prettify.js');
+			}
+		}		
 	};
 
 
@@ -128,6 +166,8 @@ var pablocazorla = function(){
 	HEADER.init();
 	WORKLIST.init();
 	AJAXNAV.init();
+	DROPDOWN.init();
+	PREPAINT.init();
 
 	
 };
