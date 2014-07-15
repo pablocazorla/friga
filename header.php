@@ -39,10 +39,12 @@
 	<?php wp_head(); ?>	
 </head>
 <body>	
-	<header id="header-main">
-		<a href="<?php bloginfo( 'url' ); ?>" class="brand alink">pablo cazorla</a>
-		<menu id="menu-main">
-			<?php  wp_nav_menu();?>
-		</menu>
-	</header>
-	<div id="frame">
+<div id="site-navigation">
+	<div class="site-navigation-icon to-open-site-navigation"></div>
+	<a href="<?php bloginfo( 'url' ); ?>">pablo cazorla</a>
+	<nav>
+		<?php  wp_nav_menu();?>
+	</nav>
+</div>
+<div id="shell">
+	<div class="frame">
