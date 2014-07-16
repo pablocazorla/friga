@@ -58,8 +58,8 @@ code{font-family: monospace;font-weight: bold;display: inline-block;background-c
 .open-site-navigation .site-navigation-icon{background-color: blue}
 
 .frame{position:absolute;z-index:1;top:0;bottom: 0;left:0;padding-left: 40px;width:100%;overflow: hidden;background-color: #000}
-.frame.prev{left:-100.1%;z-index:1000;}
-.frame.next{left:100.1%;z-index:1000;}
+.frame.left{left:-100.1%;z-index:1000;}
+.frame.right{left:100.1%;z-index:1000;}
 
 .sub-frame{position:absolute;top:0;bottom: 0;left:40px;right:0;overflow:hidden}
 

@@ -47,4 +47,4 @@
 	</nav>
 </div>
 <div id="shell">
-	<div class="frame">
+	<div class="frame current">

@@ -28,7 +28,7 @@
 				} 
 			?>
 			<figure class="<?php echo $categoryClass;?>">						
-				<a href="<?php the_permalink(); ?>" rel="<?php the_ID();?>">					
+				<a href="<?php the_permalink(); ?>" rel="<?php the_ID();?>" class="load-from-right">					
 					<?php if(has_post_thumbnail()): the_post_thumbnail('thumbnail'); endif; ?>
 					<figcaption style="display:none">
 						<div>

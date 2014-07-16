@@ -68,16 +68,26 @@ PCAZ.niceScroll = (function(){
 		ready = ($.fn.niceScroll) ? true : false;
 
 	return {
+		$selection : $(),
 		init : function(){
 			this.set('.niceScroll,.nice-scroll');
 			return this;
 		},
 		set : function(selection){
-			if(ready){$(selection).niceScroll(cfg);}			
+			if(ready){
+				$(selection).niceScroll(cfg);
+				this.$selection = this.$selection.add($(selection));
+			}				
 			return this;
 		},
 		setting : function(obj){
 			cfg = $extend(cfg,obj);
+			return this;
+		},
+		remove : function(){
+			if(ready){
+				this.$selection.getNiceScroll().remove();
+			}
 			return this;
 		}
 	}
@@ -85,19 +95,13 @@ PCAZ.niceScroll = (function(){
 PCAZ.niceScroll.init();
 
 PCAZ.gallery = (function(){
+	var $gallery,$figures,there = false;
 
-	var $gallery = $('.gallery').not('.gridding'),
-		$figures = $('.gallery').not('.gridding').find('figure'),
+	$gallery = $('.gallery').not('.gridding').eq(0).each(function(){
+		$figures = $(this).find('figure');
 		there = ($figures.length > 0) ? true : false;
-
-
-
-
-
-
-
-
-
+	});
+		
 	return {
 		columns : 4,
 		current : 'all',
@@ -176,7 +180,57 @@ PCAZ.gallery = (function(){
 })();
 PCAZ.gallery.init();
 
+PCAZ.loader = (function(){
+	
 
+
+	$('a.load-from-right').click(function(e){
+		e.preventDefault();
+		var url = $(this).attr('href');
+		PCAZ.loader.load(url);
+	});
+
+
+
+
+	return {
+		load : function(url, from){
+			var dir = from || 'right',
+				duration = 600,
+				refreshHref = function(){
+					setTimeout(function(){
+						window.location.href = url;
+					},duration);
+				};
+
+			PCAZ.niceScroll.remove();
+			var $nextFrame = $('<div class="frame '+dir+'"></div>').appendTo($shell).animate({
+				'left':0
+			},duration, function(){
+				$('.frame.current').remove();
+				$nextFrame.removeClass(dir).addClass('current');
+			});
+
+			$.ajax({
+			  url : url + '?async=1',
+			  success : function(data){
+			  	$nextFrame.html(data);
+			  },
+			  complete : function(data){
+			  	refreshHref();
+			  },
+			  error : function(data){
+			  	refreshHref();
+			  }		  
+			});
+
+
+
+
+
+		}
+	}
+})();
 
 
 
