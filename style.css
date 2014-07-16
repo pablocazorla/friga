@@ -16,7 +16,9 @@ Tags: pablo, cazorla, illustration, webdesign
 body{color:#333;min-width: 320px;font: 14px/1.33em 'Raleway',sans-serif;overflow: hidden}
 
 /* COMMON **************************************************/
-a,a:link,a:visited{color:#0094E3;text-decoration: none;outline: 0;}
+a,a:link,a:visited{color:#43B7FF;text-decoration: none;outline: 0;
+transition: color .3s;-webkit-transition: color .3s;-moz-transition: color .3s;
+}
 a:hover{text-decoration: underline;}
 h1{font-size: 50px;line-height: 50px;margin-bottom: 15px;padding:10px 0;}
 h2{font-size: 32px;line-height: 32px;margin-bottom: 15px;padding-top: 15px; margin-top: 30px; border-top:solid 1px #DDD;}
@@ -79,6 +81,11 @@ code{font-family: monospace;font-weight: bold;display: inline-block;background-c
 
 .sub-frame{background-color: #000}
 
+.gallery-menu li,.gallery-menu li a{display: inline-block;}
+.gallery-menu li a{padding:0 25px;}
+
+.gallery-menu li.current a{color:#777;cursor:default;}
+.gallery-menu li.current a:hover{text-decoration: none}
 
 .gallery{position:relative;}
 
@@ -91,7 +98,7 @@ code{font-family: monospace;font-weight: bold;display: inline-block;background-c
 
 
 .gallery.gridding figure{position: absolute;z-index: 10;opacity:1;
-	transition: all .3s;-webkit-transition: all .3s;-moz-transition: all .3s;
+	transition: all .5s;-webkit-transition: all .5s;-moz-transition: all .5s;
 }
 
 .gallery.gridding figure.hidden{z-index: 9;opacity:0}
@@ -102,7 +109,7 @@ code{font-family: monospace;font-weight: bold;display: inline-block;background-c
 
 
 
-
+.nicescroll-rails{z-index: 20 !important;}
 
 
 

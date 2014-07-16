@@ -100,13 +100,15 @@ PCAZ.gallery = (function(){
 
 	return {
 		columns : 4,
+		current : 'all',
+		enabled : true,
 		init : function(){
-			this.draw();
-			$gallery.addClass('gridding');
-			this.setEvents();
-
-
-
+			if(there){
+				this.$a = $('.gallery-menu a');
+				this.draw();
+				$gallery.addClass('gridding');
+				this.setEvents();
+			}
 			return this;
 		},
 		draw : function(){
@@ -119,8 +121,8 @@ PCAZ.gallery = (function(){
 				$figures.not('.hidden').each(function(){
 
 					$(this).css({
-						'top' : posX + '%',
-						'left' : posY + 'px'
+						'left' : posX + '%',
+						'top' : posY + 'px'
 					});
 					posX += stepX;
 
@@ -132,9 +134,43 @@ PCAZ.gallery = (function(){
 				$gallery.height(posY + stepY);
 			}
 		},
+		select : function(cl,$a){
+
+			if(cl != this.current && this.enabled){
+				this.enabled = false;
+				
+				if(cl == 'all'){
+					$figures.removeClass('hidden');
+				}else{
+					if(this.current == 'all'){
+						$figures.not('.'+cl).addClass('hidden');
+					}else{
+						$figures.filter('.'+this.current).addClass('hidden');
+						$figures.filter('.'+cl).removeClass('hidden');
+					}
+				}						
+				this.current = cl;
+				var self = this;
+				setTimeout(function(){
+					self.enabled = true;
+				},600);
+				this.$a.parent().removeClass('current');
+				$a.parent().addClass('current');
+			}
+			this.draw();
+
+		},
 		setEvents : function(){
 			var self = this;
 			$window.resize(function(){self.draw();});
+
+			this.$a.click(function(e){
+				e.preventDefault();
+				var $this = $(this),
+					cl = $this.text().toLowerCase().replace(/ /g,'-');
+				if(cl.indexOf('all-')!=-1){cl = 'all';}
+				self.select(cl,$this);
+			});
 		}
 	}
 })();
