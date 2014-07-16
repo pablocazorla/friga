@@ -13,21 +13,28 @@ Tags: pablo, cazorla, illustration, webdesign
 
 /* BASICS **********************************************************************************************************/
 
-body{color:#333;min-width: 320px;font: 16px/1.4em 'Raleway',sans-serif;overflow: hidden}
+body{color:#333;min-width: 320px;font: 14px/1.33em 'Raleway',sans-serif;overflow: hidden}
 
 /* COMMON **************************************************/
 a,a:link,a:visited{color:#0094E3;text-decoration: none;outline: 0;}
 a:hover{text-decoration: underline;}
-h1{font-size: 50px;line-height: 50px;margin-bottom: 15px;padding:10px 0;color:#111;}
+h1{font-size: 50px;line-height: 50px;margin-bottom: 15px;padding:10px 0;}
 h2{font-size: 32px;line-height: 32px;margin-bottom: 15px;padding-top: 15px; margin-top: 30px; border-top:solid 1px #DDD;}
 h3{font-size: 24px;line-height: 24px;margin-bottom: 15px;padding-top: 20px}
-h4{font-size: 20px;line-height: 20px;margin-bottom: 15px;padding-top: 20px;color:#111;}
+h4{font-size: 20px;line-height: 20px;margin-bottom: 15px;padding-top: 20px;}
 h5{font-size: 14px;line-height: 14px;margin-bottom: 15px;padding-top: 20px;font-weight: bold}
 h6{font-size: 11px;line-height: 11px;margin-bottom: 15px;padding-top: 20px;font-weight: bold}
-p{margin-bottom: 15px;color:#555;}
+p{margin-bottom: 15px;}
 strong,b{font-weight: bold;}
 i,em{font-style: italic;}
 code{font-family: monospace;font-weight: bold;display: inline-block;background-color:#FFF;border:solid 1px #BBB;padding: 0 6px; border-radius: 3px}
+
+.align-left{text-align: left}
+.align-center{text-align: center}
+.align-right{text-align: right}
+.float-left{float: left}
+.float-none{float:none}
+.float-right{float: right}
 
 /* SPRITE **************************************************/
 
@@ -46,14 +53,63 @@ code{font-family: monospace;font-weight: bold;display: inline-block;background-c
 
 .open-site-navigation #site-navigation{left:0}
 .open-site-navigation #shell{left:360px;}
-
 .open-site-navigation .site-navigation-icon{background-color: blue}
 
-
 .frame{position:absolute;z-index:1;top:0;bottom: 0;left:0;padding-left: 40px;width:100%;overflow: hidden;background-color: #000}
-
 .frame.prev{left:-100.1%;z-index:1000;}
 .frame.next{left:100.1%;z-index:1000;}
 
-article{position:absolute;top:0;bottom: 0;left:40px;right:0;background-color: #FFF;overflow-x:hidden;overflow-y: auto; }
+.sub-frame{position:absolute;top:0;bottom: 0;left:40px;right:0;overflow:hidden}
+
+
+/* ELEMENTS ***********************************/
+.panel{background-color: #262626;padding:50px 30px;color:#CCC;}
+
+.panel h1,
+.panel h2,
+.panel h3,
+.panel h4,
+.panel h5,
+.panel h6{color:#FFF;}
+
+.text-box{margin: 0 auto;max-width: 1200px}
+
+
+/* WORK LIST ***********************************/
+
+.sub-frame{background-color: #000}
+
+
+.gallery{position:relative;}
+
+.gallery figure{position:relative;float:left;width:25%;}
+
+.gallery figure a{display: block}
+
+
+.gallery figure img{display: block;width:100% !important;height:auto !important;}
+
+
+.gallery.gridding figure{position: absolute;z-index: 10;opacity:1;
+	transition: all .3s;-webkit-transition: all .3s;-moz-transition: all .3s;
+}
+
+.gallery.gridding figure.hidden{z-index: 9;opacity:0}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -2,14 +2,23 @@
 <?php if (!$async){?>
 <?php get_header(); ?>
 <?php } ?>
-<?php $cat_name = single_cat_title('',false);?>
-	<article id="article-main" class="work-main">
-		<header class="header-work text-box">
-			<h1><?php echo $cat_name; ?></h1>
-			<?php echo category_description(); ?>
-			<?php wp_nav_menu(array('menu' => $cat_name.'Menu' ));?>
+<?php
+	$category_id = get_cat_ID('Design');
+	$flavor = 'illustration-flavor';
+	if (in_category($category_id )|| post_is_in_descendant_category($category_id )) {
+		$flavor = 'design-flavor';
+	}
+	$cat_name = single_cat_title('',false);
+?>
+	<article class="sub-frame work-list <?php echo $flavor;?> nice-scroll">
+		<header class="panel">
+			<div class="text-box align-center">
+				<h1><?php echo $cat_name; ?></h1>
+				<?php echo category_description(); ?>
+				<p><?php  wp_nav_menu(array('menu' => $cat_name.'Menu' ));?></p>
+			</div>			
 		</header>
-		<section class="work work-list clearfix">
+		<section class="gallery clearfix">
 			<?php if (have_posts()) :?>
 			<?php while (have_posts()) : the_post();?>
 			<?php
@@ -18,10 +27,10 @@
 				   $categoryClass = $categoryClass." ".str_replace(" ","-",strtolower($category->cat_name));
 				} 
 			?>
-			<figure class="<?php echo $categoryClass;?> visible autosize-img">						
-				<a href="<?php the_permalink(); ?>" rel="<?php the_ID();?>" class="alink">					
+			<figure class="<?php echo $categoryClass;?>">						
+				<a href="<?php the_permalink(); ?>" rel="<?php the_ID();?>">					
 					<?php if(has_post_thumbnail()): the_post_thumbnail('thumbnail'); endif; ?>
-					<figcaption>
+					<figcaption style="display:none">
 						<div>
 							<h2><?php the_title(); ?></h2>
 							<span>View Project</span>
