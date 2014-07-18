@@ -1,4 +1,61 @@
-<?php 
+<?php
+/***********************************************
+* HABILITAR CUSTOM TYPES
+***********************************************/
+// Illustration
+function codex_custom_init() {
+  $labels = array(
+    'name' => 'Illustrations',
+    'singular_name' => 'Illustration',
+    'add_new' => 'Add New',
+    'add_new_item' => 'Add New Illustration',
+    'edit_item' => 'Edit Illustration',
+    'new_item' => 'New Illustration',
+    'all_items' => 'All Illustrations',
+    'view_item' => 'View Illustration',
+    'search_items' => 'Search Illustration',
+    'not_found' =>  'No Illustrations found',
+    'not_found_in_trash' => 'No Illustration found in Trash', 
+    'parent_item_colon' => '',
+    'menu_name' => 'Illustrations'
+  );
+  $args = array(
+    'labels' => $labels,
+    'public' => true,
+    'publicly_queryable' => true,
+    'show_ui' => true, 
+    'show_in_menu' => true, 
+    'query_var' => true,
+    'rewrite' => true,
+    'capability_type' => 'post',
+    'has_archive' => true, 
+    'hierarchical' => true,
+    'show_tagcloud' => false,
+    'menu_position' => 5,
+    'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' )
+  ); 
+  register_post_type('illustration',$args);
+}
+add_action( 'init', 'codex_custom_init' );
+
+function create_illustration_taxonomies() {
+    register_taxonomy(
+        'illustration_type',
+        'illustration',
+        array(
+            'labels' => array(
+                'name' => 'Illustration Types',
+                'add_new_item' => 'Add Illustration Type',
+                'new_item_name' => "New Illustration Type"
+            ),
+            'show_ui' => true,
+            'show_tagcloud' => false,
+            'hierarchical' => true
+        )
+    );
+}
+add_action( 'init', 'create_illustration_taxonomies', 0 );
+
 /***********************************************
 * HABILITAR MENUS DE NAVEGACION
 ***********************************************/
@@ -10,8 +67,6 @@ add_theme_support( 'nav-menus' );
 		'secondary' => 'Secondary Navigation',
 		'tertiary' => 'Tertiary Navigation'
 ) );
-
-
 
 /***********************************************
 * HABILITAR POST THUMBNAILS
