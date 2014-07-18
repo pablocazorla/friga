@@ -1,3 +1,84 @@
+// jQuery Plugins
+// pixelLoading
+(function($){
+  $.fn.pixelLoading = function(options){
+		//Settings
+		var setting = $.extend({
+      		duration : 200
+		}, options);		
+	
+		return this.each(function(){			
+			var $this = $(this),
+				urlThumb = $this.attr('data-pixelloading');
+			if(urlThumb != undefined && urlThumb != ''){
+				var $canvas = $('<canvas height="5000"></canvas>'),
+					$canvasThumb = $('<canvas width="38" height="500" class="canvas-thumb"></canvas>');
+
+				$this.wrap('<div class="pixel-loading-wrap"></div>').before($canvas).before($canvasThumb);
+
+				var $wrapper = $this.parent(),
+					thumbImg = new Image(),
+					cThumb = $canvasThumb[0].getContext('2d'),
+					c = $canvas[0].getContext('2d'),
+					width = 1880,
+					imageData = null,
+					rgb = 'rgb(0,0,0)',
+					heightThumb = 500,
+					setThumbData = function(){
+						cThumb.clearRect(0,0,38, 500);
+						cThumb.drawImage(thumbImg, 0, 0);
+						imageData = cThumb.getImageData(0, 0, 38, heightThumb);
+					},
+					draw = function(){
+						if(imageData){
+							width = $wrapper.width();
+							$canvas[0].width = width;
+							c.clearRect(0,0,width, 5000);
+
+							var l = imageData.data.length,
+								posX = 0,
+								posY = 0,
+								wi = Math.ceil(width/38);
+							for(var i = 0;i < l;i += 4){
+								rgb = 'rgb('+imageData.data[i]+','+imageData.data[i + 1]+','+imageData.data[i + 2]+')';
+								c.fillStyle = rgb;
+								c.fillRect(posX*wi,posY*wi,wi,wi);
+								posX++;
+								if(posX >= 38){
+									posX = 0;
+									posY++;
+								}
+							}
+						}
+					},
+					loadedImg = function(){
+						setTimeout(function(){
+							$this.addClass('to-show');
+							setTimeout(function(){
+								$canvas.add($canvasThumb).remove();
+							},2000);
+						},4000);
+						
+					}
+				//if(!$this[0].complete){
+					thumbImg.src = urlThumb;
+					thumbImg.onload = function(){
+						heightThumb = thumbImg.height;
+						setThumbData();
+						draw();
+						$(window).resize(draw);
+					}
+					//$this.load(loadedImg);
+				//}else{
+					loadedImg();
+				//}
+				
+			}
+		});
+	};
+})(jQuery);
+
+
 $(function() {
 
 	// Common stores
@@ -93,7 +174,7 @@ PCAZ.niceScroll = (function(){
 			return this;
 		}
 	}
-})();//.set('.niceScroll,.nice-scroll');
+})().set('.niceScroll,.nice-scroll');
 
 PCAZ.gallery = (function(){
 	var $gallery = $('.gallery').not('.gridding'),
@@ -108,7 +189,9 @@ PCAZ.gallery = (function(){
 		init : function(){
 			if(ready){
 				$gallery.addClass('gridding');
+				$figures.find('img').pixelLoading();
 				this.draw().setEvents();
+
 			}		
 			return this;
 		},
@@ -220,116 +303,65 @@ PCAZ.loader = (function(){
 	}
 })().init();
 
+
 PCAZ.workpost = (function(){
 
 	var $wp = $('.sub-frame.work-post'),
-		$wpSummary = $wp.find('.summary'),
-		$wpSummaryContent = $wp.find('.summary-content'),
-		$wi = $('.sub-frame.work-post-large-image'),
-		$wiImg = $wi.find('img'),
-		ready = PCAZ.helper.isReady($wp),
-		marginTop = 350,
-		windowHeight = 0,
-		current = 'wp',
-		wpPrevTop = 0,
-		wiPrevTop = 0,
-		step = 0;
+		$wpSummary,$wpSummaryContent,$figure, marginTop = 350,fTop = 0,wpST = 0,difHeight,r = .9,op = 1,
+		ready = PCAZ.helper.isReady($wp);
 
 
 	return {
 		init : function(){
-			if(ready){				
+			if(ready){
+				$figure = $('.work-post-large-image figure');
+
+				$figure.find('img').pixelLoading();
+
+
+				$wpSummary = $wp.find('.summary');
+				$wpSummaryContent = $wpSummary.find('.summary-content');				
+				$wp.scrollTop(wpST);
 				this.calculateSize().setEvents(this);
 			}
 			return this;
 		},
 		calculatePosition : function(){
-			switch(current){
-				case 'wp':
-					var wpTop = $wp.scrollTop(),
-						toDown = (wpTop >= marginTop && step == 0 && wpPrevTop < wpTop)
-						toTop = (wpTop <= marginTop && step == 2 && wpPrevTop > wpTop);
-						
+			wpST = $wp.scrollTop();
+			fTop = Math.round((wpST*r - marginTop));
+			fTop = (fTop < 0) ? 0 : fTop;
 
-					if(toDown){
-						//$wp.animate({'scrollTop':wpTop+'px'},50);
-						
-						step = 1;
-						console.log('Va a WI: '+step);
-						this.toggleCurrent();
-					}
-					if(toTop){
-						//$wp.animate({'scrollTop':wpTop+'px'},50);
-						
-						step = 1;
-						console.log('Va a WI: '+step);
-						this.toggleCurrent();
-					}
+			op = 1 - (wpST/marginTop);
+			op = (op < 0) ? 0 : op;
 
+			$wpSummaryContent.css('opacity',op);
 
+			fTop = (difHeight < fTop) ? difHeight : fTop;
 
-
-					wpPrevTop = wpTop;
-					break;
-				case 'wi':
-					var wiTop = $wi.scrollTop(),
-						difTop = ($wiImg.height() - windowHeight)-1,
-						toDown = (wiTop >= difTop && step == 1 && wiPrevTop < wiTop),
-						toTop = (wiTop <= 0 && step == 1 && wiPrevTop > wiTop);
-						
-
-					if(toDown){
-						//$wp.animate({'scrollTop':wpTop+'px'},50);
-						
-						step = 2;
-						console.log('Va a WP: '+step);
-						this.toggleCurrent();
-					}
-					if(toTop){
-						//$wp.animate({'scrollTop':wpTop+'px'},50);
-						
-						step = 0;
-						console.log('Va a WP: '+step);
-						this.toggleCurrent();
-					}
-					wiPrevTop = wiTop;
-					break;
-				default : break;
-			}
-
-
-
+			$figure.css('top','-'+fTop+'px');
 
 			return this;
 		},
 		calculateSize : function(){
-			marginTop = Math.round($wpSummaryContent.height() * 1);
-			windowHeight = $window.height();
+			difHeight = $figure.height() - $window.height();
 
-			$wpSummary.height(windowHeight + marginTop);
-
-			this.calculatePosition()
+			marginTop = (difHeight > 0) ? Math.round($wpSummaryContent.height() * .8 * r) : 10;
+			
+			
+			$wpSummary.height($figure.height() + marginTop);
+			
+			this.calculatePosition();
 			return this;
-		},
-		toggleCurrent : function(){
-			if(current == 'wp'){
-				current = 'wi';
-				$wi.removeClass('behind');
-				$wp.addClass('behind');
-			}else{
-				current = 'wp';
-				$wp.removeClass('behind');
-				$wi.addClass('behind');
-			}
-			return this;
-		},
+		},		
 		setEvents : function(self){
-			$wp.add($wi).scroll(function(){self.calculatePosition();});
+			$wp.scroll(function(){self.calculatePosition();});
 			$window.resize(function(){self.calculateSize();});
 			return this;
 		}
 	}
 })().init();
+
+
 
 
 

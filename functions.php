@@ -10,6 +10,9 @@ add_theme_support( 'nav-menus' );
 		'secondary' => 'Secondary Navigation',
 		'tertiary' => 'Tertiary Navigation'
 ) );
+
+
+
 /***********************************************
 * HABILITAR POST THUMBNAILS
 ***********************************************/
@@ -17,7 +20,7 @@ if ( function_exists( 'add_theme_support' ) )
 add_theme_support( 'post-thumbnails' );
 
 /* For HOME */
-add_image_size( 'portfolio-thumb', 384, 5000,false);
+add_image_size( 'portfolio-thumb', 38, 5000,false);
 /***********************************************
 * OBTENIENDO LA URL COMPLETA DE LA THUMBNAIL
 ***********************************************/

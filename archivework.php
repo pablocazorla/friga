@@ -30,8 +30,8 @@
 				} 
 			?>
 			<figure class="<?php echo $categoryClass;?>">						
-				<a href="<?php the_permalink(); ?>" rel="<?php the_ID();?>" class="load-from-right">					
-					<?php if(has_post_thumbnail()): the_post_thumbnail('thumbnail'); endif; ?>
+				<a href="<?php the_permalink(); ?>" rel="<?php the_ID();?>" class="load-from-right">	
+					<img src="<?php echo pc_thumb_url('thumbnail');?>" data-pixelloading="<?php echo pc_thumb_url('portfolio-thumb');?>"/>
 					<figcaption style="display:none">
 						<div>
 							<h2><?php the_title(); ?></h2>
