@@ -13,19 +13,19 @@ Tags: pablo, cazorla, illustration, webdesign
 
 /* BASICS **********************************************************************************************************/
 
-body{color:#333;min-width: 320px;font: 14px/1.33em 'Raleway',sans-serif;overflow: hidden}
+body{color:#333;min-width: 320px;font: 16px/1.33em 'Raleway',sans-serif;overflow: hidden}
 
 /* COMMON **************************************************/
 a,a:link,a:visited{color:#43B7FF;text-decoration: none;outline: 0;
 transition: color .3s;-webkit-transition: color .3s;-moz-transition: color .3s;
 }
 a:hover{text-decoration: underline;}
-h1{font-size: 50px;line-height: 50px;margin-bottom: 15px;padding:10px 0;}
-h2{font-size: 32px;line-height: 32px;margin-bottom: 15px;padding-top: 15px; margin-top: 30px; border-top:solid 1px #DDD;}
-h3{font-size: 24px;line-height: 24px;margin-bottom: 15px;padding-top: 20px}
-h4{font-size: 20px;line-height: 20px;margin-bottom: 15px;padding-top: 20px;}
-h5{font-size: 14px;line-height: 14px;margin-bottom: 15px;padding-top: 20px;font-weight: bold}
-h6{font-size: 11px;line-height: 11px;margin-bottom: 15px;padding-top: 20px;font-weight: bold}
+h1{font-size: 54px;line-height: 54px;margin-bottom: 15px;padding:10px 0;letter-spacing: -1px;}
+h2{font-size: 32px;line-height: 32px;margin-bottom: 15px;padding-top: 15px; margin-top: 30px; border-top:solid 1px #DDD;letter-spacing: -1px;}
+h3{font-size: 24px;line-height: 24px;margin-bottom: 15px;padding-top: 20px;letter-spacing: -1px;}
+h4{font-size: 20px;line-height: 20px;margin-bottom: 15px;padding-top: 20px;letter-spacing: -1px;}
+h5{font-size: 14px;line-height: 14px;margin-bottom: 15px;padding-top: 20px;letter-spacing: -1px;font-weight: bold}
+h6{font-size: 11px;line-height: 11px;margin-bottom: 15px;padding-top: 20px;letter-spacing: -1px;font-weight: bold}
 p{margin-bottom: 15px;}
 strong,b{font-weight: bold;}
 i,em{font-style: italic;}
@@ -51,7 +51,7 @@ code{font-family: monospace;font-weight: bold;display: inline-block;background-c
 #site-navigation{z-index: 1001;left:-360px;width:400px;background-color: #111}
 #shell{z-index: 0;left:0;width:100%;overflow: hidden}
 
-.site-navigation-icon{position: absolute;top:12px;right:12px;width: 16px;height:16px;cursor:pointer;background-color: red}
+.site-navigation-icon{position: absolute;top:12px;right:12px;width: 16px;height:16px;cursor:pointer;background-color: grey}
 
 .open-site-navigation #site-navigation{left:0}
 .open-site-navigation #shell{left:360px;}
@@ -74,12 +74,12 @@ code{font-family: monospace;font-weight: bold;display: inline-block;background-c
 .panel h5,
 .panel h6{color:#FFF;}
 
-.text-box{margin: 0 auto;max-width: 1200px}
+.text-box{margin: 0 auto;max-width: 1260px;padding: 0 30px;}
 
 
 /* WORK LIST ***********************************/
 
-.sub-frame{background-color: #000}
+
 
 .gallery-menu li,.gallery-menu li a{display: inline-block;}
 .gallery-menu li a{padding:0 25px;}
@@ -114,9 +114,30 @@ code{font-family: monospace;font-weight: bold;display: inline-block;background-c
 
 
 
+/******************************************/
+.work-post,.work-post-large-image{z-index:10;overflow-y: auto}
+.work-post.behind,.work-post-large-image.behind{z-index:8;}
+.work-post-large-image img{width:100% !important;height:auto !important;display: block}
 
 
 
 
+
+
+.work-post .summary{height:1600px;}
+.work-post .summary .summary-content{margin: 0 auto;max-width: 1260px;padding: 0 30px;}
+
+.work-post .summary .summary-content-col{width:45%;margin-top:200px;color:#FFF;}
+
+
+.work-post .summary .summary-excerpt{border-top:dotted 1px rgba(255,255,255,.3);border-bottom:dotted 1px rgba(255,255,255,.3);padding:20px 0;margin:32px 0;}
+
+.work-post .summary .summary-social{background-color: rgba(255,255,255,.05);height: 33px}
+
+
+
+
+
+.work-content{height:1200px;}
 
 

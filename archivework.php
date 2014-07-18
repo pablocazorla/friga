@@ -15,7 +15,9 @@
 			<div class="text-box align-center">
 				<h1><?php echo $cat_name; ?></h1>
 				<?php echo category_description(); ?>
+				<?php if ($cat_name == 'Illustration'){?>
 				<div class="gallery-menu"><?php  wp_nav_menu(array('menu' => $cat_name.'Menu' ));?></div>
+				<?php } ?>
 			</div>			
 		</header>
 		<section class="gallery clearfix">
