@@ -65,7 +65,7 @@ code{font-family: monospace;font-weight: bold;display: inline-block;background-c
 
 
 /* ELEMENTS ***********************************/
-.panel{background-color: #262626;padding:50px 30px;color:#CCC;opacity: .8}
+.panel{background-color: #262626;padding:50px 30px;color:#CCC}
 
 .panel h1,
 .panel h2,
@@ -89,7 +89,7 @@ code{font-family: monospace;font-weight: bold;display: inline-block;background-c
 
 .gallery{position:relative;}
 
-.gallery figure{position:relative;float:left;width:25%;}
+.gallery figure{position:relative;float:left;width:25%;background-color: #000}
 
 .gallery figure a{display: block}
 
@@ -104,12 +104,22 @@ code{font-family: monospace;font-weight: bold;display: inline-block;background-c
 .gallery.gridding figure.hidden{z-index: 9;opacity:0}
 
 
+.gallery figure a{opacity:1;}
+.gallery:hover figure a{opacity:.2;}
+.gallery figure a:hover{opacity:1;}
+
+
+.gallery figure figcaption{position: absolute;right: 0;bottom: 0;padding: 0 20px;font-size: 14px;line-height: 50px;text-align: right;color: #FFF;opacity:.3;}
+
+.gallery figure:hover figcaption{opacity:1;}
+
+
+
+.gallery figure a{transition: opacity .3s;-webkit-transition: opacity .3s;-moz-transition: opacity .3s;}
 
 
 
 
-
-.nicescroll-rails{z-index: 20 !important;}
 
 
 
@@ -148,12 +158,18 @@ code{font-family: monospace;font-weight: bold;display: inline-block;background-c
 
 
 /* pixel-loading-wrap */
-.pixel-loading-wrap{position: relative;overflow: hidden;width:100%;height: 100%}
-.pixel-loading-wrap canvas{position:absolute;top:0;left:0;background-color: transparent;z-index:4;}
-.pixel-loading-wrap img{opacity: 0;z-index:5;position:relative;
-	transition:opacity 1s;-webkit-transition:opacity 1s;-moz-transition:opacity 1s;
-}
-.pixel-loading-wrap img.to-show{opacity:1;}
-.pixel-loading-wrap .canvas-thumb{display: none;width:auto;}
+.pixel-loading{position: relative;overflow: hidden;}
+.pixel-loading canvas,
+.pixel-loading img:first-child{display:none;width: auto !important;}
 
+.pixel-loading img{z-index:4;position:relative}
+.pixel-loading img.pixel-loading-result{opacity:1;z-index:5;position:absolute;top:0;left:0;}
+
+
+
+
+
+
+.nice-scroll{overflow: hidden;}
+.nicescroll-rails{z-index: 20 !important;}
 

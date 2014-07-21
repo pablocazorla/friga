@@ -7,7 +7,7 @@
 		<div class="column column-left">			
 			<section class="blog blog-list clearfix">
 				<header class="header-blog">
-					<h1>
+					<h1>TAAAAAAAA
 						<?php if(is_category()):
 							echo $cat_name; 
 						elseif(is_tag()):

@@ -1,79 +1,89 @@
 // jQuery Plugins
 // pixelLoading
 (function($){
-  $.fn.pixelLoading = function(options){
+	$.fn.pixelLoading = function(options){
 		//Settings
 		var setting = $.extend({
-      		duration : 200
+			precall : function(){},
+			callback : function(){}
 		}, options);		
-	
+
 		return this.each(function(){			
 			var $this = $(this),
-				urlThumb = $this.attr('data-pixelloading');
-			if(urlThumb != undefined && urlThumb != ''){
-				var $canvas = $('<canvas height="5000"></canvas>'),
-					$canvasThumb = $('<canvas width="38" height="500" class="canvas-thumb"></canvas>');
+			$imgThumb = $this.find('img').eq(0),
+			$img = $this.find('img').eq(1),
+			absWidthThumb = $imgThumb.attr('width'),
+			absHeightThumb = $imgThumb.attr('height'),
+			absWidth = $img.attr('width'),
+			absHeight = $img.attr('height'),
+			mod = absWidth/absHeight,
+			$canvasThumb = $('<canvas width="'+absWidthThumb+'" height="'+absHeightThumb+'"></canvas>'),
+			$canvas = $('<canvas width="'+absWidth+'" height="'+absHeight+'"></canvas>');
+			
+			
 
-				$this.wrap('<div class="pixel-loading-wrap"></div>').before($canvas).before($canvasThumb);
-
-				var $wrapper = $this.parent(),
-					thumbImg = new Image(),
-					cThumb = $canvasThumb[0].getContext('2d'),
-					c = $canvas[0].getContext('2d'),
-					width = 1880,
-					imageData = null,
-					rgb = 'rgb(0,0,0)',
-					heightThumb = 500,
-					setThumbData = function(){
-						cThumb.clearRect(0,0,38, 500);
-						cThumb.drawImage(thumbImg, 0, 0);
-						imageData = cThumb.getImageData(0, 0, 38, heightThumb);
-					},
-					draw = function(){
-						if(imageData){
-							width = $wrapper.width();
-							$canvas[0].width = width;
-							c.clearRect(0,0,width, 5000);
-
-							var l = imageData.data.length,
-								posX = 0,
-								posY = 0,
-								wi = Math.ceil(width/38);
-							for(var i = 0;i < l;i += 4){
-								rgb = 'rgb('+imageData.data[i]+','+imageData.data[i + 1]+','+imageData.data[i + 2]+')';
-								c.fillStyle = rgb;
-								c.fillRect(posX*wi,posY*wi,wi,wi);
-								posX++;
-								if(posX >= 38){
-									posX = 0;
-									posY++;
-								}
-							}
+		var ready = false,
+			$result = $(),
+			imageData = null,
+			c = $canvas[0].getContext('2d'),
+			cThumb = $canvasThumb[0].getContext('2d'),
+			drawPixel = function(){
+				if(!ready){
+					cThumb.clearRect(0,0,absWidthThumb, absHeightThumb);
+					cThumb.drawImage($imgThumb[0], 0, 0);
+					imageData = cThumb.getImageData(0, 0, absWidthThumb, absHeightThumb);
+					
+					var l = imageData.data.length,
+						posX = 0,
+						posY = 0,
+						wi = Math.ceil(absWidth/absWidthThumb);
+					for(var i = 0;i < l;i += 4){
+						rgb = 'rgb('+imageData.data[i]+','+imageData.data[i + 1]+','+imageData.data[i + 2]+')';
+						c.fillStyle = rgb;
+						c.fillRect(posX*wi,posY*wi,wi,wi);
+						posX++;
+						if(posX >= absWidthThumb){
+							posX = 0;
+							posY++;
 						}
-					},
-					loadedImg = function(){
-						setTimeout(function(){
-							$this.addClass('to-show');
-							setTimeout(function(){
-								$canvas.add($canvasThumb).remove();
-							},2000);
-						},4000);
-						
 					}
-				//if(!$this[0].complete){
-					thumbImg.src = urlThumb;
-					thumbImg.onload = function(){
-						heightThumb = thumbImg.height;
-						setThumbData();
-						draw();
-						$(window).resize(draw);
-					}
-					//$this.load(loadedImg);
-				//}else{
-					loadedImg();
-				//}
-				
+					$result = $('<img class="pixel-loading-result" src="'+$canvas[0].toDataURL('image/png')+'" style="display:none"/>').appendTo($this).fadeIn(200);
+				}
+				$canvas.add($canvasThumb).remove();
+			},
+			showImg = function(alreadyCompleted){
+				ready = true;
+				if(!alreadyCompleted){
+					$result.fadeOut(300);
+				}else{
+					$result.fadeOut(1000);
+				}
+				setting.callback();
+			},
+			setSize = function(){
+				$this.height(Math.round($this.width()/mod));
+			};
+
+		if(!$img[0].complete){					
+			$this.append($canvasThumb).append($canvas);
+			if(!$imgThumb[0].complete){					
+				$imgThumb.load(function(){
+					drawPixel();
+				});
+			}else{
+				drawPixel();
 			}
+			$img.load(function(){
+				showImg(false);
+			}).error(function(){
+
+			});
+		}else{
+			showImg(true);
+		}
+		setSize();
+		$(window).resize(setSize);
+		setting.precall()
 		});
 	};
 })(jQuery);
@@ -189,7 +199,6 @@ PCAZ.gallery = (function(){
 		init : function(){
 			if(ready){
 				$gallery.addClass('gridding');
-				$figures.find('img').pixelLoading();
 				this.draw().setEvents();
 
 			}		
@@ -282,6 +291,7 @@ PCAZ.loader = (function(){
 			  url : url + '?async=1',
 			  success : function(data){
 			  	$nextFrame.html(data);
+			  	PCAZ.workpost.init();
 			  },
 			  complete : function(data){
 			  	refreshHref();
@@ -293,7 +303,7 @@ PCAZ.loader = (function(){
 			return this;
 		},
 		setEvents : function(self){
-			$('a.load-from-right').click(function(e){
+			$('a.load-from-right, .load-from-right a').click(function(e){
 				e.preventDefault();
 				var url = $(this).attr('href');
 				self.load(url);
@@ -307,7 +317,7 @@ PCAZ.loader = (function(){
 PCAZ.workpost = (function(){
 
 	var $wp = $('.sub-frame.work-post'),
-		$wpSummary,$wpSummaryContent,$figure, marginTop = 350,fTop = 0,wpST = 0,difHeight,r = .9,op = 1,
+		$wpSummary,$wpSummaryContent,$figure, marginTop = 350,fTop = 0,wpST = 0,difHeight,r = 1,op = 1,
 		ready = PCAZ.helper.isReady($wp);
 
 
@@ -315,14 +325,17 @@ PCAZ.workpost = (function(){
 		init : function(){
 			if(ready){
 				$figure = $('.work-post-large-image figure');
-
-				$figure.find('img').pixelLoading();
-
-
 				$wpSummary = $wp.find('.summary');
 				$wpSummaryContent = $wpSummary.find('.summary-content');				
 				$wp.scrollTop(wpST);
 				this.calculateSize().setEvents(this);
+
+				var self = this;
+				$figure.pixelLoading({
+					precall : function(){
+						self.calculateSize();
+					}
+				});
 			}
 			return this;
 		},
@@ -343,6 +356,7 @@ PCAZ.workpost = (function(){
 			return this;
 		},
 		calculateSize : function(){
+			var der = $figure.height();
 			difHeight = $figure.height() - $window.height();
 
 			marginTop = (difHeight > 0) ? Math.round($wpSummaryContent.height() * .8 * r) : 10;
