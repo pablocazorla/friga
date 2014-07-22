@@ -12,8 +12,9 @@
 </article>
 <?php } ?>
 <nav class="illustration-post-nav over-img">
-	<a href="">illust</a>
 	<?php
+	echo '<a href="'.get_post_type_archive_link('illustration').'" class="back-to-illustrations">All Illustrations</a>';
+
 	$prev_post = get_previous_post();
 	$srcImgBigPrev = wp_get_attachment_image_src( get_post_thumbnail_id($prev_post->ID), 'large');
 	
@@ -30,7 +31,7 @@
 </nav>
 <article class="sub-frame illustration-post nice-scroll page" id="illustration-<?php the_ID();?>" data-id="illustration-post">	
 	<section class="summary">
-		<div class="summary-content clearfix">
+		<div class="summary-content clearfix <?php if (!$async){ echo 'visible';} ?>">
 			<div class="summary-content-col">
 				<h1><?php the_title(); ?></h1>
 				<div class="summary-excerpt">
@@ -42,7 +43,14 @@
 		</div>
 	</section>
 	<section class="panel illustration-content">
-		<?php the_content(); ?>
+		<div class="text-box">
+			<?php the_content(); ?>
+		</div>
+	</section>
+	<section class="comments-panel">
+		<div class="comments-panel-box">
+			<?php comments_template(); ?>
+		</div>
 	</section>
 </article>
 

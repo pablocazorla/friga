@@ -29,11 +29,11 @@ function url_thumbnail($tamagno){
 /***********************************************
 * CUSTOM LENGTH EXCERPT
 ***********************************************/
-function custom_excerpt_length( $length ) {
+/*function custom_excerpt_length( $length ) {
 	return 14;
 }
 add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
-
+*/
 /***********************************************
 * CUSTOM TYPE: ILLUSTRATION
 ***********************************************/

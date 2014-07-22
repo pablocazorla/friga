@@ -135,6 +135,27 @@ pc.galleryIllustration = {
 		});
 	}
 };
+pc.graphLoader = {
+	ready : false,
+	duration : 300,
+	init : function(){
+		this.$L = $('#pc-loading-graph');
+		this.ready = true;
+		return this;
+	},
+	show : function(){
+		if(this.ready){
+			this.$L.fadeIn(this.duration);
+		}
+		return this;
+	},
+	hide : function(){
+		if(this.ready){
+			this.$L.fadeOut(this.duration);
+		}
+		return this;
+	}
+};
 pc.loadIllustrationPost = {
 	init : function(){
 		
@@ -158,7 +179,6 @@ pc.loadIllustrationPost = {
 	},
 	load : function(url,urlImgBig,imgThumb,fromLeftOrRight){
 		this.$imgSquared.attr('src',this._draw(imgThumb));
-
 		var self = this,
 			from = fromLeftOrRight || 'right',
 			go = function(){
@@ -166,19 +186,24 @@ pc.loadIllustrationPost = {
 			};
 		if(from == 'left'){this.$frame.removeClass('right').addClass('left');}
 
+		pc.graphLoader.show();
 		this.$frame.animate({'left':0},600,function(){
 			self.$framePrev.remove();
 			$.ajax({
 			  url : url + '?async=1',
 			  success : function(data){
 			  	self.$frame.append(data).removeClass('right').removeClass('left').addClass('current');
-			  	self.$frame.find('a').click(function(e){e.preventDefault();});
+			  	self.$frame.find('a').click(function(e){e.preventDefault();});			  	
 			  	self.$img.attr('src',urlImgBig);
 			  	self.$img.load(function(){
+			  		pc.graphLoader.hide();
 			  		self.$imgSquared.fadeOut(600,function(){
 			  			setTimeout(go,500);
 			  		});
 			  	}).error(go);
+			  	setTimeout(function(){
+			  		self.$frame.find('.summary-content').addClass('visible');
+			  	},100);			  	
 			  },
 			  error : go			   
 			});
@@ -209,6 +234,42 @@ pc.loadIllustrationPost = {
 		return this.$canvas[0].toDataURL('image/png');
 	}
 };
+pc.loadPage = {
+	init : function(){
+		this.$framePrev = $('.frame.current');
+		//New Structure
+		this.$frame = $('<div class="frame right"></div>');
+		pc.$shell.append(this.$frame);
+		return this;
+	},
+	load : function(url,fromLeftOrRight){
+		var self = this,
+			from = fromLeftOrRight || 'right',
+			go = function(){
+				window.location.href = url;
+			};
+		if(from == 'left'){this.$frame.removeClass('right').addClass('left');}
+		pc.graphLoader.show();
+		$.ajax({
+		  url : url + '?async=1',
+		  success : function(data){
+			self.$frame.animate({'left':0},600,function(){
+				self.$framePrev.remove();
+				self.$frame.css('opacity','0').removeClass('right').removeClass('left').addClass('current').append(data).find('a').click(function(e){e.preventDefault();});
+				pc.graphLoader.hide();
+				setTimeout(function(){
+					self.$frame.addClass('animated-opacity').css('opacity','1');
+				},100);
+				setTimeout(go,1000);
+			});
+		  	
+		  	 
+
+		  },		  
+		  error : go		   
+		});
+	}
+};
 
 pc.illustrationPost = {
 	marginTop : 350,
@@ -218,14 +279,15 @@ pc.illustrationPost = {
 	r : 1,
 	op : 1,
 	settedOp : false,
+	ready : false,
 	init : function(){
 		this.$wp = $('.sub-frame.illustration-post');
 		this.$figure = $('.illustration-post-large-image figure');
 		this.$wpSummary = this.$wp.find('.summary');
 		this.$wpSummaryContent = this.$wpSummary.find('.summary-content');
-		this.$toOpacity = this.$wpSummaryContent.add('.illustration-post-nav');
+		this.$toOpacity = this.$wpSummaryContent.add($('.illustration-post-nav').addClass('visible'));
 		this.$wp.scrollTop(this.wpST);
-		this.calculateSize().setEvents(this);
+		this.setEvents(this);
 		return this;
 	},
 	calculatePosition : function(){
@@ -253,15 +315,23 @@ pc.illustrationPost = {
 		return this;
 	},
 	calculateSize : function(){
-		this.difHeight = this.$figure.height() - pc.$window.height();
-		this.marginTop = (this.difHeight > 0) ? Math.round(this.$wpSummaryContent.height() * .8 * this.r) : 10;		
-		this.$wpSummary.height(this.$figure.height() + this.marginTop);		
-		this.calculatePosition();
+		if(this.ready){
+			this.difHeight = this.$figure.height() - pc.$window.height();
+			this.marginTop = (this.difHeight > 0) ? Math.round(this.$wpSummaryContent.height() * .8 * this.r) : 10;		
+			this.$wpSummary.height(this.$figure.height() + this.marginTop);		
+			this.calculatePosition();
+		}
 		return this;
 	},		
 	setEvents : function(self){
 		this.$wp.scroll(function(){self.calculatePosition();});
 		pc.$window.resize(function(){self.calculateSize();});
+		var $img = this.$figure.find('img').eq(0);
+		if($img[0].complete){
+			this.ready = true;this.calculateSize();
+		}else{
+			$img.load(function(){self.ready = true;self.calculateSize();});
+		}		
 		return this;
 	}
 };
@@ -283,9 +353,11 @@ pc.init = function(){
 			}
 		};
 	// ----------------------------------------------------
-	// All pages
-	pc.siteNavigation.init();
+	// All pages	
 	pc.niceScroll.init().set('.niceScroll,.nice-scroll');
+	pc.graphLoader.init();
+	pc.loadPage.init();
+	pc.siteNavigation.init();
 
 	// Specific page
 	initPerPage([
@@ -315,8 +387,13 @@ pc.init = function(){
 					url = $this.attr('href'),
 					urlImgBig = $this.attr('data-imgbig'),
 					$img = $this.find('img');
-					console.log(urlImgBig);
 				pc.loadIllustrationPost.load(url,urlImgBig,$img[0],direction);
+			});
+
+			$('a.back-to-illustrations').click(function(e){
+				e.preventDefault();
+				var url = $(this).attr('href');
+				pc.loadPage.load(url,'left');
 			});
 		}
 	);
