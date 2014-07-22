@@ -6,15 +6,11 @@ get_header(); ?>
 <?php if (!$async){?>
 <?php get_header(); ?>
 <?php } ?>
-<?php
-	
-	$cat_name = single_cat_title('',false);
-?>
-	<article class="sub-frame work-list <?php echo $flavor;?> nice-scroll">
+	<article class="sub-frame illustration-list <?php echo $flavor;?> nice-scroll page" data-id="illustration-list">
 		<header class="panel">
 			<div class="text-box align-center">
 				<h1>Illustration</h1>
-				<?php echo category_description(); ?>				
+				<p>dsf sdfdsf ddfsd</p>				
 				<div class="gallery-menu"><?php  wp_nav_menu(array('menu' => 'Illustration Menu' ));?></div>				
 			</div>			
 		</header>
@@ -23,8 +19,7 @@ get_header(); ?>
 			<?php while (have_posts()) : the_post();?>			
 			<?php
 				$types = get_the_terms( $post->ID, 'illustration' );
-				$classType = '';
-										
+				$classType = '';										
 				if ( $types && ! is_wp_error( $types ) ) {
 					foreach ( $types as $type ) {
 						$classType = $classType." ".str_replace(" ","-",strtolower($type->name));
@@ -32,10 +27,10 @@ get_header(); ?>
 				}
 			?>
 			<figure class="<?php echo $classType;?>">						
-				<a href="<?php the_permalink(); ?>" rel="<?php the_ID();?>" class="load-from-right">	
+				<a href="<?php the_permalink(); ?>" rel="<?php the_ID();?>" data-imgbig="<?php if(has_post_thumbnail()){ echo url_thumbnail('large');} ?>" >	
 					<?php
 					if(has_post_thumbnail()){
-			           	the_post_thumbnail('thumbnail');
+			           	the_post_thumbnail('illustration-thumb');
 			        }
 			        ?>					
 				</a>

@@ -18,7 +18,7 @@ if ( function_exists( 'add_theme_support' ) )
 add_theme_support( 'post-thumbnails' );
 
 /* PIXEL LOADING */
-add_image_size( 'pixelloading', 38, 5000,false);
+add_image_size( 'illustration-thumb', 470, 470, array( 'center', 'top' ) );
 
 /* URL THUMBNAILS */
 function url_thumbnail($tamagno){

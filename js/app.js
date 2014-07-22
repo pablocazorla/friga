@@ -1,389 +1,334 @@
-// jQuery Plugins
-// pixelLoading
-(function($){
-	$.fn.pixelLoading = function(options){
-		//Settings
-		var setting = $.extend({
-			precall : function(){},
-			callback : function(){}
-		}, options);		
+pc = {};
 
-		return this.each(function(){			
-			var $this = $(this),
-			$imgThumb = $this.find('img').eq(0),
-			$img = $this.find('img').eq(1),
-			absWidthThumb = $imgThumb.attr('width'),
-			absHeightThumb = $imgThumb.attr('height'),
-			absWidth = $img.attr('width'),
-			absHeight = $img.attr('height'),
-			mod = absWidth/absHeight,
-			$canvasThumb = $('<canvas width="'+absWidthThumb+'" height="'+absHeightThumb+'"></canvas>'),
-			$canvas = $('<canvas width="'+absWidth+'" height="'+absHeight+'"></canvas>');
-			
-			
-
-		var ready = false,
-			$result = $(),
-			imageData = null,
-			c = $canvas[0].getContext('2d'),
-			cThumb = $canvasThumb[0].getContext('2d'),
-			drawPixel = function(){
-				if(!ready){
-					cThumb.clearRect(0,0,absWidthThumb, absHeightThumb);
-					cThumb.drawImage($imgThumb[0], 0, 0);
-					imageData = cThumb.getImageData(0, 0, absWidthThumb, absHeightThumb);
-					
-					var l = imageData.data.length,
-						posX = 0,
-						posY = 0,
-						wi = Math.ceil(absWidth/absWidthThumb);
-					for(var i = 0;i < l;i += 4){
-						rgb = 'rgb('+imageData.data[i]+','+imageData.data[i + 1]+','+imageData.data[i + 2]+')';
-						c.fillStyle = rgb;
-						c.fillRect(posX*wi,posY*wi,wi,wi);
-						posX++;
-						if(posX >= absWidthThumb){
-							posX = 0;
-							posY++;
-						}
-					}
-					$result = $('<img class="pixel-loading-result" src="'+$canvas[0].toDataURL('image/png')+'" style="display:none"/>').appendTo($this).fadeIn(200);
-				}
-				$canvas.add($canvasThumb).remove();
-			},
-			showImg = function(alreadyCompleted){
-				ready = true;
-				if(!alreadyCompleted){
-					$result.fadeOut(300);
-				}else{
-					$result.fadeOut(1000);
-				}
-				setting.callback();
-			},
-			setSize = function(){
-				$this.height(Math.round($this.width()/mod));
-			};
-
-		if(!$img[0].complete){					
-			$this.append($canvasThumb).append($canvas);
-			if(!$imgThumb[0].complete){					
-				$imgThumb.load(function(){
-					drawPixel();
-				});
-			}else{
-				drawPixel();
-			}
-			$img.load(function(){
-				showImg(false);
-			}).error(function(){
-
-			});
+pc.siteNavigation = {		
+	init : function(){
+		this.$siteNavigation = $('#site-navigation'),
+		this.statusOpen = pc.$body.hasClass('open-site-navigation'),
+		this.statusEnabled = true;	
+		this.setEvents(this);
+		return this;
+	},
+	open : function(){
+		if(this.statusEnabled && !this.statusOpen){
+			pc.$body.addClass('open-site-navigation');
+			this.statusOpen = true;		
+		}
+		return this;			
+	},
+	close : function(){
+		if(this.statusEnabled && this.statusOpen){
+			pc.$body.removeClass('open-site-navigation');
+			this.statusOpen = false;
+		}
+		return this;
+	},
+	toggle : function(){
+		if(this.statusOpen){
+			this.close();
 		}else{
-			showImg(true);
+			this.open();
 		}
-		setSize();
-		$(window).resize(setSize);
-		setting.precall()
+		return this;
+	},
+	enabled : function(){
+		this.statusEnabled = true;
+		return this;
+	},
+	disabled : function(){
+		this.statusEnabled = false;
+		return this;
+	},
+	setEvents : function(self){
+		$('.to-open-site-navigation').click(function(e){
+			e.preventDefault();
+			self.toggle();
 		});
-	};
-})(jQuery);
-
-
-$(function() {
-
-	// Common stores
-var $window = $(window),
-	$body = $('body'),
-	$shell = $('#shell'),
-
-	
-
-	// PCAZ
-	PCAZ = {};
-
-// PCAZ Extend
-PCAZ.helper = (function(){
-	return {
-		isReady : function(selection){
-			return (selection.length > 0);
-		}
-	}	
-})();
-
-PCAZ.siteNavigation = (function(){
-	var $siteNavigation = $('#site-navigation'),
-		statusOpen = $body.hasClass('open-site-navigation'),
-		statusEnabled = true,
-		ready = PCAZ.helper.isReady($siteNavigation);
-
-	return {		
-		init : function(){			
-			this.setEvents(this);
-			return this;
-		},
-		open : function(){
-			if(ready && statusEnabled && !statusOpen){
-				$body.addClass('open-site-navigation');
-				statusOpen = true;		
-			}
-			return this;			
-		},
-		close : function(){
-			if(ready && statusEnabled && statusOpen){
-				$body.removeClass('open-site-navigation');
-				statusOpen = false;
-			}
-			return this;
-		},
-		toggle : function(){
-			if(statusOpen){
-				this.close();
-			}else{
-				this.open();
-			}
-			return this;
-		},
-		enabled : function(){
-			statusEnabled = true;
-			return this;
-		},
-		disabled : function(){
-			statusEnabled = false;
-			return this;
-		},
-		setEvents : function(self){
-			$('.to-open-site-navigation').click(function(e){
-				e.preventDefault();
-				self.toggle();
-			});
-			$window.resize(function(){self.close()});
-		}
+		pc.$window.resize(function(){self.close()});
 	}
-})().init();
-
-PCAZ.niceScroll = (function(){
-	var cfg = {},
-		ready = ($.fn.niceScroll) ? true : false;
-	return {
-		$selection : $(),
-		set : function(selection){
-			if(ready){
-				$(selection).niceScroll(cfg);
-				this.$selection = this.$selection.add($(selection));
-			}				
-			return this;
-		},
-		setting : function(obj){
-			cfg = $extend(cfg,obj);
-			return this;
-		},
-		remove : function(){
-			if(ready){
-				this.$selection.getNiceScroll().remove();
-			}
-			return this;
+};
+pc.niceScroll = {		
+	init : function(){
+		this.ready = ($.fn.niceScroll) ? true : false;
+		this.$selection = $();
+		return this;
+	},
+	set : function(selection,cfg){
+		if(this.ready){
+			var sett = cfg || {};
+			$(selection).niceScroll(cfg);
+			this.$selection = this.$selection.add($(selection));
+		}				
+		return this;
+	},
+	remove : function(){
+		if(this.ready){
+			this.$selection.getNiceScroll().remove();
 		}
+		return this;
 	}
-})().set('.niceScroll,.nice-scroll');
+};
+pc.galleryIllustration = {
+	columns : 4,
+	current : 'all',
+	enabled : true,
+	init : function(){
+		this.$gallery = $('.gallery').not('.gridding').addClass('gridding');
+		this.$figures = this.$gallery.find('figure');
+		this.$a = $('.gallery-menu a');
 
-PCAZ.gallery = (function(){
-	var $gallery = $('.gallery').not('.gridding'),
-		$figures = $gallery.find('figure'),
-		$a = $('.gallery-menu a'),
-		ready = PCAZ.helper.isReady($figures),
-		columns = 4,
-		current = 'all',
-		enabled = true;
-		
-	return {
-		init : function(){
-			if(ready){
-				$gallery.addClass('gridding');
-				this.draw().setEvents();
-
-			}		
-			return this;
-		},
-		draw : function(){			
-			var posX = 0,
-				posY = 0,
-				stepX = 100/columns, // %
-				stepY = Math.round($gallery.width()/columns); // px
-			$figures.not('.hidden').each(function(){
-				$(this).css({
-					'left' : posX + '%',
-					'top' : posY + 'px'
-				});
-				posX += stepX;
-
-				if(posX >=100){
-					posX = 0;
-					posY += stepY;
-				}
+		this.draw().setEvents(this);					
+		return this;
+	},
+	draw : function(){			
+		var posX = 0,
+			posY = 0,
+			stepX = 100/this.columns, // %
+			stepY = Math.round(this.$gallery.width()/this.columns); // px
+		this.$figures.not('.hidden').each(function(){
+			$(this).css({
+				'left' : posX + '%',
+				'top' : posY + 'px'
 			});
-			$gallery.height(posY + stepY);
+			posX += stepX;
+
+			if(posX >=100){
+				posX = 0;
+				posY += stepY;
+			}
+		});
+		this.$gallery.height(posY + stepY);		
+		return this;
+	},
+	select : function(cl,$aLink){
+		if(cl != this.current && this.enabled){
+			this.enabled = false;
 			
-			return this;
-		},
-		select : function(cl,$aLink){
-			if(cl != current && enabled){
-				enabled = false;
-				
-				if(cl == 'all'){
-					$figures.removeClass('hidden');
+			if(cl == 'all'){
+				this.$figures.removeClass('hidden');
+			}else{
+				if(this.current == 'all'){
+					this.$figures.not('.'+cl).addClass('hidden');
 				}else{
-					if(current == 'all'){
-						$figures.not('.'+cl).addClass('hidden');
-					}else{
-						$figures.filter('.'+current).addClass('hidden');
-						$figures.filter('.'+cl).removeClass('hidden');
-					}
-				}						
-				current = cl;
-				setTimeout(function(){
-					enabled = true;
-				},600);
-				$a.parent().removeClass('current');
-				$aLink.parent().addClass('current');
-			}
-			this.draw();
-			return this;
-		},
-		setEvents : function(){
+					this.$figures.filter('.'+this.current).addClass('hidden');
+					this.$figures.filter('.'+cl).removeClass('hidden');
+				}
+			}						
+			this.current = cl;
 			var self = this;
-			$window.resize(function(){self.draw();});
-
-			$a.click(function(e){
-				e.preventDefault();
-				var $this = $(this),
-					cl = $this.text().toLowerCase().replace(/ /g,'-');
-				if(cl.indexOf('all-')!=-1){cl = 'all';}
-				self.select(cl,$this);
-			});
+			setTimeout(function(){
+				self.enabled = true;
+			},600);
+			this.$a.parent().removeClass('current');
+			$aLink.parent().addClass('current');
 		}
+		this.draw();
+		return this;
+	},
+	setEvents : function(self){		
+		pc.$window.resize(function(){self.draw();});
+		this.$a.click(function(e){
+			e.preventDefault();
+			var $this = $(this),
+				cl = $this.text().toLowerCase().replace(/ /g,'-');
+			if(cl.indexOf('all-')!=-1){cl = 'all';}
+			self.select(cl,$this);
+		});
 	}
-})().init();
+};
+pc.loadIllustrationPost = {
+	init : function(){
+		
+		this.$framePrev = $('.frame.current');
+		//New Structure
+		this.$frame = $('<div class="frame right"></div>');
+			this.$articleImg = $('<article class="sub-frame illustration-post-large-image"></article>');
+				this.$figure = $('<figure></figure>');
+					this.$img = $('<img src=""/>');
+					this.$imgSquared = $('<img src="" class="squared"/>');			
+		this.$canvas = $('<canvas width="1880" height="1880" style="display:none;position:absolute;top:0;left:0;z-index:4000"></canvas>');
 
-PCAZ.loader = (function(){
-	return {
-		init : function(){
-			this.setEvents(this);
-			return this;
-		},
-		load : function(url, from){
-			var dir = from || 'right',
-				duration = 600,
-				refreshHref = function(){
-					setTimeout(function(){
-						window.location.href = url;
-					},duration);
-				};
-			PCAZ.niceScroll.remove();
-			PCAZ.siteNavigation.close();
-			var $currentFrame = $('.frame.current');
-			var $nextFrame = $('<div class="frame '+dir+'"></div>').appendTo($shell).animate({
-				'left':0
-			},duration, function(){
-				$currentFrame.remove();
-				$nextFrame.removeClass(dir).addClass('current');
-			});
+		this.$framePrev.append(this.$canvas);
+		this.$figure.append(this.$img).append(this.$imgSquared);
+		this.$articleImg.append(this.$figure);
+		this.$frame.append(this.$articleImg).append(this.$articleContent);
+		pc.$shell.append(this.$frame);
+
+		this.c = this.$canvas[0].getContext('2d');
+		return this;
+	},
+	load : function(url,urlImgBig,imgThumb,fromLeftOrRight){
+		this.$imgSquared.attr('src',this._draw(imgThumb));
+
+		var self = this,
+			from = fromLeftOrRight || 'right',
+			go = function(){
+				window.location.href = url;
+			};
+		if(from == 'left'){this.$frame.removeClass('right').addClass('left');}
+
+		this.$frame.animate({'left':0},600,function(){
+			self.$framePrev.remove();
 			$.ajax({
 			  url : url + '?async=1',
 			  success : function(data){
-			  	$nextFrame.html(data);
-			  	PCAZ.workpost.init();
+			  	self.$frame.append(data).removeClass('right').removeClass('left').addClass('current');
+			  	self.$frame.find('a').click(function(e){e.preventDefault();});
+			  	self.$img.attr('src',urlImgBig);
+			  	self.$img.load(function(){
+			  		self.$imgSquared.fadeOut(600,function(){
+			  			setTimeout(go,500);
+			  		});
+			  	}).error(go);
 			  },
-			  complete : function(data){
-			  	refreshHref();
-			  },
-			  error : function(data){
-			  	refreshHref();
-			  }		  
+			  error : go			   
 			});
-			return this;
-		},
-		setEvents : function(self){
-			$('a.load-from-right, .load-from-right a').click(function(e){
-				e.preventDefault();
-				var url = $(this).attr('href');
-				self.load(url);
-			});
-			return this;
-		}
-	}
-})().init();
+		});
+		return this;
+	},
+	_draw : function(imgThumb){
+		this.c.clearRect(0,0,1880, 1880);
+		this.c.scale(.1,.1);
+		this.c.drawImage(imgThumb, 0, 0);
+		this.c.setTransform(1, 0, 0, 1, 0, 0);
 
-
-PCAZ.workpost = (function(){
-
-	var $wp = $('.sub-frame.work-post'),
-		$wpSummary,$wpSummaryContent,$figure, marginTop = 350,fTop = 0,wpST = 0,difHeight,r = 1,op = 1,
-		ready = PCAZ.helper.isReady($wp);
-
-
-	return {
-		init : function(){
-			if(ready){
-				$figure = $('.work-post-large-image figure');
-				$wpSummary = $wp.find('.summary');
-				$wpSummaryContent = $wpSummary.find('.summary-content');				
-				$wp.scrollTop(wpST);
-				this.calculateSize().setEvents(this);
-
-				var self = this;
-				$figure.pixelLoading({
-					precall : function(){
-						self.calculateSize();
-					}
-				});
+		var imageData = this.c.getImageData(0, 0, 47, 47);
+			l = imageData.data.length,
+			posX = 0,
+			posY = 0,
+			wi = Math.ceil(1880/47);
+		for(var i = 0;i < l;i += 4){
+			rgb = 'rgb('+imageData.data[i]+','+imageData.data[i + 1]+','+imageData.data[i + 2]+')';
+			this.c.fillStyle = rgb;
+			this.c.fillRect(posX*wi,posY*wi,wi,wi);
+			posX++;
+			if(posX >= 47){
+				posX = 0;
+				posY++;
 			}
-			return this;
-		},
-		calculatePosition : function(){
-			wpST = $wp.scrollTop();
-			fTop = Math.round((wpST*r - marginTop));
-			fTop = (fTop < 0) ? 0 : fTop;
-
-			op = 1 - (wpST/marginTop);
-			op = (op < 0) ? 0 : op;
-
-			$wpSummaryContent.css('opacity',op);
-
-			fTop = (difHeight < fTop) ? difHeight : fTop;
-
-			$figure.css('top','-'+fTop+'px');
-
-			return this;
-		},
-		calculateSize : function(){
-			var der = $figure.height();
-			difHeight = $figure.height() - $window.height();
-
-			marginTop = (difHeight > 0) ? Math.round($wpSummaryContent.height() * .8 * r) : 10;
-			
-			
-			$wpSummary.height($figure.height() + marginTop);
-			
-			this.calculatePosition();
-			return this;
-		},		
-		setEvents : function(self){
-			$wp.scroll(function(){self.calculatePosition();});
-			$window.resize(function(){self.calculateSize();});
-			return this;
 		}
+		return this.$canvas[0].toDataURL('image/png');
 	}
-})().init();
+};
+
+pc.illustrationPost = {
+	marginTop : 350,
+	fTop : 0,
+	wpST : 0,
+	difHeight : 0,
+	r : 1,
+	op : 1,
+	settedOp : false,
+	init : function(){
+		this.$wp = $('.sub-frame.illustration-post');
+		this.$figure = $('.illustration-post-large-image figure');
+		this.$wpSummary = this.$wp.find('.summary');
+		this.$wpSummaryContent = this.$wpSummary.find('.summary-content');
+		this.$toOpacity = this.$wpSummaryContent.add('.illustration-post-nav');
+		this.$wp.scrollTop(this.wpST);
+		this.calculateSize().setEvents(this);
+		return this;
+	},
+	calculatePosition : function(){
+		this.wpST = this.$wp.scrollTop();
+		this.fTop = Math.round((this.wpST*this.r - this.marginTop));
+		this.fTop = (this.fTop < 0) ? 0 : this.fTop;
+		this.op = 1 - (this.wpST*1.2/this.marginTop);
+		this.op = (this.op < 0) ? 0 : this.op;
+		
+		//this.fTop = (this.difHeight < this.fTop) ? this.difHeight : this.fTop;
+
+		if(this.difHeight < this.fTop){
+			this.fTop = this.difHeight;
+			if(!this.settedOp){
+				this.$toOpacity.css('opacity','1');
+				this.settedOp = true;
+			}			
+		}else{
+			this.settedOp = false;
+			this.$toOpacity.css('opacity',this.op);
+		}
+
+
+		this.$figure.css('top','-'+this.fTop+'px');
+		return this;
+	},
+	calculateSize : function(){
+		this.difHeight = this.$figure.height() - pc.$window.height();
+		this.marginTop = (this.difHeight > 0) ? Math.round(this.$wpSummaryContent.height() * .8 * this.r) : 10;		
+		this.$wpSummary.height(this.$figure.height() + this.marginTop);		
+		this.calculatePosition();
+		return this;
+	},		
+	setEvents : function(self){
+		this.$wp.scroll(function(){self.calculatePosition();});
+		pc.$window.resize(function(){self.calculateSize();});
+		return this;
+	}
+};
+
+pc.init = function(){
+	// Common stores
+	pc.$window = $(window);
+	pc.$body = $('body');
+	pc.$shell = $('#shell');
+
+	// Detect current page
+	var pageID = $('.page').eq(0).attr('data-id') || '',
+		initPerPage = function(a,c){
+			var l = a.length;
+			for(var i=0;i<l;i++){
+				if(a[i]==pageID){					
+					c();
+				}
+			}
+		};
+	// ----------------------------------------------------
+	// All pages
+	pc.siteNavigation.init();
+	pc.niceScroll.init().set('.niceScroll,.nice-scroll');
+
+	// Specific page
+	initPerPage([
+		'illustration-list'
+		],function(){
+			pc.galleryIllustration.init();
+			pc.loadIllustrationPost.init();
+			$('.gallery figure a').click(function(e){
+				e.preventDefault();
+				var $this = $(this),
+					url = $this.attr('href'),
+					urlImgBig = $this.attr('data-imgbig'),
+					$img = $this.find('img');
+				pc.loadIllustrationPost.load(url,urlImgBig,$img[0],'right');
+			});
+		}
+	);
+	initPerPage([
+		'illustration-post'
+		],function(){
+			pc.illustrationPost.init();
+			pc.loadIllustrationPost.init();
+			$('a.next-illustration,a.prev-illustration').click(function(e){
+				e.preventDefault();
+				var $this = $(this),
+					direction = ($this.hasClass('prev-illustration')) ? 'left' : 'right';
+					url = $this.attr('href'),
+					urlImgBig = $this.attr('data-imgbig'),
+					$img = $this.find('img');
+					console.log(urlImgBig);
+				pc.loadIllustrationPost.load(url,urlImgBig,$img[0],direction);
+			});
+		}
+	);
 
 
 
 
 
 
-});
 
 
 
 
-
-
+};
+$('document').ready(function(){pc.init();});
