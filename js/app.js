@@ -335,6 +335,76 @@ pc.illustrationPost = {
 		return this;
 	}
 };
+pc.commentValidation = {
+	init : function(){
+		this.$form = $('#commentform');
+		this.$statusMessage = $('.statusMessage').text('');
+		this.$fieldsets = this.$form.find('fieldset.validate');
+		this.$fieldsets.find('input,textarea').val('');
+		this.setEvents(this);
+	},
+	validate : function(){
+		var v = true;
+		this.$fieldsets.each(function(){
+			var $this = $(this).removeClass('error'),
+				$i = $this.find('input,textarea'),
+				min = $this.attr('data-min'),			
+				val = $i.val();
+
+			if(val.length < 3){
+				v = false;
+				$this.addClass('error');
+				$i.focus();
+			}else{
+				if($this.hasClass('email')){
+					if(val.search(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i) == -1){
+						v = false;
+						$this.addClass('error');
+						$i.focus();
+					}
+				}
+			}
+		});
+		return v;
+	},
+	setEvents : function(self){
+
+		$('#submit').click(function(e){
+			e.preventDefault();
+			var v = self.validate();
+			if(v){
+				self.submitForm();
+			}
+		});
+		$('#clearFields').click(function(e){
+			e.preventDefault();
+			self.$fieldsets.removeClass('error').find('input,textarea').val('').eq(0).focus();
+		});
+	},
+	submitForm : function(){
+		var self = this,
+			data = this.$form.serialize(),
+			url = this.$form.attr('action');
+
+		this.$statusMessage.text('Processing...');
+		$.ajax({
+			type: 'post',
+			url: url,
+			data: data,
+			error: function(XMLHttpRequest, textStatus, errorThrown){
+				self.$statusMessage.text('Error.');
+			},
+			success: function(data, textStatus){
+				if(data=="success"){
+					self.$statusMessage.text('Thanks for your comment.');
+				}else{
+					self.$statusMessage.text('Please wait a while before posting your next comment');
+				}
+			}
+		});
+		return false;
+	}
+};
 
 pc.init = function(){
 	// Common stores
@@ -344,13 +414,8 @@ pc.init = function(){
 
 	// Detect current page
 	var pageID = $('.page').eq(0).attr('data-id') || '',
-		initPerPage = function(a,c){
-			var l = a.length;
-			for(var i=0;i<l;i++){
-				if(a[i]==pageID){					
-					c();
-				}
-			}
+		initPerPage = function(a,c){			
+			if(a==pageID) c();						
 		};
 	// ----------------------------------------------------
 	// All pages	
@@ -360,9 +425,9 @@ pc.init = function(){
 	pc.siteNavigation.init();
 
 	// Specific page
-	initPerPage([
+	initPerPage(
 		'illustration-list'
-		],function(){
+		,function(){
 			pc.galleryIllustration.init();
 			pc.loadIllustrationPost.init();
 			$('.gallery figure a').click(function(e){
@@ -375,11 +440,12 @@ pc.init = function(){
 			});
 		}
 	);
-	initPerPage([
+	initPerPage(
 		'illustration-post'
-		],function(){
+		,function(){
 			pc.illustrationPost.init();
 			pc.loadIllustrationPost.init();
+			pc.commentValidation.init();
 			$('a.next-illustration,a.prev-illustration').click(function(e){
 				e.preventDefault();
 				var $this = $(this),

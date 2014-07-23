@@ -37,6 +37,7 @@
 	<![endif]-->
 	
 	<?php wp_head(); ?>	
+
 </head>
 <body>	
 <div id="site-navigation">
