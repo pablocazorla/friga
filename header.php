@@ -41,7 +41,9 @@
 </head>
 <body>	
 <div id="site-navigation">
-	<div class="site-navigation-icon to-open-site-navigation"></div>
+	<div class="site-navigation-icon to-open-site-navigation">
+		<span class="lineIconNav lineIconNav1"></span><span class="lineIconNav lineIconNav2"></span><span class="lineIconNav lineIconNav3"></span>
+	</div>
 	<a href="<?php bloginfo( 'url' ); ?>">pablo cazorla</a>
 	<nav>
 		<?php  wp_nav_menu();?>
