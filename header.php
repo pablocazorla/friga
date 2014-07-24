@@ -44,10 +44,26 @@
 	<div class="site-navigation-icon to-open-site-navigation">
 		<span class="lineIconNav lineIconNav1"></span><span class="lineIconNav lineIconNav2"></span><span class="lineIconNav lineIconNav3"></span>
 	</div>
-	<a href="<?php bloginfo( 'url' ); ?>">pablo cazorla</a>
-	<nav>
-		<?php  wp_nav_menu();?>
-	</nav>
+	<div class="site-navigation-content">
+		<a href="<?php bloginfo( 'url' ); ?>" class="brand">
+			<img src="<?php bloginfo('template_url'); ?>/img/pablocazorla.jpg" class="pablocazorla"/>
+			<span class="brand-name"><?php bloginfo( 'name' ); ?></span>
+			<span class="brand-description"><?php bloginfo( 'description' ); ?></span>
+		</a>
+		<nav class="site-nav">
+			<p>
+				<span>Work</span>
+				<a href="<?php echo get_post_type_archive_link('illustration');?>">Illustration</a>
+				<a href="<?php echo get_post_type_archive_link('illustration');?>">Design</a>
+			</p>
+			<p>
+				<span>About me</span>
+				<a href="">Bio</a>				
+				<a href="">Contact</a>
+				<a href="">Blog</a>
+			</p>
+		</nav>
+	</div>
 </div>
 <div id="shell">
 	<div class="frame current">

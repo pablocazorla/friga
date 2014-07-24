@@ -5,7 +5,7 @@ pc.siteNavigation = {
 		this.$siteNavigation = $('#site-navigation'),
 		this.statusOpen = pc.$body.hasClass('open-site-navigation'),
 		this.statusEnabled = true;	
-		this.setEvents(this);
+		this.setEvents(this).setPageLoading();
 		return this;
 	},
 	open : function(){
@@ -44,6 +44,15 @@ pc.siteNavigation = {
 			self.toggle();
 		});
 		pc.$window.resize(function(){self.close()});
+		return this;
+	},
+	setPageLoading : function(){
+		this.$siteNavigation.find('a').click(function(e){
+			e.preventDefault();
+			var url = $(this).attr('href');
+			pc.loadPage.load(url);
+		});
+		return this;
 	}
 };
 pc.niceScroll = {		

@@ -52,15 +52,47 @@ code{font-family: monospace;font-weight: bold;display: inline-block;background-c
 #site-navigation{z-index: 1001;left:-360px;width:400px;background-color: #111}
 #shell{z-index: 0;left:0;width:100%;overflow: hidden;background-color: #000}
 
-.site-navigation-icon{position: absolute;top:12px;right:12px;width: 16px;height:15px;cursor:pointer;
-	transition: transform .2s;-webkit-transition: transform .2s;-moz-transition: transform .2s;
+.site-navigation-icon{position: absolute;top:0;right:0;width: 40px;height:40px;cursor:pointer;padding:12px 0 0 12px;
+
 }
 .site-navigation-icon .lineIconNav{display: block;width:16px;height: 3px;margin:0 0 3px;background-color: #888;
 	transition: all .3s;-webkit-transition: all .3s;-moz-transition: all .3s;
 }
 .site-navigation-icon:hover .lineIconNav{background-color: #FFF;}
 
+
+
+.site-navigation-content{
+	max-width: 230px;margin:50px auto 0;text-align: center;color:#FFF;opacity:0;
+	transition: opacity .4s ease .2s;-webkit-transition: opacity .4s ease .2s;-moz-transition: opacity .4s ease .2s;
+}
+
+.site-navigation-content a{color:#FFF;}
+
+.site-navigation-content .brand{display: block;margin-bottom:30px;}
+.site-navigation-content .brand:hover{text-decoration: none}
+
+.site-navigation-content .brand .brand-name{display: block;font-size: 28px;line-height: 40px}
+.site-navigation-content .brand .brand-description{display: block;font-size: 14px;line-height: 26px;color:#AAA;letter-spacing: -0.01em}
+
+.site-navigation-content .pablocazorla{width:auto !important;height: auto !important;max-width: 100% !important;display: block;margin: 0 auto 6px}
+
+
+.site-navigation-content .site-nav{display: block;border-top:solid 1px #333;padding-top: 10px}
+
+.site-navigation-content .site-nav span{display: block;font-size:12px;line-height: 30px;color:#777;cursor:default;}
+
+.site-navigation-content .site-nav a{display: block;font-size:14px;line-height: 25px;margin-bottom:3px;
+	transition: background-color .3s;-webkit-transition: background-color .3s;-moz-transition: background-color .3s;
+}
+.site-navigation-content .site-nav a:hover{background-color: rgba(255,255,255,.1);text-decoration: none}
+.site-navigation-content .site-nav p{margin: 0 0 38px}
+
+
+
+
 .open-site-navigation #site-navigation{left:0}
+.open-site-navigation .site-navigation-content{opacity:1;}
 .open-site-navigation #shell{left:360px;}
 
 .open-site-navigation .site-navigation-icon .lineIconNav1{
@@ -97,6 +129,22 @@ code{font-family: monospace;font-weight: bold;display: inline-block;background-c
 	   -moz-transform: rotate(180deg);
 	   		transform: rotate(180deg);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .frame{position:absolute;z-index:1;top:0;bottom: 0;left:0;padding-left: 40px;width:100%;overflow: hidden;background-color: #000}
 .frame.left{left:-100%;z-index:1000;}
@@ -208,7 +256,7 @@ transition:opacity .8s .3s,top .8s .3s;-webkit-transition:opacity .8s .3s,top .8
 	transition:opacity .3s,right .3s;-webkit-transition:opacity .3s,right .3s;-moz-transition:opacity .3s,right .3s;
 }
 .illustration-post-nav.visible{right:0;}
-.illustration-post-nav a{display: block;width: 60px;height: 60px;background-color: #000;text-indent: -99999px;opacity:.7;
+.illustration-post-nav a{display: block;width: 60px;height: 60px;background-color: #000;opacity:.7;position: relative;line-height: 60px;white-space: nowrap;
 	transition:opacity .4s;-webkit-transition:opacity .4s;-moz-transition:opacity .4s;
 }
 
@@ -216,8 +264,11 @@ transition:opacity .8s .3s,top .8s .3s;-webkit-transition:opacity .8s .3s,top .8
 .illustration-post-nav a.next-illustration{background-position: 20px -40px;}
 .illustration-post-nav a.prev-illustration{background-position: 20px -100px;}
 
+.illustration-post-nav a span{position:absolute;top:0;right:-99999px;display: block;height: 60px;background-color: #000;color:#DDD;padding:0 0 0 20px;opacity: 0;
+transition:opacity .3s;-webkit-transition:opacity .4s;-moz-transition:opacity .4s;
+}
 
-
+.illustration-post-nav a:hover span{right:60px;opacity: 1}
 
 .illustration-post-nav a:hover{opacity:1;}
 .illustration-post-nav a img{display: none}

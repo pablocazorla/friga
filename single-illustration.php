@@ -13,19 +13,19 @@
 <?php } ?>
 <nav class="illustration-post-nav over-img">
 	<?php
-	echo '<a href="'.get_post_type_archive_link('illustration').'" class="back-to-illustrations">All Illustrations</a>';
+	echo '<a href="'.get_post_type_archive_link('illustration').'" class="back-to-illustrations"><span class="link-title">All Illustrations</span></a>';
 
 	$prev_post = get_previous_post();
 	$srcImgBigPrev = wp_get_attachment_image_src( get_post_thumbnail_id($prev_post->ID), 'large');
 	
 	if (!empty( $prev_post )){
-		echo '<a href="'.get_permalink( $prev_post->ID ).'" class="next-illustration" title="'.get_the_title($prev_post->ID).'" data-imgbig="'.$srcImgBigPrev[0].'">'.get_the_post_thumbnail($prev_post->ID, 'illustration-thumb').'</a>';
+		echo '<a href="'.get_permalink( $prev_post->ID ).'" class="next-illustration" data-imgbig="'.$srcImgBigPrev[0].'"><span class="link-title">'.get_the_title($prev_post->ID).'</span>'.get_the_post_thumbnail($prev_post->ID, 'illustration-thumb').'</a>';
 	}
 	$next_post = get_next_post();
 	$srcImgBigNext = wp_get_attachment_image_src( get_post_thumbnail_id($next_post->ID), 'large');
 
 	if (!empty( $next_post )){
-		echo '<a href="'.get_permalink( $next_post->ID ).'" class="prev-illustration" title="'.get_the_title($next_post->ID).'" data-imgbig="'.$srcImgBigNext[0].'">'.get_the_post_thumbnail($next_post->ID, 'illustration-thumb').'</a>';
+		echo '<a href="'.get_permalink( $next_post->ID ).'" class="prev-illustration" data-imgbig="'.$srcImgBigNext[0].'"><span class="link-title">'.get_the_title($next_post->ID).'</span>'.get_the_post_thumbnail($next_post->ID, 'illustration-thumb').'</a>';
 	}
 	?>
 </nav>
