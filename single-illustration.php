@@ -31,9 +31,10 @@
 </nav>
 <article class="sub-frame illustration-post nice-scroll page" id="illustration-<?php the_ID();?>" data-id="illustration-post">	
 	<section class="summary">
-		<div class="summary-content clearfix <?php if (!$async){ echo 'visible';} ?>">
-			<div class="summary-content-col">
+		<div class="summary-content clearfix <?php if (!$async){ echo 'visible ';} customVal('summaryColor');?>">
+			<div class="summary-content-col <?php customVal('summaryPosition');echo ' '; customVal('summaryBackground');?>">
 				<h1><?php the_title(); ?></h1>
+				
 				<div class="summary-excerpt">
 					<?php the_excerpt(); ?>
 				</div>

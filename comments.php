@@ -12,12 +12,19 @@ if('comments.php' == basename($_SERVER['SCRIPT_FILENAME'])){
 }
 ?>
 <a id="comments" name="comments" class="anchor"></a>
-<h2><?php comments_number('No comments yet', '1 comment', '% comments');?></h2>
-<?php if($comments){ //INICIA COMENTARIOS?>
+<h2 id="commentlist-title"><?php comments_number('No comments yet', '1 comment', '% comments');?></h2>
 <ul id="commentlist">
-	<?php wp_list_comments('avatar_size=48&type=comment&reply_text='); ?>
+	<?php if($comments){ //INICIA COMENTARIOS?>
+		<?php wp_list_comments('avatar_size=48&type=comment&reply_text='); ?>
+	<?php };?>
 </ul>
-<?php };?>
+
+<div id="adding-comment" class="adding-comment" style="display:none">
+	<span class="loader-graph small"></span> Adding comment...
+</div>
+<div id="adding-comment-error"  class="adding-comment" style="display:none">
+	Error. Please, try again.
+</div>
 <a id="respond" name="respond" class="anchor"></a>
 <?php if ('open' == $post->comment_status){ //INICIA FORMULARIO PARA COMENTARIOS - Si estan abiertos ?>
 		
@@ -47,8 +54,7 @@ if('comments.php' == basename($_SERVER['SCRIPT_FILENAME'])){
 		</fieldset>
 		
 		<fieldset class="submit-field">			
-			<input name="submit" type="submit" id="submit" tabindex="4" title="Send your comment" rel="Sending..." value="Send" />
-			<span id="statusMessage"></span>
+			<input name="submit" type="submit" id="submit" tabindex="4" title="Send your comment" rel="Sending..." value="Send" />			
 			<a id="clearFields" href="">Clear fields</a>
 			<input type="hidden" name="comment_post_ID" value="<?php echo $id; ?>" />	
 		<?php do_action('comment_form', $post->ID); ?>

@@ -1,8 +1,6 @@
 	</div><!-- END OF Frame -->
 </div><!-- END OF Shell -->
-<div id="pc-loading-graph">
-	<img src="<?php bloginfo('template_url'); ?>/img/loading.png"/>
-</div>
+<div id="pc-loading-graph" class="loader-graph"></div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
 <script>window.jQuery || document.write('<script src="<?php bloginfo('template_url'); ?>/js/jquery-1.9.1.min.js"><\/script>')</script>
 <script src="<?php bloginfo('template_url'); ?>/js/jquery.nicescroll.min.js" type="text/javascript"></script>

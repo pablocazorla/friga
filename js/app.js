@@ -178,6 +178,7 @@ pc.loadIllustrationPost = {
 		return this;
 	},
 	load : function(url,urlImgBig,imgThumb,fromLeftOrRight){
+		pc.siteNavigation.close();
 		this.$imgSquared.attr('src',this._draw(imgThumb));
 		var self = this,
 			from = fromLeftOrRight || 'right',
@@ -243,6 +244,7 @@ pc.loadPage = {
 		return this;
 	},
 	load : function(url,fromLeftOrRight){
+		pc.siteNavigation.close();
 		var self = this,
 			from = fromLeftOrRight || 'right',
 			go = function(){
@@ -338,9 +340,16 @@ pc.illustrationPost = {
 pc.commentValidation = {
 	init : function(){
 		this.$form = $('#commentform');
-		this.$statusMessage = $('.statusMessage').text('');
+		this.$statusMessage = $('#statusMessage').html('');
 		this.$fieldsets = this.$form.find('fieldset.validate');
 		this.$fieldsets.find('input,textarea').val('');
+		this.$i = this.$form.find('input[type=text],input[type=email],textarea').removeAttr('disabled');
+		this.$adding = $('#adding-comment');
+		this.$addingError = $('#adding-comment-error');
+		this.$ul = $('#commentlist');
+		this.$ulTitle = $('#commentlist-title');
+		this.numComments = this.$ul.find('>li').length;
+
 		this.setEvents(this);
 	},
 	validate : function(){
@@ -386,21 +395,28 @@ pc.commentValidation = {
 			data = this.$form.serialize(),
 			url = this.$form.attr('action');
 
-		this.$statusMessage.text('Processing...');
-		$.ajax({
-			type: 'post',
-			url: url,
-			data: data,
-			error: function(XMLHttpRequest, textStatus, errorThrown){
-				self.$statusMessage.text('Error.');
-			},
-			success: function(data, textStatus){
-				if(data=="success"){
-					self.$statusMessage.text('Thanks for your comment.');
-				}else{
-					self.$statusMessage.text('Please wait a while before posting your next comment');
+		this.$i.attr('disabled','true');
+		this.$addingError.hide();
+		this.$adding.fadeIn(300,function(){
+			$.ajax({
+				type: 'post',
+				url: url,
+				data: data,
+				error: function(){
+					self.$adding.hide();
+					self.$addingError.show();
+					self.$i.removeAttr('disabled');
+				},
+				success: function(data){
+					$(data).find('#commentlist li').last().hide().appendTo(self.$ul).fadeIn(600);
+					self.$adding.fadeOut(300);
+					self.$i.removeAttr('disabled').filter('textarea').val('').focus();
+
+					self.numComments++;
+					var plural = (self.numComments > 1) ? 's':'';
+					self.$ulTitle.html(self.numComments+' comment'+plural);
 				}
-			}
+			});
 		});
 		return false;
 	}

@@ -27,6 +27,13 @@ function url_thumbnail($tamagno){
 }
 
 /***********************************************
+* Custom values
+***********************************************/
+function customVal($keyVal){
+    echo get_post_custom($post->ID)[$keyVal][0];
+}
+
+/***********************************************
 * CUSTOM LENGTH EXCERPT
 ***********************************************/
 /*function custom_excerpt_length( $length ) {
