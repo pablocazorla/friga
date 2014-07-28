@@ -15,8 +15,15 @@ get_header(); ?>
 			</div>			
 		</header>
 		<section class="gallery clearfix">
-			<?php if (have_posts()) :?>
-			<?php while (have_posts()) : the_post();?>			
+
+
+
+
+			<?php
+			$list = new WP_Query('post_type=illustration&posts_per_page=64');
+			if ($list->have_posts()):
+			while ($list->have_posts()): $list->the_post(); ?>
+		
 			<?php
 				$types = get_the_terms( $post->ID, 'illustration' );
 				$classType = '';										
@@ -27,7 +34,7 @@ get_header(); ?>
 				}
 			?>
 			<figure class="<?php echo $classType;?>">						
-				<a href="<?php the_permalink(); ?>" rel="<?php the_ID();?>" data-imgbig="<?php if(has_post_thumbnail()){ echo url_thumbnail('large');} ?>" >	
+				<a href="<?php the_permalink(); ?>" rel="<?php the_ID();?>" data-imgbig="<?php if(has_post_thumbnail()){ echo url_thumbnail('illustration-large');} ?>" >	
 					<?php
 					if(has_post_thumbnail()){
 			           	the_post_thumbnail('illustration-thumb');
@@ -37,6 +44,7 @@ get_header(); ?>
 				<figcaption><?php the_title(); ?></figcaption>				
 			</figure>	   
 			<?php endwhile; ?>
+			<?php wp_reset_postdata(); ?>
 			<?php else :?>
 			<h2>Sorry, works not found</h2>
 			<?php endif; ?>

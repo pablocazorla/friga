@@ -17,8 +17,10 @@ add_theme_support( 'nav-menus' );
 if ( function_exists( 'add_theme_support' ) )
 add_theme_support( 'post-thumbnails' );
 
-/* PIXEL LOADING */
+/* Illustration image sizes */
 add_image_size( 'illustration-thumb', 470, 470, array( 'center', 'top' ) );
+add_image_size( 'illustration-medium', 1200, 10000, false);
+add_image_size( 'illustration-large', 1880, 15000, false);
 
 /* URL THUMBNAILS */
 function url_thumbnail($tamagno){
@@ -36,11 +38,11 @@ function customVal($keyVal){
 /***********************************************
 * CUSTOM LENGTH EXCERPT
 ***********************************************/
-/*function custom_excerpt_length( $length ) {
+function custom_excerpt_length( $length ) {
 	return 14;
 }
 add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
-*/
+
 /***********************************************
 * CUSTOM TYPE: ILLUSTRATION
 ***********************************************/
@@ -137,8 +139,16 @@ function create_design_taxonomies() {
 add_action( 'init', 'create_design_taxonomies', 0 );
 
 
+function show_posts_nav() {
+    global $wp_query;
+    return ($wp_query->max_num_pages > 1);
+}
 
-
+function pc_category_link($name){    
+    $c_id_blog = get_cat_ID( $name );
+    $c_link_blog = get_category_link( $c_id_blog );
+    echo $c_link_blog;
+}
 
 
 

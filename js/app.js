@@ -488,6 +488,16 @@ pc.init = function(){
 			});
 		}
 	);
+	initPerPage(
+		'blog-list'
+		,function(){
+			$('a.alink,.alink-content a,.blog-list-nav a').click(function(e){
+				e.preventDefault();
+				var url = $(this).attr('href');
+				pc.loadPage.load(url);
+			});
+		}
+	);
 
 
 

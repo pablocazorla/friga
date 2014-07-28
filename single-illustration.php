@@ -7,7 +7,7 @@
 <?php if (!$async){?>
 <article class="sub-frame illustration-post-large-image">
 	<figure>				
-		<img src="<?php echo url_thumbnail('large');?>">
+		<img src="<?php if(has_post_thumbnail()){ echo url_thumbnail('illustration-large');} ?>"/>
 	</figure>
 </article>
 <?php } ?>
