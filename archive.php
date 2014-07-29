@@ -8,18 +8,24 @@
 		<div class="col-blog-row">
 			<div class="col-blog left">	
 				<section class="blog-container">
-					<header class="header-blog-list">
-						<h1>
-							<?php if(is_category()):
-								echo $cat_name; 
-							elseif(is_tag()):
-								echo "Tag <i>".$cat_name."</i>"; 
-							elseif(is_author()):
-								echo "Author: <i>".$cat_name."<i>"; 
-							elseif(is_archive()):
-								echo "On archive <i>".$cat_name."<i>";
-							endif; ?>
-						</h1>
+					<header class="header-blog">
+						<?php if(has_post_thumbnail()){ the_post_thumbnail('thumbnail');}?>	
+						<div class="header-box-container">
+							<div class="header-container">
+								<h1>
+									<?php if(is_category()):
+										echo $cat_name; 
+									elseif(is_tag()):
+										echo "Tag <i>".$cat_name."</i>"; 
+									elseif(is_author()):
+										echo "Author: <i>".$cat_name."<i>"; 
+									elseif(is_archive()):
+										echo "On archive <i>".$cat_name."<i>";
+									endif; ?>
+								</h1>
+								<?php echo category_description(); ?>
+							</div>
+						</div>												
 					</header>
 					<div class="blog-list-gallery clearfix">
 						<?php if (have_posts()) :?>
@@ -56,21 +62,7 @@
 						<h2>Sorry, works not found</h2>
 						<?php endif; ?>
 					</div>
-					<?php if (show_posts_nav()) : ?>
-					<nav class="blog-list-nav">		
-						<?php global $wp_query;
-						$big = 999999999; // need an unlikely integer		
-						echo paginate_links( array(
-							'base' => str_replace( $big, '%#%', get_pagenum_link( $big ) ),
-							'format' => '?paged=%#%',
-							'current' => max( 1, get_query_var('paged') ),
-							'total' => $wp_query->max_num_pages,
-							'prev_text' => '&lt;',
-							'next_text' => '&gt;'
-						) );
-						?>
-					</nav>
-					<?php endif; ?>
+					
 				</section>
 			</div>
 			<div class="col-blog right">
@@ -79,12 +71,17 @@
 				</aside>
 			</div>
 			<div class="col-blog right-nav">
-				<nav>
-					nav
-				</nav>
+				
 			</div>
 		</div>
+
 	</article>
+	<nav class="post-navigation in-blog">
+		<?php
+			next_posts_link('<span class="link-title">Next Posts</span>');
+			previous_posts_link('<span class="link-title">Previous Posts</span>');
+		?>
+	</nav>
 <?php if (!$async){?>
 <?php get_footer(); ?>
 <?php } ?>

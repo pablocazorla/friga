@@ -296,7 +296,7 @@ pc.illustrationPost = {
 		this.$figure = $('.illustration-post-large-image figure');
 		this.$wpSummary = this.$wp.find('.summary');
 		this.$wpSummaryContent = this.$wpSummary.find('.summary-content');
-		this.$toOpacity = this.$wpSummaryContent.add($('.illustration-post-nav').addClass('visible'));
+		this.$toOpacity = this.$wpSummaryContent.add($('.post-navigation'));
 		this.$wp.scrollTop(this.wpST);
 		this.setEvents(this);
 		return this;
@@ -449,6 +449,8 @@ pc.init = function(){
 	pc.loadPage.init();
 	pc.siteNavigation.init();
 
+	$('.post-navigation').addClass('visible');
+
 	// Specific page
 	initPerPage(
 		'illustration-list'
@@ -471,17 +473,17 @@ pc.init = function(){
 			pc.illustrationPost.init();
 			pc.loadIllustrationPost.init();
 			pc.commentValidation.init();
-			$('a.next-illustration,a.prev-illustration').click(function(e){
+			$('a.next-post,a.prev-post').click(function(e){
 				e.preventDefault();
 				var $this = $(this),
-					direction = ($this.hasClass('prev-illustration')) ? 'left' : 'right';
+					direction = ($this.hasClass('prev-post')) ? 'left' : 'right';
 					url = $this.attr('href'),
 					urlImgBig = $this.attr('data-imgbig'),
 					$img = $this.find('img');
 				pc.loadIllustrationPost.load(url,urlImgBig,$img[0],direction);
 			});
 
-			$('a.back-to-illustrations').click(function(e){
+			$('a.back-to-grid').click(function(e){
 				e.preventDefault();
 				var url = $(this).attr('href');
 				pc.loadPage.load(url,'left');
@@ -495,6 +497,31 @@ pc.init = function(){
 				e.preventDefault();
 				var url = $(this).attr('href');
 				pc.loadPage.load(url);
+			});
+			$('a.next-post,a.prev-post').click(function(e){
+				e.preventDefault();
+				var $this = $(this),
+					direction = ($this.hasClass('prev-post')) ? 'left' : 'right';
+					url = $this.attr('href');
+				pc.loadPage.load(url,direction);
+			});
+		}
+	);
+	initPerPage(
+		'blog-post'
+		,function(){
+			pc.commentValidation.init();
+			$('a.next-post,a.prev-post').click(function(e){
+				e.preventDefault();
+				var $this = $(this),
+					direction = ($this.hasClass('prev-post')) ? 'left' : 'right';
+					url = $this.attr('href');
+				pc.loadPage.load(url,direction);
+			});
+			$('a.back-to-grid').click(function(e){
+				e.preventDefault();
+				var url = $(this).attr('href');
+				pc.loadPage.load(url,'left');
 			});
 		}
 	);

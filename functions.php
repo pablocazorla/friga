@@ -139,10 +139,6 @@ function create_design_taxonomies() {
 add_action( 'init', 'create_design_taxonomies', 0 );
 
 
-function show_posts_nav() {
-    global $wp_query;
-    return ($wp_query->max_num_pages > 1);
-}
 
 function pc_category_link($name){    
     $c_id_blog = get_cat_ID( $name );
@@ -151,10 +147,43 @@ function pc_category_link($name){
 }
 
 
+add_filter('next_posts_link_attributes', 'next_posts_link_class');
+add_filter('previous_posts_link_attributes', 'previous_posts_link_class');
 
+function next_posts_link_class() {
+    return 'class="next-post"';
+}
+function previous_posts_link_class() {
+    return 'class="prev-post"';
+}
 
+add_filter('next_post_link', 'next_post_link_class');
+add_filter('previous_post_link', 'previous_post_link_class');
+ 
+function next_post_link_class($output) {
+    $code = 'class="prev-post"';
+    return str_replace('<a href=', '<a '.$code.' href=', $output);
+}
+function previous_post_link_class($output) {
+    $code = 'class="next-post"';
+    return str_replace('<a href=', '<a '.$code.' href=', $output);
+}
 
+// Override img caption shortcode to fix 10px issue.
+add_filter('img_caption_shortcode', 'fix_img_caption_shortcode', 10, 3);
 
+function fix_img_caption_shortcode($val, $attr, $content = null) {
+    extract(shortcode_atts(array(
+        'id'    => '',
+        'align' => '',
+        'width' => '',
+        'caption' => ''
+    ), $attr));
+
+    if ( 1 > (int) $width || empty($caption) ) return $val;
+
+    return '<div id="' . $id . '" class="wp-caption ' . esc_attr($align) . '" style="max-width: ' . (0 + (int) $width) . 'px">' . do_shortcode( $content ) . '<p class="wp-caption-text">' . $caption . '</p></div>';
+}
 
 
 

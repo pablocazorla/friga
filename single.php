@@ -7,7 +7,7 @@
 		<div class="col-blog-row">
 			<div class="col-blog left">
 				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-				<header class="header-blog-post">
+				<header class="header-blog">
 					<?php if(has_post_thumbnail()){ the_post_thumbnail('thumbnail');}?>	
 					<div class="header-box-container">
 						<div class="header-container">
@@ -22,8 +22,13 @@
 					<div class="content">
 						<?php the_content(); ?>
 					</div>
-					<?php comments_template(); ?>
-				</section>					
+					<hr/>
+					<div class="comments-panel">					
+						<div class="comments-panel-box">
+							<?php comments_template(); ?>
+						</div>
+					</div>				
+				</section>							
 				<?php endwhile; endif; ?>
 			</div>
 			<div class="col-blog right">
@@ -32,14 +37,15 @@
 				</aside>
 			</div>
 			<div class="col-blog right-nav">
-				<nav>
-					<a href="<?php pc_category_link('Blog'); ?>">Blog</a>
-					<?php previous_post_link('%link', '&lt; %title', FALSE); ?>
-					<?php next_post_link('%link', '%title &gt;', FALSE); ?>
-				</nav>
+				
 			</div>
 		</div>
 	</article>
+	<nav class="post-navigation in-blog">
+		<a href="<?php pc_category_link('Blog'); ?>" class="back-to-grid"><span class="link-title">All the Blog</span></a>
+		<?php previous_post_link('%link', '<span class="link-title"> %title </span>', FALSE); ?>
+		<?php next_post_link('%link', '<span class="link-title"> %title </span>', FALSE); ?>				
+	</nav>
 <?php if (!$async){?>
 <?php get_footer(); ?>
 <?php } ?>
