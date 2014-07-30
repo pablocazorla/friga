@@ -8,7 +8,11 @@
 			<div class="col-blog left">
 				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 				<header class="header-blog">
-					<?php if(has_post_thumbnail()){ the_post_thumbnail('thumbnail');}?>	
+					<?php if(has_post_thumbnail()){
+					the_post_thumbnail('thumbnail');
+					}else{ ?>
+					<img src="<?php bloginfo('template_url'); ?>/img/default-thumbnail.jpg" />
+					<?php } ?>
 					<div class="header-box-container">
 						<div class="header-container">
 							<h1><?php the_title(); ?></h1>

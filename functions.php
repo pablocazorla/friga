@@ -8,8 +8,37 @@ add_theme_support( 'nav-menus' );
 	register_nav_menus( array(
 		'primary' => 'Primary Navigation',
 		'secondary' => 'Illustration Navigation',
-		'tertiary' => 'Design Navigation'
+		'tertiary' => 'Design Navigation',
+        'quaternary' => 'Blog Navigation'
 ) );
+/***********************************************
+* NAVIGATION
+***********************************************/
+function pc_category_link($name){    
+    $c_id_blog = get_cat_ID( $name );
+    $c_link_blog = get_category_link( $c_id_blog );
+    echo $c_link_blog;
+}
+add_filter('next_posts_link_attributes', 'next_posts_link_class');
+add_filter('previous_posts_link_attributes', 'previous_posts_link_class');
+
+function next_posts_link_class() {
+    return 'class="next-post"';
+}
+function previous_posts_link_class() {
+    return 'class="prev-post"';
+}
+add_filter('next_post_link', 'next_post_link_class');
+add_filter('previous_post_link', 'previous_post_link_class');
+ 
+function next_post_link_class($output) {
+    $code = 'class="prev-post"';
+    return str_replace('<a href=', '<a '.$code.' href=', $output);
+}
+function previous_post_link_class($output) {
+    $code = 'class="next-post"';
+    return str_replace('<a href=', '<a '.$code.' href=', $output);
+}
 
 /***********************************************
 * POST THUMBNAILS
@@ -27,6 +56,21 @@ function url_thumbnail($tamagno){
 	$src = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), $tamagno);
 	return $src[0];
 }
+
+// Override img caption shortcode to fix 10px issue.
+function fix_img_caption_shortcode($val, $attr, $content = null) {
+    extract(shortcode_atts(array(
+        'id'    => '',
+        'align' => '',
+        'width' => '',
+        'caption' => ''
+    ), $attr));
+
+    if ( 1 > (int) $width || empty($caption) ) return $val;
+
+    return '<div id="' . $id . '" class="wp-caption ' . esc_attr($align) . '" style="max-width: ' . (0 + (int) $width) . 'px">' . do_shortcode( $content ) . '<p class="wp-caption-text">' . $caption . '</p></div>';
+}
+add_filter('img_caption_shortcode', 'fix_img_caption_shortcode', 10, 3);
 
 /***********************************************
 * Custom values
@@ -138,53 +182,34 @@ function create_design_taxonomies() {
 }
 add_action( 'init', 'create_design_taxonomies', 0 );
 
-
-
-function pc_category_link($name){    
-    $c_id_blog = get_cat_ID( $name );
-    $c_link_blog = get_category_link( $c_id_blog );
-    echo $c_link_blog;
+/***********************************************
+* SIDEBAR
+***********************************************/
+function sidebar_init() {
+    // Area 1, located at the top of the sidebar.
+    register_sidebar( array(
+        'name' => 'Primary Widget',
+        'id' => 'primary-widget-area',
+        'description' => 'The primary widget area',
+        'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
+        'after_widget' => '</li>',
+        'before_title' => '<h3 class="widget-title">',
+        'after_title' => '</h3>',
+    ) );
+    // Area 2, located below the Primary Widget Area in the sidebar. Empty by default.
+    register_sidebar( array(
+        'name' => 'Secondary Widget',
+        'id' => 'secondary-widget-area',
+        'description' => 'The secondary widget area',
+        'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
+        'after_widget' => '</li>',
+        'before_title' => '<h3 class="widget-title">',
+        'after_title' => '</h3>',
+    ) );
 }
+add_action( 'widgets_init', 'sidebar_init' );
 
-
-add_filter('next_posts_link_attributes', 'next_posts_link_class');
-add_filter('previous_posts_link_attributes', 'previous_posts_link_class');
-
-function next_posts_link_class() {
-    return 'class="next-post"';
-}
-function previous_posts_link_class() {
-    return 'class="prev-post"';
-}
-
-add_filter('next_post_link', 'next_post_link_class');
-add_filter('previous_post_link', 'previous_post_link_class');
- 
-function next_post_link_class($output) {
-    $code = 'class="prev-post"';
-    return str_replace('<a href=', '<a '.$code.' href=', $output);
-}
-function previous_post_link_class($output) {
-    $code = 'class="next-post"';
-    return str_replace('<a href=', '<a '.$code.' href=', $output);
-}
-
-// Override img caption shortcode to fix 10px issue.
-add_filter('img_caption_shortcode', 'fix_img_caption_shortcode', 10, 3);
-
-function fix_img_caption_shortcode($val, $attr, $content = null) {
-    extract(shortcode_atts(array(
-        'id'    => '',
-        'align' => '',
-        'width' => '',
-        'caption' => ''
-    ), $attr));
-
-    if ( 1 > (int) $width || empty($caption) ) return $val;
-
-    return '<div id="' . $id . '" class="wp-caption ' . esc_attr($align) . '" style="max-width: ' . (0 + (int) $width) . 'px">' . do_shortcode( $content ) . '<p class="wp-caption-text">' . $caption . '</p></div>';
-}
-
+add_theme_support( 'html5', array( 'search-form' ) );
 
 
 
