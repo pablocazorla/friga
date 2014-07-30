@@ -35,6 +35,9 @@
 	<!--[if lt IE 9]>
 	<script src="<?php bloginfo('template_url'); ?>/js/html5-3.4-respond-1.1.0.min.js"></script>
 	<![endif]-->
+	<script type="text/javascript">
+		baseURL = "<?php bloginfo( 'url' ); ?>";
+	</script>
 	
 	<?php wp_head(); ?>	
 
@@ -60,7 +63,7 @@
 				<span>About me</span>
 				<a href="">Bio</a>				
 				<a href="">Contact</a>
-				<a href="<?php pc_category_link('Blog'); ?>">Blog</a>
+				<a href="<?php echo pc_category_link('Blog'); ?>">Blog</a>
 			</p>
 		</nav>
 	</div>

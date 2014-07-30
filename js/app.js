@@ -261,8 +261,12 @@ pc.loadPage = {
 			};
 		if(from == 'left'){this.$frame.removeClass('right').addClass('left');}
 		pc.graphLoader.show();
+
+		var symb = '?';
+		if(url.indexOf('?')!=-1){symb = '&';}
+
 		$.ajax({
-		  url : url + '?async=1',
+		  url : url + symb + 'async=1',
 		  success : function(data){
 			self.$frame.animate({'left':0},600,function(){
 				self.$framePrev.remove();
@@ -431,6 +435,34 @@ pc.commentValidation = {
 	}
 };
 
+pc.sidebar = {
+	init : function(){
+		$('.sidebar .widget-container a').click(function(e){
+			e.preventDefault();
+			var url = $(this).attr('href');
+			pc.loadPage.load(url);
+		});
+		this.ajaxSearch();
+	},
+	ajaxSearch : function(){
+		//?s=krita
+		var $input = $('.search-field').val(''),
+			$submit = $('.search-submit'),
+			send = function(){
+				var v = $input.val();
+				if(v != ''){
+					var url = baseURL + '?s=' + v.replace(/ /g,'+');
+					pc.loadPage.load(url);
+				}
+			};
+
+		$submit.click(function(e){
+			e.preventDefault();
+			send();
+		});
+	}
+}
+
 pc.init = function(){
 	// Common stores
 	pc.$window = $(window);
@@ -493,6 +525,7 @@ pc.init = function(){
 	initPerPage(
 		'blog-list'
 		,function(){
+			pc.sidebar.init();
 			$('a.alink,.alink-content a,.blog-list-nav a').click(function(e){
 				e.preventDefault();
 				var url = $(this).attr('href');
@@ -510,6 +543,7 @@ pc.init = function(){
 	initPerPage(
 		'blog-post'
 		,function(){
+			pc.sidebar.init();
 			pc.commentValidation.init();
 			$('a.next-post,a.prev-post').click(function(e){
 				e.preventDefault();

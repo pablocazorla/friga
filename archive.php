@@ -69,19 +69,18 @@
 					
 				</section>
 			</div>
-			<div class="col-blog right">
-				<aside>
-					<?php get_sidebar(); ?>
-				</aside>
-			</div>
-			<div class="col-blog right-nav">
-				
-			</div>
+			<div class="col-blog right"></div>
+			<div class="col-blog right-nav"></div>
 		</div>
-
 	</article>
+	<aside class="aside-sidebar">
+		<?php get_sidebar(); ?>
+	</aside>
 	<nav class="post-navigation in-blog">
-		<?php
+		<?php 
+			if($cat_name != 'Blog'){
+				echo '<a href="'. pc_category_link('Blog',true) .'" class="back-to-grid"><span class="link-title">All the Blog</span></a>';
+			}		
 			next_posts_link('<span class="link-title">Next Posts</span>');
 			previous_posts_link('<span class="link-title">Previous Posts</span>');
 		?>

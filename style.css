@@ -68,13 +68,8 @@ transition:opacity .3s;-webkit-transition:opacity .3s;-moz-transition:opacity .3
 .post-navigation.in-blog a,
 .post-navigation.in-blog a span{background-color: #FFF;color:#333;}
 
-
-
-
-
-
-
-
+.post-navigation.in-blog a:hover,
+.post-navigation.in-blog a:hover span{box-shadow: -3px 1px 3px rgba(0,0,0,.2);}
 
 /* SPRITE **************************************************/
 .post-navigation a,
@@ -418,7 +413,9 @@ fieldset.error .errorMessage{background-color: #800;color:#EEE;font-size: 14px;l
 
 
 /* SIDEBAR *************************************************************/
-.sidebar{padding:60px 30px 0;}
+.aside-sidebar{position: absolute;top:0;right: 60px;width: 260px;color:#333;}
+
+.sidebar{padding:30px 30px 0;}
 .sidebar form{position:relative;background-color: #FFF;border: solid 1px #CCC;}
 
 .sidebar .glass{display: block;width:20%;height:46px;position: absolute;top:0;right: 0;background-position: 11px -149px;
@@ -426,7 +423,14 @@ fieldset.error .errorMessage{background-color: #800;color:#EEE;font-size: 14px;l
 }
 .sidebar form:hover .glass{background-color: #EEE}
 
-.sidebar input[type=search].search-field{float:left;width:70% !important;margin:0 5%;padding: 0;border:none;
+.sidebar input[type=search].search-field{float:left;width:70% !important;margin:0 5%;padding: 0;border:none;color:#333;
 box-shadow: none;background-color: transparent;}
 
 .sidebar input[type=submit].search-submit{float:right;width:20% !important;padding: 0;margin:0;opacity: 0}
+
+.sidebar .widget-container{padding:5px 0 20px;}
+
+.sidebar a, .sidebar a:link, .sidebar a:visited {color: #09c}
+
+/* BUTTON *************************************************************/
+.button {display: inline-block;padding:0 20px;background-color: blue}

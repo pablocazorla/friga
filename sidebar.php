@@ -3,7 +3,7 @@
 * The Sidebar containing the primary and secondary widget areas.
 */
 ?>
-<div class="sidebar">
+<div class="sidebar" id="sidebar">
 	<ul class="widgets-list">
 		<?php if ( ! dynamic_sidebar( 'primary-widget-area' ) ) : ?>
 		<li class="widget-container widget_search">
@@ -24,8 +24,8 @@
 			</ul>
 		</li>
 		<?php endif; ?>
-		<li class="widget-container">
+		<!--li class="widget-container">
 			<a href="<?php bloginfo('rss2_url'); ?>" class="rss-link">RSS feed</a>
-		</li>
+		</li-->
 	</ul>
 </div>

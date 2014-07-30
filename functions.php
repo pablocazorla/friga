@@ -14,10 +14,10 @@ add_theme_support( 'nav-menus' );
 /***********************************************
 * NAVIGATION
 ***********************************************/
-function pc_category_link($name){    
+function pc_category_link($name){
     $c_id_blog = get_cat_ID( $name );
     $c_link_blog = get_category_link( $c_id_blog );
-    echo $c_link_blog;
+    return $c_link_blog;
 }
 add_filter('next_posts_link_attributes', 'next_posts_link_class');
 add_filter('previous_posts_link_attributes', 'previous_posts_link_class');

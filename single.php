@@ -35,18 +35,15 @@
 				</section>							
 				<?php endwhile; endif; ?>
 			</div>
-			<div class="col-blog right">
-				<aside>
-					<?php get_sidebar(); ?>
-				</aside>
-			</div>
-			<div class="col-blog right-nav">
-				
-			</div>
+			<div class="col-blog right"></div>
+			<div class="col-blog right-nav"></div>
 		</div>
 	</article>
+	<aside class="aside-sidebar">
+		<?php get_sidebar(); ?>
+	</aside>
 	<nav class="post-navigation in-blog">
-		<a href="<?php pc_category_link('Blog'); ?>" class="back-to-grid"><span class="link-title">All the Blog</span></a>
+		<a href="<?php echo pc_category_link('Blog'); ?>" class="back-to-grid"><span class="link-title">All the Blog</span></a>
 		<?php previous_post_link('%link', '<span class="link-title"> %title </span>', FALSE); ?>
 		<?php next_post_link('%link', '<span class="link-title"> %title </span>', FALSE); ?>				
 	</nav>
