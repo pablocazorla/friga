@@ -13,6 +13,10 @@
 <?php } ?>
 <nav class="post-navigation over-img">
 	<?php
+ 	$titleShare = get_the_title();
+ 	$descriptionShare = get_the_excerpt();
+ 	$urlImageShare = url_thumbnail('illustration-medium');
+				 
 	echo '<a href="'.get_post_type_archive_link('illustration').'" class="back-to-grid"><span class="link-title">All Illustrations</span></a>';
 
 	$prev_post = get_previous_post();
@@ -28,6 +32,10 @@
 		echo '<a href="'.get_permalink( $next_post->ID ).'" class="prev-post" data-imgbig="'.$srcImgBigNext[0].'"><span class="link-title">'.get_the_title($next_post->ID).'</span>'.get_the_post_thumbnail($next_post->ID, 'illustration-thumb').'</a>';
 	}
 	?>
+	<a href="" class="share link-facebook" data-share="{'on':'facebook'}"><span class="link-title">Share on Facebook</span></a>
+	<a href="" class="share link-twitter" data-share="{'on':'twitter','description':'I want to share |<?php echo $titleShare; ?>|'}"><span class="link-title">Share on Twitter</span></a>
+	<a href="" class="share link-google" data-share="{'on':'google'}"><span class="link-title">Share on Google+</span></a>
+	<a href="" class="share link-pinterest" data-share="{'on':'pinterest','media':'<?php echo $urlImageShare; ?>','description':'|<?php echo $titleShare; ?>|: <?php echo $descriptionShare; ?>'}"><span class="link-title">Share on Pinterest</span></a>
 </nav>
 <article class="sub-frame illustration-post nice-scroll page" id="illustration-<?php the_ID();?>" data-id="illustration-post">	
 	<section class="summary">
@@ -37,8 +45,6 @@
 				
 				<div class="summary-excerpt">
 					<?php the_excerpt(); ?>
-				</div>
-				<div class="summary-social">
 				</div>
 			</div>
 		</div>

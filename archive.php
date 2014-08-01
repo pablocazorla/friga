@@ -27,7 +27,7 @@
 										echo "On archive <i>".$cat_name."<i>";
 									endif; ?>
 								</h1>
-								<?php echo category_description(); ?>
+								<p><?php echo category_description(); ?></p>
 							</div>
 						</div>												
 					</header>
@@ -61,6 +61,11 @@
 								</div>
 							</div>
 						</div>
+						<?php
+						 	$titleShare = $cat_name;
+						 	$descriptionShare = category_description();
+						 	$urlImageShare = url_thumbnail('full');
+						 ?>
 						<?php endwhile; ?>
 						<?php else :?>
 						<h2>Sorry, works not found</h2>
@@ -84,6 +89,10 @@
 			next_posts_link('<span class="link-title">Next Posts</span>');
 			previous_posts_link('<span class="link-title">Previous Posts</span>');
 		?>
+		<a href="" class="share link-facebook" data-share="{'on':'facebook'}"><span class="link-title">Share on Facebook</span></a>
+		<a href="" class="share link-twitter" data-share="{'on':'twitter','description':'I want to share |<?php echo $titleShare; ?>|'}"><span class="link-title">Share on Twitter</span></a>
+		<a href="" class="share link-google" data-share="{'on':'google'}"><span class="link-title">Share on Google+</span></a>
+		<a href="" class="share link-pinterest" data-share="{'on':'pinterest','media':'<?php echo $urlImageShare; ?>','description':'|<?php echo $titleShare; ?>|: <?php echo $descriptionShare; ?>'}"><span class="link-title">Share on Pinterest</span></a>
 	</nav>
 <?php if (!$async){?>
 <?php get_footer(); ?>

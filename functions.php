@@ -83,9 +83,19 @@ function customVal($keyVal){
 * CUSTOM LENGTH EXCERPT
 ***********************************************/
 function custom_excerpt_length( $length ) {
-	return 14;
+    global $post;
+    if ($post->post_type == 'post'){
+        return 14;
+    } else if ($post->post_type == 'illustration'){
+        return 50;
+    }
 }
 add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
+
+/**********************************************
+* To remove <p> before category description
+**********************************************/
+remove_filter('term_description','wpautop');
 
 /***********************************************
 * CUSTOM TYPE: ILLUSTRATION
