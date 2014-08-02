@@ -50,11 +50,11 @@
 		</div>
 	</section>
 	<section class="panel illustration-content">
-		<div class="text-box">
+		<div class="text-box content">
 			<?php the_content(); ?>
 		</div>
 	</section>
-	<section class="comments-panel">
+	<section class="comments-panel" id="comments-panel">
 		<div class="comments-panel-box">
 			<?php comments_template(); ?>
 		</div>

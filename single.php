@@ -17,7 +17,7 @@
 						<div class="header-container">
 							<h1><?php the_title(); ?></h1>
 							<div class="category alink-content">
-								<?php the_category(', '); ?>				
+								<?php the_category(', '); ?> <span class="category-separator">|</span> <a href="#comments-panel" class="link-to-comments">Comments</a>	
 							</div>
 							<?php the_excerpt();?>
 						</div>
@@ -28,7 +28,7 @@
 						<?php the_content(); ?>
 					</div>
 					<hr/>
-					<div class="comments-panel">					
+					<div class="comments-panel" id="comments-panel">					
 						<div class="comments-panel-box">
 							<?php comments_template(); ?>
 						</div>
