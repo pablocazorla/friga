@@ -59,6 +59,7 @@
 			<?php comments_template(); ?>
 		</div>
 	</section>
+	<?php include(TEMPLATEPATH . '/footertemplate.php'); ?>
 </article>
 
 <?php endwhile; endif; ?>

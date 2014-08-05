@@ -77,6 +77,7 @@
 			<div class="col-blog right"></div>
 			<div class="col-blog right-nav"></div>
 		</div>
+		<?php include(TEMPLATEPATH . '/footertemplate.php'); ?>
 	</article>
 	<aside class="aside-sidebar">
 		<?php get_sidebar(); ?>

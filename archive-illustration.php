@@ -48,7 +48,8 @@ get_header(); ?>
 			<?php else :?>
 			<h2>Sorry, works not found</h2>
 			<?php endif; ?>
-		</section>		
+		</section>
+		<?php include(TEMPLATEPATH . '/footertemplate.php'); ?>	
 	</article>
 <?php if (!$async){?>
 <?php get_footer(); ?>

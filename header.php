@@ -24,9 +24,12 @@
 	<meta name="contact" content="contact@pcazorla.com" />
 	<meta name="copyright" content="Designed by Pablo Cazorla under licence Creative Commons - <?php echo date('Y'); ?>." />
 	
-	<!--link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'-->
+	
 	<link href='http://fonts.googleapis.com/css?family=Raleway:400,600' rel='stylesheet' type='text/css'>
 	<link href="<?php bloginfo('template_url'); ?>/style.css" rel="stylesheet" type="text/css" />
+	<noscript>
+		<link href="<?php bloginfo('template_url'); ?>/noscript.css" rel="stylesheet" type="text/css" />
+	</noscript>
 	
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 	
@@ -34,6 +37,9 @@
 	
 	<!--[if lt IE 9]>
 	<script src="<?php bloginfo('template_url'); ?>/js/html5-3.4-respond-1.1.0.min.js"></script>
+	<script type="text/javascript">
+		ltIE9 = true;
+	</script>
 	<![endif]-->
 	<script type="text/javascript">
 		baseURL = "<?php bloginfo( 'url' ); ?>";
@@ -48,10 +54,12 @@
 		<span class="lineIconNav lineIconNav1"></span><span class="lineIconNav lineIconNav2"></span><span class="lineIconNav lineIconNav3"></span>
 	</div>
 	<div class="site-navigation-content">
-		<a href="<?php bloginfo( 'url' ); ?>" class="brand">
+		<a href="<?php bloginfo( 'url' ); ?>" class="brand clearfix">
 			<img src="<?php bloginfo('template_url'); ?>/img/pablocazorla.jpg" class="pablocazorla"/>
-			<span class="brand-name"><?php bloginfo( 'name' ); ?></span>
-			<span class="brand-description"><?php bloginfo( 'description' ); ?></span>
+			<div class="pablocazorla-title">
+				<span class="brand-name"><?php bloginfo( 'name' ); ?></span>
+				<span class="brand-description"><?php bloginfo( 'description' ); ?></span>
+			</div>			
 		</a>
 		<nav class="site-nav">
 			<p>
