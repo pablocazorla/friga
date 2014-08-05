@@ -160,6 +160,7 @@ hr{height:0;border:none;border-top:dotted 1px #AAA;background: transparent;}
 /* NICE SCROLL ***********************************/
 .nice-scroll{overflow: hidden;}
 .nicescroll-rails{z-index: 20 !important;}
+/**/
 
 /* BLOG ***********************************/
 .blog a,.blog a:link,.blog a:visited{color:#09C;}
