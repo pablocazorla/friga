@@ -61,8 +61,13 @@
 	</section>
 	<?php include(TEMPLATEPATH . '/footertemplate.php'); ?>
 </article>
-
 <?php endwhile; endif; ?>
+<div id="scroll-down">
+	<div id="scroll-down-inner">
+		Scroll down
+		<span class="scroll-icon"></span>
+	</div>	
+</div>
 <?php if (!$async){?>
 <?php get_footer(); ?>
 <?php } ?>

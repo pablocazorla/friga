@@ -65,11 +65,11 @@
 			<p>
 				<span>Work</span>
 				<a href="<?php echo get_post_type_archive_link('illustration');?>">Illustration</a>
-				<a href="<?php echo get_post_type_archive_link('illustration');?>">Design</a>
+				<!--a href="<?php echo get_post_type_archive_link('design');?>">Design</a-->
 			</p>
 			<p>
-				<span>About me</span>
-				<a href="">Bio</a>				
+				<span>About</span>
+				<a href="<?php bloginfo( 'url' ); ?>/me">Me</a>				
 				<a href="">Contact</a>
 				<a href="<?php echo pc_category_link('Blog'); ?>">Blog</a>
 			</p>

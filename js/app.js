@@ -310,6 +310,7 @@ pc.illustrationPost = {
 	op : 1,
 	settedOp : false,
 	ready : false,
+	timerScrollDown : null,
 	init : function(){
 		this.$wp = $('.sub-frame.illustration-post');
 		this.$figure = $('.illustration-post-large-image figure');
@@ -318,7 +319,7 @@ pc.illustrationPost = {
 		this.$postNavigation = $('.post-navigation');
 		this.$toOpacity = this.$wpSummaryContent.add(this.$postNavigation);
 		this.$wp.scrollTop(this.wpST);
-		this.setEvents(this);
+		this.scrollLabel().setEvents(this);
 		return this;
 	},
 	calculatePosition : function(){
@@ -327,14 +328,13 @@ pc.illustrationPost = {
 		this.fTop = (this.fTop < 0) ? 0 : this.fTop;
 		this.op = 1 - (this.wpST*1.2/this.marginTop);
 		this.op = (this.op < 0) ? 0 : this.op;
-		
-
 		if(this.difHeight < this.fTop){
 			this.fTop = this.difHeight;
 			if(!this.settedOp){
 				this.$toOpacity.css('opacity','1');
 				this.settedOp = true;
 				this.$postNavigation.css('right','0');
+				if(this.timerScrollDown){clearInterval(this.timerScrollDown);this.timerScrollDown=null;}
 			}			
 		}else{
 			this.settedOp = false;
@@ -346,8 +346,6 @@ pc.illustrationPost = {
 				this.$postNavigation.css('right','0');
 			}
 		}
-
-
 		this.$figure.css('top','-'+this.fTop+'px');
 		return this;
 	},
@@ -355,7 +353,8 @@ pc.illustrationPost = {
 		if(this.ready){
 			this.difHeight = this.$figure.height() - pc.$window.height();
 			this.marginTop = (this.difHeight > 0) ? Math.round(this.$wpSummaryContent.height() * .8 * this.r) : 10;		
-			this.$wpSummary.height(this.$figure.height() + this.marginTop);		
+			this.$wpSummary.height(this.$figure.height() + this.marginTop);
+			if(this.difHeight <= 0 && this.timerScrollDown){clearInterval(this.timerScrollDown);this.timerScrollDown=null;}	
 			this.calculatePosition();
 		}
 		return this;
@@ -369,6 +368,28 @@ pc.illustrationPost = {
 		}else{
 			$img.load(function(){self.ready = true;self.calculateSize();});
 		}		
+		return this;
+	},
+	scrollLabel : function(){
+		var $scrollDown = $('#scroll-down'),
+			secondsWait = 6,
+			secondsRestart = 10,
+			showing = false,
+			show = function(){
+				$scrollDown.fadeIn(400);
+				showing = true;
+			},
+			hide = function(){
+				if(showing){
+					$scrollDown.fadeOut(400);
+					secondsWait = secondsRestart;
+					showing = false;
+				}				
+			};
+			this.timerScrollDown = setInterval(function(){
+				secondsWait--;if(secondsWait==0){show();}
+			},1000);
+		this.$wp.scroll(hide);
 		return this;
 	}
 };
@@ -436,7 +457,6 @@ pc.commentValidation = {
 		var self = this,
 			data = this.$form.serialize(),
 			url = this.$form.attr('action');
-
 		this.$i.attr('disabled','true');
 		this.$addingError.hide();
 		this.$adding.fadeIn(300,function(){
