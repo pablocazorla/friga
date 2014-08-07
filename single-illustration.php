@@ -49,11 +49,13 @@
 			</div>
 		</div>
 	</section>
+	<?php if(strlen(get_the_content()) >= 5){ ?>
 	<section class="panel illustration-content">
 		<div class="text-box content">
 			<?php the_content(); ?>
 		</div>
 	</section>
+	<?php } ?>
 	<section class="comments-panel" id="comments-panel">
 		<div class="comments-panel-box">
 			<?php comments_template(); ?>

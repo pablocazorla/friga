@@ -186,6 +186,7 @@ hr{height:0;border:none;border-top:dotted 1px #AAA;background: transparent;}
 .blog-post .header-blog .header-container .category a{color:#9CD8F8;font-size: 14px;xtext-decoration: underline;}
 .blog-list-gallery{margin: 0 -30px}
 .post-in-list{text-align: center;float: left;width: 33.33333333%;padding: 0 30px 50px;}
+.post-not-found{padding: 0 30px}
 .post-in-list-content{position:relative;background-color: #111;border:solid 1px #DDD;height: 400px;box-shadow: 0 1px 3px rgba(0,0,0,.1);}
 .post-in-list-content .post-in-list-link-thumb{position: relative;display: block;max-height: 260px;overflow: hidden;}
 .post-in-list-content .post-in-list-link-thumb img{width:100% !important;height: auto !important;display: block; }
@@ -397,9 +398,9 @@ transition: opacity .5s,background-color .3s;-webkit-transition: opacity .5s,bac
 .content .slider .slider-arrow:hover{background-color:#000;}
 .content .slider .slider-arrow span{position:absolute;top:50%;left:50%;width:48px;height:118px;margin:-59px 0 0 -24px;}
 .content .slider .slider-arrow.to-left{left:0}
-.content .slider .slider-arrow.to-left span{background-position: -147px 0}
+.content .slider .slider-arrow.to-left span{background-position: 0 -211px}
 .content .slider .slider-arrow.to-right{right:0}
-.content .slider .slider-arrow.to-right span{background-position: -147px -118px}
+.content .slider .slider-arrow.to-right span{background-position: 0 -329px}
 
 /* MEDIA QUERIES ************************************************************************************************************/
 

@@ -3,31 +3,17 @@
 <?php if (!$async){?>
 <?php get_header(); ?>
 <?php } ?>
-<?php $cat_name = single_cat_title('',false);?>
 	<article class="sub-frame blog-list blog nice-scroll page" data-id="blog-list">
 		<div class="col-blog-row">
 			<div class="col-blog left">	
 				<section class="blog-container">
 					<header class="header-blog">
-						<?php if(has_post_thumbnail()){
-						the_post_thumbnail('thumbnail');
-						}else{ ?>
 						<img src="<?php bloginfo('template_url'); ?>/img/default-thumbnail.jpg" />
-						<?php } ?>
 						<div class="header-box-container">
 							<div class="header-container">
 								<h1>
-									<?php if(is_category()):
-										echo $cat_name; 
-									elseif(is_tag()):
-										echo "Tag <i>".$cat_name."</i>"; 
-									elseif(is_author()):
-										echo "Author: <i>".$cat_name."<i>"; 
-									elseif(is_archive()):
-										echo "On archive <i>".$cat_name."<i>";
-									endif; ?>
+									Results of "<?php echo $s; ?>"
 								</h1>
-								<?php echo category_description(); ?>
 							</div>
 						</div>												
 					</header>
@@ -63,25 +49,25 @@
 						</div>
 						<?php endwhile; ?>
 						<?php else :?>
-						<h2>Sorry, works not found</h2>
+							<div class="post-not-found">
+								<p>Sorry, posts not found</p>
+							</div>
 						<?php endif; ?>
 					</div>
 					
 				</section>
 			</div>
-			<div class="col-blog right">
-				<aside>
-					<?php get_sidebar(); ?>
-				</aside>
-			</div>
-			<div class="col-blog right-nav">
-				
-			</div>
+			<div class="col-blog right"></div>
+			<div class="col-blog right-nav"></div>
 		</div>
-
+		<?php include(TEMPLATEPATH . '/footertemplate.php'); ?>
 	</article>
+	<aside class="aside-sidebar">
+		<?php get_sidebar(); ?>
+	</aside>
 	<nav class="post-navigation in-blog">
-		<?php
+		<?php 
+			echo '<a href="'. pc_category_link('Blog',true) .'" class="back-to-grid"><span class="link-title">All the Blog</span></a>';					
 			next_posts_link('<span class="link-title">Next Posts</span>');
 			previous_posts_link('<span class="link-title">Previous Posts</span>');
 		?>
