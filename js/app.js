@@ -599,7 +599,7 @@ pc.sidebar = {
 		});
 	}
 };
-https://www.facebook.com/sharer/sharer.php?u=http://www.google.com
+
 pc.prettyprint = {
 	init : function(){
 		var somePre = false;
@@ -682,6 +682,47 @@ pc.socialShare = {
 		}
 	}
 };
+pc.contentSlider = {
+	init : function(){
+		$('.content .slider').each(function(){
+			var $slider = $(this).addClass('rendered'),
+				$imgs = $slider.find('img'),
+				length = $imgs.length,
+				current = -1, postCurrent = 0,
+				$sliderContent = $('<div class="slider-content"></div>'),
+				$controls = $('<div class="slider-controls"></div>'),
+				$controlsSpans = $(),
+				showing = false,
+				change = function(num){
+					if(num != current && !showing){
+						showing = true;
+						postCurrent = current;
+						current = num;
+						$imgs.eq(current).addClass('current');
+						$imgs.eq(postCurrent).removeClass('current').addClass('post-current');
+						$controlsSpans.eq(current).addClass('current');
+						$controlsSpans.eq(postCurrent).removeClass('current');
+						$sliderContent.css('height',$imgs.eq(current).height()+'px');
+						setTimeout(function(){
+							$imgs.removeClass('post-current');
+							showing = false;
+						},790);
+					}
+				}
+
+			$slider.html('').append($sliderContent.append($imgs)).append($controls);
+			
+
+			for(var i = 0;i< length;i++){
+				$('<span title="'+$imgs.eq(i).attr('alt')+'" data-ind="'+i+'"></span>').appendTo($controls).click(function(){
+					change(parseInt($(this).attr('data-ind')));
+				});
+			}
+			$controlsSpans = $controls.find('span');
+			change(0);
+		});
+	}
+};
 
 pc.init = function(){
 	window.$ = jQuery;
@@ -726,8 +767,9 @@ pc.init = function(){
 		,function(){
 			pc.illustrationPost.init();
 			pc.loadIllustrationPost.init();
+			pc.contentSlider.init();
 			pc.commentValidation.init();
-			pc.socialComment.init('.illustration-post-large-image img,.post-navigation img,.content img');
+		//	pc.socialComment.init('.illustration-post-large-image img,.post-navigation img,.content img');
 			$('a.next-post,a.prev-post').click(function(e){
 				e.preventDefault();
 				var $this = $(this),
@@ -767,6 +809,7 @@ pc.init = function(){
 		'blog-post'
 		,function(){
 			pc.sidebar.init();
+			pc.contentSlider.init();
 			pc.commentValidation.init();
 			pc.socialComment.init('.content img');
 			pc.prettyprint.init();
