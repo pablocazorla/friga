@@ -144,6 +144,52 @@ function create_illustration_taxonomies() {
 }
 add_action( 'init', 'create_illustration_taxonomies', 0 );
 
+/***********************************************
+* CUSTOM TYPE: SKETCH
+***********************************************/
+function create_sketch_type() {
+  $args = array(
+    'labels' => array(
+      'name' => 'Sketches',
+      'singular_name' => 'Sketch'
+    ),
+    'public' => true,
+    'publicly_queryable' => true,
+    'show_ui' => true, 
+    'show_in_menu' => true, 
+    'query_var' => true,
+    'rewrite' => true,
+    'capability_type' => 'post',
+    'has_archive' => true, 
+    'hierarchical' => false,
+    'show_tagcloud' => false,
+    'show_in_nav_menus' => true,
+    'menu_position' => 5,
+    'menu_icon' => 'dashicons-edit',
+    'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'custom-fields' )
+  ); 
+  register_post_type('sketch',$args);
+}
+add_action( 'init', 'create_sketch_type' );
+
+// Sketch Types
+function create_sketch_taxonomies() {
+    register_taxonomy(
+        'sketch',
+        'sketch',
+        array(
+            'labels' => array(
+                'name' => 'Sketch Types',
+                'singular_name' => 'Sketch Type'
+            ),
+            'show_ui' => true,
+            'show_tagcloud' => false,
+            'hierarchical' => true,
+            'show_in_nav_menus' => true
+        )
+    );
+}
+add_action( 'init', 'create_sketch_taxonomies', 0 );
 
 /***********************************************
 * CUSTOM TYPE: DESING
