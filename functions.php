@@ -51,6 +51,9 @@ add_image_size( 'illustration-thumb', 470, 470, array( 'center', 'top' ) );
 add_image_size( 'illustration-medium', 1200, 10000, false);
 add_image_size( 'illustration-large', 1880, 15000, false);
 
+/* Sketch image size */
+add_image_size( 'sketchbook-image', 550, 630, array( 'center', 'top' ) );
+
 /* URL THUMBNAILS */
 function url_thumbnail($tamagno){
 	$src = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), $tamagno);
