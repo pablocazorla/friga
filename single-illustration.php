@@ -37,7 +37,8 @@
 	<a href="" class="share link-google" data-share="{'on':'google'}"><span class="link-title">Share on Google+</span></a>
 	<a href="" class="share link-pinterest" data-share="{'on':'pinterest','media':'<?php echo $urlImageShare; ?>','description':'|<?php echo $titleShare; ?>|: <?php echo $descriptionShare; ?>'}"><span class="link-title">Share on Pinterest</span></a>
 </nav>
-<article class="sub-frame illustration-post nice-scroll page" id="illustration-<?php the_ID();?>" data-id="illustration-post">	
+<script type="text/javascript">pageID = 'illustration-post';</script>
+<article class="sub-frame illustration-post nice-scroll page" id="illustration-<?php the_ID();?>">	
 	<section class="summary">
 		<div class="summary-content clearfix <?php if (!$async){ echo 'visible ';} customVal('summaryColor');?>">
 			<div class="summary-content-col <?php customVal('summaryPosition');echo ' '; customVal('summaryBackground');?>">

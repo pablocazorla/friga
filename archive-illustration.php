@@ -6,7 +6,8 @@ get_header(); ?>
 <?php if (!$async){?>
 <?php get_header(); ?>
 <?php } ?>
-	<article class="sub-frame illustration-list <?php echo $flavor;?> nice-scroll page" data-id="illustration-list">
+	<script type="text/javascript">pageID = 'illustration-list';</script>
+	<article class="sub-frame illustration-list <?php echo $flavor;?> nice-scroll page">
 		<header class="panel">
 			<div class="text-box align-center">
 				<h1>Illustration</h1>

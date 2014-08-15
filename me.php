@@ -8,7 +8,8 @@ Template Name: Me
 <?php if (!$async){?>
 <?php get_header(); ?>
 <?php } ?>
-	<article class="sub-frame blog nice-scroll page me" data-id="me">
+	<script type="text/javascript">pageID = 'me';</script>
+	<article class="sub-frame blog nice-scroll page me">
 		<div class="col-blog-row">
 			<div class="col-blog left in-page">
 				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>

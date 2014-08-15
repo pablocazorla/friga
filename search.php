@@ -3,6 +3,7 @@
 <?php if (!$async){?>
 <?php get_header(); ?>
 <?php } ?>
+	<script type="text/javascript">pageID = 'blog-list';</script>
 	<article class="sub-frame blog-list blog nice-scroll page" data-id="blog-list">
 		<div class="col-blog-row">
 			<div class="col-blog left">	

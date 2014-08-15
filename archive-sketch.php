@@ -6,8 +6,9 @@ get_header(); ?>
 <?php if (!$async){?>
 <?php get_header(); ?>
 <?php } ?>
-<link href='http://fonts.googleapis.com/css?family=McLaren' rel='stylesheet' type='text/css'>
-	<article class="sub-frame sketch-list <?php echo $flavor;?> nice-scroll page" data-id="sketch-list">
+	<link href='http://fonts.googleapis.com/css?family=McLaren' rel='stylesheet' type='text/css'>
+	<script type="text/javascript">pageID = 'sketch-list';</script>
+	<article class="sub-frame sketch-list <?php echo $flavor;?> nice-scroll page">
 		<header class="panel">
 			<div class="text-box align-center">
 				<h1>Sketchbook</h1>

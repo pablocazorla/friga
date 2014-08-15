@@ -1,10 +1,13 @@
 <?php get_header(); ?>
-	<article class="home sub-frame">
-		Test
-		<div style="margin:50px;background:blue;width:500px;height:3800px">
-asdsad
-		</div>
-
-
+<?php $async = $_GET['async']; ?>
+<?php if (!$async){?>
+<?php get_header(); ?>
+<?php } ?>
+	<script type="text/javascript">pageID = 'home';</script>
+	<article class="sub-frame nice-scroll page home">
+		Home
+		<?php include(TEMPLATEPATH . '/footertemplate.php'); ?>
 	</article>
+<?php if (!$async){?>
 <?php get_footer(); ?>
+<?php } ?>

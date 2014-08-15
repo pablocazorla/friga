@@ -3,7 +3,8 @@
 <?php if (!$async){?>
 <?php get_header(); ?>
 <?php } ?>
-	<article class="sub-frame page blog nice-scroll page" data-id="page">
+	<script type="text/javascript">pageID = 'page';</script>
+	<article class="sub-frame page blog nice-scroll page">
 		<div class="col-blog-row">
 			<div class="col-blog left in-page">
 				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>

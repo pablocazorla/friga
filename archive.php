@@ -4,7 +4,8 @@
 <?php get_header(); ?>
 <?php } ?>
 <?php $cat_name = single_cat_title('',false);?>
-	<article class="sub-frame blog-list blog nice-scroll page" data-id="blog-list">
+	<script type="text/javascript">pageID = 'blog-list';</script>
+	<article class="sub-frame blog-list blog nice-scroll page">
 		<div class="col-blog-row">
 			<div class="col-blog left">	
 				<section class="blog-container">
