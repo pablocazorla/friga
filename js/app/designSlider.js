@@ -1,19 +1,29 @@
 SR.define(function(App){
 	return {
+		hw : 300,
 		init : function(){
 			this.$slider = $('#design-slider');
 			this.$slis = this.$slider.find('.d-slide');
-
-
+			this.length = this.$slis.length;
+			/*
+			this.current = 0;
+			this.$slis.eq(0).addClass('current');
+			this.$slis.eq(1).addClass('next');
+			*/
+			this.current = 1;
+			this.$slis.eq(0).addClass('prev');
+			this.$slis.eq(1).addClass('current');
+			this.$slis.eq(2).addClass('next');
 
 
 			this.calculateSize().setEvents(this);
+			this.$slider.addClass('animated').fadeIn(400);
 			return this;
 		},
 		calculateSize : function(){
-			var hw = App.$window.height();
+			this.hw = App.$window.height();
 
-			this.$slider.height(hw-10);
+			this.$slider.height(this.hw-10);
 
 
 
@@ -34,19 +44,36 @@ SR.define(function(App){
 
 
 			// Drag ***************************************/
-			var dragging = false, ymouseInit;
+			var dragging = false, ymouseInit,dif,
+				$prev = false,
+				$current = false;
+
 			this.$slider.on('mousedown', function (e) {
+				self.$slider.removeClass('animated');
 			    dragging = true;
 			    ymouseInit = e.pageY;
+			    if((self.current - 1)>=0){$prev = self.$slis.eq(self.current - 1);}
+			    $current = self.$slis.eq(self.current);
 			});
 			App.$window.on('mousemove', function (e) {
 			    if(dragging){
-
+			    	dif = 100*(e.pageY - ymouseInit)/self.hw;
+			    	if(dif>0 && $prev){
+			    		$prev.css('top',(dif-100)+'%');
+			    		$current.css('top','');
+			    	}else{
+			    		if($prev){$prev.css('top','');}
+			    		$current.css('top',dif+'%');
+			    	}
 			    }
 			}).on('mouseup', function (e) {
+				self.$slider.addClass('animated');
+				if($prev){$prev.css('top','')}
+				$current.css('top','');
 			    dragging = false;
-			    var dif = e.pageY - ymouseInit;
-			    if(Math.abs(dif)>70){
+			    $prev = false;
+				$current = false;			
+			    if(Math.abs(dif)>30){
 			    	self.change(-1*Math.abs(dif)/dif);
 			    }
 			});

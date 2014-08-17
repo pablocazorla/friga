@@ -9,11 +9,11 @@ get_header(); ?>
 	<script type="text/javascript">pageID = 'design-list';</script>
 	<article class="sub-frame design-list <?php echo $flavor;?> page">
 		
-		<section id="design-slider">
-			<div class="d-slide">slide1</div>
-			<div class="d-slide">slide2</div>
-			<div class="d-slide">slide3</div>
-			<div class="d-slide">slide4</div>
+		<section id="design-slider" style="display:none">
+			<div class="d-slide" style="background-color:red">slide1</div>
+			<div class="d-slide" style="background-color:blue">slide2</div>
+			<div class="d-slide" style="background-color:green">slide3</div>
+			<div class="d-slide" style="background-color:yellow">slide4</div>
 		</section>
 
 

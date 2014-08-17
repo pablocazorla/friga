@@ -471,7 +471,17 @@ transition: opacity .5s,background-color .3s;-webkit-transition: opacity .5s,bac
 
 #design-slider{position: relative;width: 100%;min-height: 200px;overflow: hidden;}
 
-#design-slider .d-slide{position: absolute;top:0;left:0;right:0;height: 100%;overflow: hidden;background-color: #944}
+#design-slider.animated .d-slide{
+	transition: top .3s;
+	-webkit-transition: top .3s;
+	-moz-transition: top .3s;
+}
+
+#design-slider .d-slide{position: absolute;z-index:20;top:0;left:0;right:0;height: 100%;overflow: hidden;background-color: #944;color:#FFF;}
+
+#design-slider .d-slide.next{z-index: 21}
+#design-slider .d-slide.current{z-index: 22}
+#design-slider .d-slide.prev{z-index: 23;top:-100%;}
 
 
 
