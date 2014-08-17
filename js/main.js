@@ -15,6 +15,7 @@ SR.config({
 		'pp': 'app/prettyprint',
 		'ss': 'app/socialShare',
 		'csl': 'app/contentSlider',
+		'dsl': 'app/designSlider',
 		'sk': 'app/sketchbook'
 	},
 	defaults : {
@@ -198,6 +199,15 @@ switch(pageID){
 	case 'sketch-list':
 		SR.set({
 			'sketchbook': 'sk'
+		},function(App){
+			$('document').ready(function(){
+				common(App);
+			});
+		});
+		break;
+	case 'design-list':
+		SR.set({
+			'designSlider': 'dsl'
 		},function(App){
 			$('document').ready(function(){
 				common(App);

@@ -51,6 +51,9 @@ add_image_size( 'illustration-thumb', 470, 470, array( 'center', 'top' ) );
 add_image_size( 'illustration-medium', 1200, 10000, false);
 add_image_size( 'illustration-large', 1880, 15000, false);
 
+/* Design image size */
+add_image_size( 'design-image', 1880, 940, array( 'center', 'top' ) );
+
 /* Sketch image size */
 add_image_size( 'sketchbook-image', 550, 630, array( 'center', 'top' ) );
 

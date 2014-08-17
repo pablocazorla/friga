@@ -11,7 +11,7 @@ get_header(); ?>
 		<header class="panel">
 			<div class="text-box align-center">
 				<h1>Illustration</h1>
-				<p>dsf sdfdsf ddfsd</p>				
+				<p>Fusce eget aliquet tellus, at feugiat nisi. Cras ullamcorper id risus non scelerisque. Fusce rhoncus sollicitudin faucibus. Aliquam consequat tellus id metus ultricies fermentum. Fusce hendrerit lorem diam, consequat ultricies mi tempus sit amet. Nunc vitae pharetra enim.</p>				
 				<div class="gallery-menu"><?php  wp_nav_menu(array('menu' => 'Illustration Menu' ));?></div>				
 			</div>			
 		</header>
