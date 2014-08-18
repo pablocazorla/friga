@@ -7,7 +7,7 @@ get_header(); ?>
 <?php get_header(); ?>
 <?php } ?>
 	<script type="text/javascript">pageID = 'design-list';</script>
-	<article class="sub-frame design-list <?php echo $flavor;?> page">
+	<article class="sub-frame design-list nice-scroll page">
 		
 		<section id="design-slider" style="display:none">
 			<div class="d-slide" style="background-color:red">slide1</div>
@@ -15,7 +15,11 @@ get_header(); ?>
 			<div class="d-slide" style="background-color:green">slide3</div>
 			<div class="d-slide" style="background-color:yellow">slide4</div>
 		</section>
-
+		<div id="design-more" style="display:none">
+			<div style="height:2000px">mas
+			</div>
+			<?php include(TEMPLATEPATH . '/footertemplate.php'); ?>	
+		</div>
 
 
 
@@ -60,7 +64,7 @@ get_header(); ?>
 
 		</section-->
 
-		<?php include(TEMPLATEPATH . '/footertemplate.php'); ?>	
+		
 	</article>
 <?php if (!$async){?>
 <?php get_footer(); ?>

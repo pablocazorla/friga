@@ -29,6 +29,7 @@ function common(App){
 	App.$window = $(window);
 	App.$body = $('body');
 	App.$shell = $('#shell');
+	
 	App.niceScroll = {		
 		init : function(){
 			this.ready = ($.fn.niceScroll) ? true : false;
