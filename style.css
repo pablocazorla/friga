@@ -160,7 +160,7 @@ hr{height:0;border:none;border-top:dotted 1px #AAA;background: transparent;}
 .illustration-post .summary .summary-content h1{transition:opacity .8s,top .8s;-webkit-transition:opacity .8s,top .8s;-moz-transition:opacity .8s,top .8s}
 .illustration-post .summary .summary-content .summary-excerpt{line-height:1.6em;transition:opacity .8s .3s,top .8s .3s;-webkit-transition:opacity .8s .3s,top .8s .3s;-moz-transition:opacity .8s .3s,top .8s .3s}
 .illustration-post .summary .summary-content .summary-social{transition:opacity .8s .6s,top .8s .6s;-webkit-transition:opacity .8s .6s,top .8s .6s;-moz-transition:opacity .8s .6s,top .8s .6s}
-#scroll-down{position:fixed;bottom: 0;left: 50%;width: 200px;margin-left:-100px;text-align: center;z-index: 200;color: #FFF;text-shadow:0 1px 2px rgba(0,0,0,.4);display: none}
+#scroll-down{position:fixed;bottom: 0;left: 50%;width: 200px;margin-left:-100px;text-align: center;z-index: 200;color: #FFF;text-shadow: 0 2px 10px #000;display: none}
 #scroll-down-inner{position: relative;top:-30px;opacity:0;animation:scrolldown 4s ease infinite;-moz-animation:scrolldown 4s ease infinite;-webkit-animation:scrolldown 4s ease infinite;}
 .scroll-icon{display: block;margin:5px auto 0;width:0;height: 0;border-width:8px;border-style: solid;border-color: #EEE transparent transparent;}
 @keyframes scrolldown {  50% { top:0;opacity: 1; } 90% { opacity: 1; } 100% { top:0;opacity: 0; }}
@@ -467,30 +467,53 @@ transition: opacity .5s,background-color .3s;-webkit-transition: opacity .5s,bac
 .sketchbook .sk-btn.sk-btn-next{right:-1.4%;border-radius: 55% 5% 5% 55%;background-position: center 192%}
 
 /* DESIGN LIST ***********************************/
-
-
 #design-slider{position: relative;width: 100%;min-height: 200px;overflow: hidden;}
-
-
 #design-slider .d-slide{position: absolute;z-index:20;top:0;left:0;right:0;height: 100%;overflow: hidden;background-color: #944;color:#FFF;}
-
-
-
-
-
 #design-slider .d-slide.prev{z-index: 23;top:-100%;}
 #design-slider .d-slide.current{z-index: 22}
 #design-slider .d-slide.next{z-index: 21}
+#design-slider .d-slide.animated{transition: top .7s;-webkit-transition: top .7s;-moz-transition: top .7s;}
+
+/* ABOUT ME ***********************************/
+.about-me{z-index:2;}
+.about-me-img{height:1450px;z-index:1;background-color: #000}
+.about-me-img img{position: absolute;top:0;left: 0;width:100% !important;height:auto !important;}
+#about-me-img-pix{opacity:1;transition: opacity 1s;-webkit-transition: opacity 1s;-moz-transition: opacity 1s;}
+
+.about-me section{min-height:1400px;padding:1px 30px;}
 
 
-#design-slider .d-slide.animated{
-	transition: top .7s;
-	-webkit-transition: top .7s;
-	-moz-transition: top .7s;
+#about-me-summary-content{
+	color: #FFF;
+	margin-top:100px;
+	margin-left:11.5%;
+	width:30%;
+	padding: 20px 0;
+	font-size: 18px;
+	line-height: 1.3em;
+	text-shadow: 0 2px 10px #000;
+	position: relative;
+}
+#about-me-summary-content #scroll-down{bottom: -23px;font-size: 14px;position: absolute}
+
+
+
+
+#about-me-skills{background-color: #FFF}
+
+
+.about-me-container{
+	max-width: 1260px;padding:30px;margin:0 auto;
 }
 
 
-
+#skill-meter{
+	display: block;
+	background-color: #FFF;
+	margin: 0 auto 20px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, .4);
+	border:solid 1px #DDD;
+}
 
 
 
@@ -548,6 +571,15 @@ transition: opacity .5s,background-color .3s;-webkit-transition: opacity .5s,bac
 	.col-blog.right {width: 180px;}
 	.aside-sidebar{width: 180px}
 	.post-in-list{width: 100%;}
+
+	#about-me-summary-content{
+		margin-top:10px;
+		margin-left:6%;
+		width:34%;
+		padding: 20px 0;
+		font-size: 14px;
+		line-height: 1.3em
+	}
 }
 @media only screen and (max-width:700px){
 	.col-blog.left{margin-right:60px}
@@ -569,6 +601,14 @@ transition: opacity .5s,background-color .3s;-webkit-transition: opacity .5s,bac
 	.site-navigation-content .site-nav p {margin: 0}
 
 	.illustration-list .gallery-menu li{display: block;}
+
+
+	#about-me-summary-content{
+		margin-left:4%;
+		width:40%;
+	}
+
+
 }
 
 /* Phone Landscape */
@@ -625,7 +665,10 @@ transition: opacity .5s,background-color .3s;-webkit-transition: opacity .5s,bac
 
 
 
+	#about-me-summary-content{
 
+		width:75%;
+	}
 
 
 

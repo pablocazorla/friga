@@ -16,7 +16,8 @@ SR.config({
 		'ss': 'app/socialShare',
 		'csl': 'app/contentSlider',
 		'dsl': 'app/designSlider',
-		'sk': 'app/sketchbook'
+		'sk': 'app/sketchbook',
+		'me': 'app/aboutme'
 	},
 	defaults : {
 		'$nc' : 'nc',
@@ -72,8 +73,9 @@ function common(App){
 			return this;
 		}
 	};	
-	App.waitImgsForLoad = function(selection,callback){
-		var $selection = $(selection),
+	App.waitImgsForLoad = function(selection,callback,notError){
+		var ne = notError || false,
+			$selection = $(selection),
 			numTotal = $selection.length,
 			count = 0,
 			ready = false,
@@ -86,17 +88,24 @@ function common(App){
 			}
 		$selection.each(function(){
 			var $img = $(this);
-			if($img[0].complete){			
+			if($img[0].complete){
+				console.log('Ya completa : '+$img[0].id);		
 				detectLoaded();
-			}else{
-				$img.load(detectLoaded).error(detectLoaded);
+			}else{				
+				$img.load(function(){
+					console.log('load Event : '+$img[0].id);	
+					detectLoaded();
+				});
+				if(!ne){
+					$img.error(detectLoaded);
+				}				
 			}
 		});
-		detectLoaded();
 	};
-	App.init();
-	App.niceScroll.set('.niceScroll,.nice-scroll');
-	$('.post-navigation').addClass('visible');	
+	$('document').ready(function(){App.init();
+		App.niceScroll.set('.niceScroll,.nice-scroll');
+		$('.post-navigation').addClass('visible');
+	});		
 };
 
 
@@ -224,12 +233,14 @@ switch(pageID){
 			});
 		});
 		break;
-	case 'me':
+	case 'about-me':
 		SR.set({
 			'socialShare': 'ss',
+			'aboutMe': 'me',
 		},function(App){
 			$('document').ready(function(){
 				common(App);
+
 			});
 		});
 		break;
