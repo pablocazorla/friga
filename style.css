@@ -499,13 +499,13 @@ transition: opacity .5s,background-color .3s;-webkit-transition: opacity .5s,bac
 
 
 
-#about-me-skills{background-color: #FFF}
+#about-me-skills{background-color: #FFF;text-align: center}
 
 
 .about-me-container{
 	max-width: 1260px;padding:30px;margin:0 auto;
 }
-
+#about-me-skills .about-me-container{padding-top: 55px}
 
 #skill-meter{
 	display: block;

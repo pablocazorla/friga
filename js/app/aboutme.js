@@ -33,45 +33,44 @@ SR.define(function(App){
 		dataTitles = ['My Illustration skills','My Design skills','My skills for Traditional Artwork','Software I use','Technologies I know'],
 		data = [
 			[
-				{'label':'Digital\npainting', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'Matte-painting', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'Fantasy\n& books', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'Characters', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'Concept Art', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'Speed-painting', 'icon':3,'color':'rgba(255,107,27,','val': 30}
+				{'label':'Digital\npainting', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'Matte-painting', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'Fantasy\n& books', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'Characters', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'Concept Art', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'Speed-painting', 'color':'rgba(255,107,27,','val': 30}
 			],
 			[
-				{'label':'Web Design', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'UX Analysis', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'Interactive apps', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'Infographics', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'3D modeling', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'Icons & logos', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'Advertising', 'icon':3,'color':'rgba(255,107,27,','val': 30}
+				{'label':'Web Design', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'UX Analysis', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'Interactive\napps', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'Infographics', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'3D modeling', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'Icons & logos', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'Advertising', 'color':'rgba(255,107,27,','val': 30}
 			],
 			[
-				{'label':'Oil on canvas', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'Drawing', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'Watercolor', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'Pencils', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'Sketches', 'icon':3,'color':'rgba(255,107,27,','val': 30}
+				{'label':'Oil on canvas', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'Drawing', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'Watercolor', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'Pencils', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'Sketches', 'color':'rgba(255,107,27,','val': 30}
 			],
 			[
-				{'label':'Adobe\nPhotoshop', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'Adobe\nIllustrator', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'Krita', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'Blender 3D', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'SublimeText\n(for coding)', 'icon':3,'color':'rgba(255,107,27,','val': 30}
+				{'label':'Adobe\nPhotoshop', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'Adobe\nIllustrator', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'Krita', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'Blender 3D', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'SublimeText\n(for coding)', 'color':'rgba(255,107,27,','val': 30}
 			],
 			[
-				{'label':'HTML5', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'CSS3', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'Javascript', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'JQuery', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'Canvas API', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'Wordpress', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'Web Mobile', 'icon':3,'color':'rgba(255,107,27,','val': 30},
-				{'label':'GIT', 'icon':3,'color':'rgba(255,107,27,','val': 30}
+				{'label':'HTML5', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'CSS3', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'Javascript', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'JQuery', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'Wordpress', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'Web Mobile', 'color':'rgba(255,107,27,','val': 30},
+				{'label':'GIT', 'color':'rgba(255,107,27,','val': 30}
 			]
 		];
 		
@@ -130,7 +129,7 @@ SR.define(function(App){
 				if(timer != null){clearInterval(timer);timer = null;};
 				var self = this,
 					v = 0,
-					current = 0,
+					curr = 0,
 					acc = .05,
 					stepReady = [],
 					stepValue = [],
@@ -144,7 +143,7 @@ SR.define(function(App){
 					c.clearRect(0,0,width,height);
 					self.drawBase();
 					c.lineWidth = 3;
-					stepReady[current] = true;
+					stepReady[curr] = true;
 					for(var i = 0;i<d.length;i++){
 						if(stepReady[i]){
 							c.strokeStyle = d[i].color +'.6)';
@@ -165,7 +164,7 @@ SR.define(function(App){
 								stepAlpha[i] += .02;
 								c.globalAlpha = stepAlpha[i];
 							}
-							c.drawImage(iconSprite, d[i].icon*24, 0,24,24,basex-12,basey+15,24,24);
+							c.drawImage(iconSprite, i*24, current*24,24,24,basex-12,basey+15,24,24);
 							c.fillStyle = "#333";
 							c.textAlign = 'center';
 							c.font = "11px sans-serif";
