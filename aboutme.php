@@ -10,7 +10,7 @@ Template Name: About me
 <?php } ?>
 	<script type="text/javascript">pageID = 'about-me';</script>
 	<article class="sub-frame nice-scroll about-me">
-		<section id="about-me-summary">			
+		<section id="about-me-summary" style="xdisplay:none">			
 			<div id="about-me-summary-content">
 				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 				<h1><?php the_title(); ?></h1>
@@ -32,7 +32,12 @@ Template Name: About me
 		<section id="about-me-skills">
 			<div class="about-me-container">
 				<h2>Skill-meter</h2>
-				<canvas id="skill-meter" width="900" height="300"></canvas>
+				<div class="skill-meter-wrap">
+					<canvas id="skill-meter" width="900" height="350"></canvas>
+					<div class="skill-meter-controls"></div>
+					<div class="skill-meter-arrow to-left" data-ind="-1"><span></span></div>
+					<div class="skill-meter-arrow to-right" data-ind="1"><span></span></div>
+				</div>
 			</div>
 		</section>
 		<?php include(TEMPLATEPATH . '/footertemplate.php'); ?>

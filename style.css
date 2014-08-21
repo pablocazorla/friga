@@ -66,7 +66,7 @@ hr{height:0;border:none;border-top:dotted 1px #AAA;background: transparent;}
 
 
 /* SPRITE **************************************************/
-.post-navigation a,.blog-list-nav .prev,.blog-list-nav .next,.sidebar .glass,#comment-tabs .controls li a,.content .slider .slider-arrow span{background-image: url('img/sprite.png');background-repeat: no-repeat; }
+.post-navigation a,.blog-list-nav .prev,.blog-list-nav .next,.sidebar .glass,#comment-tabs .controls li a,.content .slider .slider-arrow span,.skill-meter-wrap .skill-meter-arrow span{background-image: url('img/sprite.png');background-repeat: no-repeat; }
 
 /* LAYOUT **************************************************/
 #site-navigation,#shell{position:fixed;top:0;bottom:0;-webkit-transition: left .4s cubic-bezier(.25,0,.49,1);-moz-transition: left .4s cubic-bezier(.25,0,.49,1);transition: left .4s cubic-bezier(.25,0,.49,1)}
@@ -510,10 +510,28 @@ transition: opacity .5s,background-color .3s;-webkit-transition: opacity .5s,bac
 #skill-meter{
 	display: block;
 	background-color: #FFF;
-	margin: 0 auto 20px;
+	margin: 0 auto;
 	box-shadow: 0 2px 6px rgba(0, 0, 0, .4);
 	border:solid 1px #DDD;
 }
+
+.skill-meter-wrap{position: relative;padding:0 90px 45px;margin-bottom: 25px}
+
+.skill-meter-wrap .skill-meter-controls{position: absolute;left: 0;right: 0;bottom:0;height:40px;text-align: center}
+
+.skill-meter-wrap .skill-meter-controls span{display: inline-block;width:15px;height:15px;border:solid 1px #999;margin:12px 5px 0;border-radius: 20px;cursor:pointer;transition: background-color .3s;-webkit-transition: background-color .3s;-moz-transition: background-color .3s;
+}
+.skill-meter-wrap .skill-meter-controls span:not(.current):hover{background-color: rgba(128,128,128,.5);}
+.skill-meter-wrap .skill-meter-controls span.current{background-color: #999;cursor: default;}
+
+.skill-meter-wrap .skill-meter-arrow{position:absolute;z-index: 20;top:0;bottom:45px;width:90px;cursor:pointer;opacity: .5;
+transition: opacity .3s;-webkit-transition: opacity .3s;-moz-transition: opacity .3s;}
+.skill-meter-wrap .skill-meter-arrow:hover{opacity: 1}
+.skill-meter-wrap .skill-meter-arrow span{position:absolute;top:50%;left:50%;width:48px;height:118px;margin:-59px 0 0 -24px;}
+.skill-meter-wrap .skill-meter-arrow.to-left{left:0}
+.skill-meter-wrap .skill-meter-arrow.to-left span{background-position: 0 -211px}
+.skill-meter-wrap .skill-meter-arrow.to-right{right:0}
+.skill-meter-wrap .skill-meter-arrow.to-right span{background-position: 0 -329px}
 
 
 

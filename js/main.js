@@ -88,12 +88,10 @@ function common(App){
 			}
 		$selection.each(function(){
 			var $img = $(this);
-			if($img[0].complete){
-				console.log('Ya completa : '+$img[0].id);		
+			if($img[0].complete){	
 				detectLoaded();
 			}else{				
-				$img.load(function(){
-					console.log('load Event : '+$img[0].id);	
+				$img.load(function(){	
 					detectLoaded();
 				});
 				if(!ne){

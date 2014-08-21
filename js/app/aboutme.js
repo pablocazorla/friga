@@ -1,5 +1,264 @@
 // About Me
 SR.define(function(App){
+	var skillmeter;
+	(function(){
+		var 
+		isCanvasSupported = function(){
+			var elem = document.createElement('canvas');
+			return !!(elem.getContext && elem.getContext('2d'));
+		},
+		drawLine = function(c,x0,y0,x1,y1){
+			c.beginPath();
+			c.moveTo(x0, y0);
+			c.lineTo(x1,y1);
+			c.stroke();
+			c.closePath();
+		},
+		drawString = function(c, text, posX, posY) {
+			var lines = text.split("\n");
+			c.save();
+			c.translate(posX, posY);
+			for (i = 0; i < lines.length; i++) {
+		 		c.fillText(lines[i],0, i*14);
+			}
+			c.restore();
+		},
+		cnv,$cnv,c,about,width,height,basex,basey,perc,val,iconSprite,timer,$wrap,mod=90/35,$controls,$arrows,current,
+		wCurve,amplitude,wCurveMed,wCurveQuart,
+		g = {
+			x : null, y : null, w : null, h : null,
+			pt : 35, pr : 20, pb : 155, pl : 20
+		},
+		d,
+		dataTitles = ['My Illustration skills','My Design skills','My skills for Traditional Artwork','Software I use','Technologies I know'],
+		data = [
+			[
+				{'label':'Digital\npainting', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'Matte-painting', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'Fantasy\n& books', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'Characters', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'Concept Art', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'Speed-painting', 'icon':3,'color':'rgba(255,107,27,','val': 30}
+			],
+			[
+				{'label':'Web Design', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'UX Analysis', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'Interactive apps', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'Infographics', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'3D modeling', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'Icons & logos', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'Advertising', 'icon':3,'color':'rgba(255,107,27,','val': 30}
+			],
+			[
+				{'label':'Oil on canvas', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'Drawing', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'Watercolor', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'Pencils', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'Sketches', 'icon':3,'color':'rgba(255,107,27,','val': 30}
+			],
+			[
+				{'label':'Adobe\nPhotoshop', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'Adobe\nIllustrator', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'Krita', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'Blender 3D', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'SublimeText\n(for coding)', 'icon':3,'color':'rgba(255,107,27,','val': 30}
+			],
+			[
+				{'label':'HTML5', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'CSS3', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'Javascript', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'JQuery', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'Canvas API', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'Wordpress', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'Web Mobile', 'icon':3,'color':'rgba(255,107,27,','val': 30},
+				{'label':'GIT', 'icon':3,'color':'rgba(255,107,27,','val': 30}
+			]
+		];
+		
+		skillmeter = {		
+			init : function(){
+				cnv = document.getElementById('skill-meter');
+				$cnv = $(cnv);
+				if(cnv != null && isCanvasSupported()){
+					$wrap = $('.skill-meter-wrap');					
+					$arrows = $('.skill-meter-arrow');
+					current = 0;
+					$controls = $('.skill-meter-controls');
+					var spctrl = '';
+					for(var i = 0;i < data.length;i++){
+						spctrl += '<span data-ind="'+i+'" title="'+dataTitles[i]+'"></span>';
+					}
+					$controls.html(spctrl);
+					c = cnv.getContext('2d');
+					c.lineCap = 'round';
+					iconSprite = new Image();
+					iconSprite.src = baseTemplateURL+'/img/skill-sprite.png';
+					this.changeData(0).setEvents(this);
+				}
+			},
+			onresize : function(){
+				width = $wrap.width();
+				height = 350;
+				$cnv.attr({
+					width:width,
+					height:height
+				});
+				g.x = g.pl;
+				g.y = g.pt;
+				g.w = width - g.pl - g.pr;
+				g.h = height - g.pt - g.pb;
+				wCurve = Math.round(2*g.w/(d.length+1));
+				wCurveMed = Math.round(.5*wCurve);
+				wCurveQuart = Math.round(.25*wCurve);
+				amplitude = .5*wCurveQuart;
+				basey = g.y+g.h;
+				perc = .01*g.h;
+				this.draw();
+				var self = this;
+				return this;
+			},
+			changeData : function(num){
+				current = num;
+				if(current>= data.length){current=0;}
+				if(current < 0){current=data.length-1;}
+				$controls.find('span').removeClass('current').eq(current).addClass('current');
+				d = data[current];
+				this.onresize();
+				return this;
+			},
+			draw : function(){
+				if(timer != null){clearInterval(timer);timer = null;};
+				var self = this,
+					v = 0,
+					current = 0,
+					acc = .05,
+					stepReady = [],
+					stepValue = [],
+					stepAlpha = [];
+				for(var i = 0;i<d.length;i++){
+					stepReady.push(false);
+					stepValue.push(0);
+					stepAlpha.push(0);
+				};
+				timer = setInterval(function(){
+					c.clearRect(0,0,width,height);
+					self.drawBase();
+					c.lineWidth = 3;
+					stepReady[current] = true;
+					for(var i = 0;i<d.length;i++){
+						if(stepReady[i]){
+							c.strokeStyle = d[i].color +'.6)';
+							c.fillStyle = d[i].color +'.4)';
+							if(stepValue[i] != d[i].val){
+								stepValue[i] +=	acc*(d[i].val - stepValue[i]);
+								stepValue[i] = Math.round(stepValue[i]*100)/100;
+								if((d[i].val-stepValue[i])<0.1){
+									stepValue[i] = d[i].val;
+								}
+							}
+							self.drawCurve(i,stepValue[i]);
+							if((stepValue[i]/d[i].val)>.5 && typeof stepReady[i+1] != 'undefined'){
+								stepReady[i+1] = true;
+							}
+							// icon
+							if(stepAlpha[i]<1){
+								stepAlpha[i] += .02;
+								c.globalAlpha = stepAlpha[i];
+							}
+							c.drawImage(iconSprite, d[i].icon*24, 0,24,24,basex-12,basey+15,24,24);
+							c.fillStyle = "#333";
+							c.textAlign = 'center';
+							c.font = "11px sans-serif";
+							drawString(c,d[i].label, basex, basey+56);
+							c.globalAlpha = 1;
+						}						
+					}
+					if(stepValue[d.length-1] == d[d.length-1].val){
+						clearInterval(timer);timer = null;
+					}
+				},15);				
+			},
+			drawCurve : function(i,v){
+				if(v>0){
+					val = Math.round(v * perc);
+					basex = g.x + (i+1)*wCurveMed;
+					c.beginPath();
+					c.moveTo(basex - wCurveMed,basey);
+					c.quadraticCurveTo(basex - wCurveMed + amplitude, basey, basex - wCurveQuart, basey - Math.round(.5*val));
+					c.quadraticCurveTo(basex - amplitude, basey - val, basex, basey - val);
+					c.quadraticCurveTo(basex + amplitude, basey - val, basex + wCurveQuart, basey - Math.round(.5*val));
+					c.quadraticCurveTo(basex + wCurveMed - amplitude, basey, basex + wCurveMed, basey);
+					c.fill();
+					c.stroke();
+					c.closePath();
+				}				
+			},
+			drawBase : function(){
+				c.lineWidth = 1;
+				c.strokeStyle = '#888';
+				for(var i = 0;i<d.length;i++){
+					basex = g.x + (i+1)*wCurveMed;
+					drawLine(c,basex,g.y-10,basex,basey+10);
+				}
+				//dashed:
+				var dashCount = 50,
+					dash = Math.round(basey/dashCount);
+				c.lineWidth = dash;
+				c.strokeStyle = '#FFF';
+				for(var i = 0;i<dashCount;i+=2){
+					var by = basey-(i*dash);
+					drawLine(c,g.x,by,g.x+g.w,by);
+				}				
+				c.lineWidth = 1;
+				c.strokeStyle = '#DDD';
+				drawLine(c,g.x,g.y,g.x+g.w,g.y);
+				drawLine(c,g.x,g.y+(.5*g.h),g.x+g.w,g.y+(.5*g.h));
+				drawLine(c,g.x,g.y+g.h,g.x+g.w,g.y+g.h);
+				var ih = 76;
+				var r = 15;
+				c.strokeStyle = '#999';
+				c.beginPath();
+				c.moveTo(g.x + wCurveQuart,g.y+g.h+ih);
+				c.quadraticCurveTo(g.x + wCurveQuart,g.y+g.h+ih+r,g.x + wCurveQuart + r,g.y+g.h+ih+r);				
+				c.lineTo(width/2-r,g.y+g.h+ih+r);
+				c.quadraticCurveTo(width/2,g.y+g.h+ih+r,width/2,g.y+g.h+ih+2*r);
+				c.quadraticCurveTo(width/2,g.y+g.h+ih+r,width/2+r,g.y+g.h+ih+r);
+				c.lineTo(g.x + g.w - wCurveQuart - r,g.y+g.h+ih+r);
+				c.quadraticCurveTo(g.x + g.w - wCurveQuart,g.y+g.h+ih+r,g.x + g.w - wCurveQuart,g.y+g.h+ih);
+				c.stroke();
+				c.closePath();
+				// text
+				c.fillStyle = "#999";				
+				c.font = "10px sans-serif";
+				c.textAlign = 'left';
+				c.fillText('100%',g.x, g.y-4);
+				c.fillText('50%',g.x, g.y+(.5*g.h)-4);
+				c.textAlign = 'right';
+				c.fillText('100%',g.x+g.w, g.y-4);
+				c.fillText('50%',g.x+g.w, g.y+(.5*g.h)-4);
+				// Base
+				c.fillStyle = "#777";				
+				c.font = "italic 18px sans-serif";
+				c.textAlign = 'center';
+				c.fillText(dataTitles[current],width/2, g.y+g.h+ih+50);
+			},
+			setEvents : function(self){
+				App.$window.resize(function(){self.onresize();});
+				$controls.find('span').click(function(){
+					var n = parseInt($(this).attr('data-ind'));
+					if(n!=current){
+						self.changeData(n);
+					}					
+				});
+				$arrows.click(function(){
+					var n = parseInt($(this).attr('data-ind'));
+					self.changeData(current+n);
+				});
+				return this;
+			}
+		};
+	})();
+
 	return {
 		init : function(){
 			this.scrollLabelVisible = false;
@@ -7,7 +266,6 @@ SR.define(function(App){
 			this.$about = $('.about-me').scrollTop(0);
 			this.$sections = $('.about-me-img, .about-me section');
 			this.$summary = $('#about-me-summary-content');
-
 			var $imgPix = $('#about-me-img-pix');
 			setTimeout(function(){
 				App.waitImgsForLoad($imgPix,function(){
@@ -19,7 +277,8 @@ SR.define(function(App){
 					},true);
 				},true);				
 			},1000);
-			this.setSize().scrollLabel().setEvents(this).skillmeter(this);
+			this.setSize().scrollLabel().setEvents(this);
+			skillmeter.init(this);
 		},
 		setSize : function(){
 			var wh = App.$window.height(),
@@ -57,77 +316,6 @@ SR.define(function(App){
 						}
 					},1000);
 				},1000);				
-			return this;
-		},
-		skillmeter : function(self){
-			$('#skill-meter').each(function(){
-				var $canvas = $(this),
-					
-					pt = 10,
-					pb = 10,
-					pl = 10,
-					pr = 10,
-
-					
-					width = $canvas[0].width,
-					height = $canvas[0].height,
-					percH = .01*(height - pt - pb),
-					wCurve = Math.round(width/4),
-
-					c = $canvas[0].getContext('2d'),
-
-					
-					amplitude = .5,
-
-					a = Math.round(.25*wCurve*amplitude),
-					wm = Math.round(wCurve/2),
-					wq = Math.round(wCurve/4),
-					hm = 1,h=1,
-					drawCurve = function(x,hperc){
-						h = percH*hperc;
-						hm = h/2
-						c.beginPath();
-						c.moveTo(pl, height-pb);
-
-						c.lineTo(x-wm,height-pb);
-
-
-						c.quadraticCurveTo(x-wm+a, height-pb, x-wq, height-pb-hm);
-
-						c.quadraticCurveTo(x-a, height-pb-h, x, height-pb-h);
-
-						c.quadraticCurveTo(x+a, height-pb-h, x+wq, height-pb-hm);
-
-						c.quadraticCurveTo(x+wm-a, height-pb, x+wm, height-pb);
-
-						
-
-						c.lineTo(width-pr,height-pb);
-						c.fill();
-						c.stroke();
-						c.closePath();
-					};
-			
-				c.strokeStyle = "black";
-				c.fillStyle = "rgba(0,120,200,.4)";
-				c.lineWidth = 2;
-				c.lineCap = 'square';
-
-		
-
-				drawCurve(400,50);
-
-
-
-
-
-
-
-
-
-
-
-			});
 			return this;
 		}
 	}
