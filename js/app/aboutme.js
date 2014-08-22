@@ -259,63 +259,85 @@ SR.define(function(App){
 	})();
 
 	return {
-		init : function(){
-			this.scrollLabelVisible = false;
-			this.timerScrollDown = null;
+		init : function(){			
 			this.$about = $('.about-me').scrollTop(0);
-			this.$sections = $('.about-me-img, .about-me section');
+			this.$aboutImg = $('.about-me-img');
+			this.$sections = $('.about-me section');
 			this.$summary = $('#about-me-summary-content');
-			var $imgPix = $('#about-me-img-pix');
+			this.$aboutTabs = $('.about-tab');
+			this.timeoutScroll = null;
+			this.autoScrollLimit = 0;
+			this.$contact = $('#contact');
+			this.contactBlurried = false;
+			this.$imgPablo = $('#about-me-img-pablo');
+
+			var $imgPix = $('#about-me-img-pix'),
+				self = this;
 			setTimeout(function(){
-				App.waitImgsForLoad($imgPix,function(){
-					var $imgPablo = $('#about-me-img-pablo'),
-					src = $imgPablo.attr('data-src');
-					$imgPablo.attr('src',src);
-					App.waitImgsForLoad($imgPablo,function(){
+				App.waitImgsForLoad($imgPix,function(){					
+					src = self.$imgPablo.attr('data-src');
+					self.$imgPablo.attr('src',src);
+					App.waitImgsForLoad(self.$imgPablo,function(){
 						$imgPix.css('opacity','0');
 					},true);
 				},true);				
 			},1000);
-			this.setSize().scrollLabel().setEvents(this);
+			this.setSize().setEvents(this);
 			skillmeter.init(this);
 		},
 		setSize : function(){
 			var wh = App.$window.height(),
 				summaryMargin = Math.round((wh-this.$summary.height())/2);
-			this.$sections.css('min-height',wh+'px');
+			this.$sections.add(this.$aboutImg).css('min-height',wh+'px');
 			if(summaryMargin<0){summaryMargin=0;}
 			if(summaryMargin>180){summaryMargin=180;}
 			this.$summary.css('margin-top',summaryMargin+'px');
+			this.autoScrollLimit = Math.round(.28*wh);
+			this.autoScroll(this).detectContactBlurried();
 			return this;
 		},
 		setEvents : function(self){
-			App.$window.resize(function(){self.setSize();});
-			
-			self.$about.scroll(function(){				
-				if(self.timerScrollDown){
-					clearInterval(self.timerScrollDown);self.timerScrollDown=null;
+			App.$window.resize(function(){self.setSize();});			
+			this.$about.scroll(function(){self.autoScroll(self);self.detectContactBlurried();});
+			this.$aboutTabs.click(function(){
+				if(self.timeoutScroll != null){
+					clearTimeout(self.timeoutScroll);self.timeoutScroll = null;
 				}
-				if(self.scrollLabelVisible){
-					$('#scroll-down').fadeOut(250);
-				}
+				var n = parseInt($(this).attr('data-ind')),
+					posY = self.$about.scrollTop() + Math.round(self.$sections.eq(n).offset().top)
+				self.$about.animate({'scrollTop': posY+'px'},Math.round(App.$window.height()*.8));
+				
 			});
 			return this;	
 		},
-		scrollLabel : function(){
-			var self = this,
-				secondsWait = 3;
-				setTimeout(function(){
-					this.timerScrollDown = setInterval(function(){
-						secondsWait--;
-						if(secondsWait==0){
-							$('#scroll-down').fadeIn(400);
-							self.scrollLabelVisible = true;
-							clearInterval(self.timerScrollDown);
-							self.timerScrollDown = null;
+		autoScroll : function(self){
+			if(self.timeoutScroll != null){
+				clearTimeout(self.timeoutScroll);self.timeoutScroll = null;
+			}
+			self.timeoutScroll = setTimeout(function(){					
+				var scrolled = false,
+					sTop = Math.round(self.$about.scrollTop());
+				self.$sections.each(function(){
+					if(!scrolled){
+						var posY = Math.round($(this).offset().top);
+						if(Math.abs(posY)<self.autoScrollLimit){
+							self.$about.animate({'scrollTop': (sTop + posY)+'px'},Math.abs(posY)*5);
+							scrolled = true;
 						}
-					},1000);
-				},1000);				
+					}
+				});
+			}, 1000);
 			return this;
+		},
+		detectContactBlurried : function(){
+			if(this.$contact.offset().top < this.$contact.height() && !this.contactBlurried){
+				this.$imgPablo.addClass('blur');
+				this.contactBlurried = true;
+			};
+			if(this.$contact.offset().top > this.$contact.height() && this.contactBlurried){
+				this.$imgPablo.removeClass('blur');
+				this.contactBlurried = false;
+			};
 		}
 	}
 });

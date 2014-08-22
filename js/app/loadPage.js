@@ -14,15 +14,19 @@ SR.define(function(App){
 			App.siteNavigation.close();
 			var self = this,
 				from = fromLeftOrRight || 'right',
+				hashTag = '',
 				go = function(){
-					window.location.href = url;
+					window.location.href = url+hashTag;
 				};
 			if(from == 'left'){this.$frame.removeClass('right').addClass('left');}
 			App.graphLoader.show();
 
 			var symb = '?';
 			if(url.indexOf('?')!=-1){symb = '&';}
-
+			if(url.indexOf('#')!=-1){
+				hashTag = '#'+url.split('#')[1];
+				url = url.split('#')[0];
+			}
 			$.ajax({
 			  url : url + symb + 'async=1',
 			  success : function(data){

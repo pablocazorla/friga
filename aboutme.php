@@ -15,18 +15,16 @@ Template Name: About me
 				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 				<h1><?php the_title(); ?></h1>
 				<?php the_content(); ?>
-				<div id="scroll-down">
-					<div id="scroll-down-inner">
-						Scroll down
-						<span class="scroll-icon"></span>
-					</div>	
-				</div>
 				<?php
 				 	$titleShare = get_the_title();
 				 	$descriptionShare = 'Pablo Cazorla: illustrator, designer, creative.';
 				 	$urlImageShare = get_template_directory_uri().'/img/about.jpg';
 				 ?>
 				<?php endwhile; endif; ?>
+			</div>
+			<div class="about-tab-wrap">
+				<div class="about-tab first" title="My expertice, my knowledge..." data-ind="1"><span>My skills</span></div>
+				<div class="about-tab for-contact" title="Get in touch" data-ind="2"><span>Contact</span></div>
 			</div>
 		</section>
 		<section id="about-me-skills">
@@ -39,12 +37,34 @@ Template Name: About me
 					<div class="skill-meter-arrow to-right" data-ind="1"><span></span></div>
 				</div>
 			</div>
+			<div class="about-tab-wrap">
+				<div class="about-tab first for-contact" title="Get in touch" data-ind="2"><span>Contact</span></div>
+			</div>
+		</section>
+		<section id="contact" >
+			Contact
 		</section>
 		<?php include(TEMPLATEPATH . '/footertemplate.php'); ?>
 	</article>
+	<style type="text/css">
+		img.blur {
+			filter: url('#blurfx');
+			-webkit-filter: blur(8px);
+			-moz-filter: blur(8px);
+			-o-filter: blur(8px);
+			-ms-filter: blur(8px);
+			filter: blur(8px);	
+			filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='8');
+		}
+	</style>
+	<svg xmlns="http://www.w3.org/2000/svg" height="0">
+	   <filter height="116%" width="116%" y="-8%" x="-8%" id="blurfx">
+	       <feGaussianBlur stdDeviation="8" in="SourceGraphic"/>
+	   </filter>
+	</svg>	
 	<div class="sub-frame about-me-img">
 		<img data-src="<?php echo $urlImageShare; ?>" src="" id="about-me-img-pablo"/>
-		<img src="<?php bloginfo('template_url'); ?>/img/about.png" id="about-me-img-pix"/>
+		<img src="<?php bloginfo('template_url'); ?>/img/about.png" id="about-me-img-pix"/>		
 	</div>
 	<nav class="post-navigation">
 		<a href="" class="share link-facebook" data-share="{'on':'facebook'}"><span class="link-title">Share on Facebook</span></a>

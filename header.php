@@ -72,7 +72,7 @@
 			<p>
 				<span>About</span>
 				<a href="<?php bloginfo( 'url' ); ?>/me">Me</a>				
-				<a href="">Contact</a>
+				<a href="<?php bloginfo( 'url' ); ?>/me#contact">Contact</a>
 				<a href="<?php echo pc_category_link('Blog'); ?>">Blog</a>
 			</p>
 		</nav>

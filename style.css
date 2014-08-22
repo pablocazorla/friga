@@ -475,26 +475,34 @@ transition: opacity .5s,background-color .3s;-webkit-transition: opacity .5s,bac
 #design-slider .d-slide.animated{transition: top .7s;-webkit-transition: top .7s;-moz-transition: top .7s;}
 
 /* ABOUT ME ***********************************/
-.about-me{z-index:2;}
+.about-me{z-index:2;font-size: 18px;}
 .about-me-img{height:1450px;z-index:1;background-color: #000}
 .about-me-img img{position: absolute;top:0;left: 0;width:100% !important;height:auto !important;}
 #about-me-img-pix{opacity:1;transition: opacity 1s;-webkit-transition: opacity 1s;-moz-transition: opacity 1s;}
 
-.about-me section{min-height:1400px;padding:1px 30px;}
+.about-me section{min-height:1400px;padding:1px 30px;position: relative;}
 
+.about-tab-wrap{position: absolute;bottom:0;left:0;right:0;padding:0 30px;text-align: left}
+.about-tab{background-color: #FFF;display: inline-block;margin-left:8px;
+	line-height: 34px;padding: 0 20px 0 33px;position: relative;border-radius: 6px 6px 0 0;cursor: pointer;}
+.about-tab.first{margin-left:11.5%;}
+.about-tab:after{position: absolute;top:50%;left:15px;display: block;content: '';width: 0;height: 0;border-width: 7px 6px;border-style:solid;
+border-color: #555 transparent transparent; margin-top: -3px;}
+.about-tab:hover span, .about-tab:hover:after{opacity: .7}
+
+.about-tab.for-contact{background-color: #000;color: #EEE}
+.about-tab.for-contact:after{border-color: #BBB transparent transparent;}
 
 #about-me-summary-content{
 	color: #FFF;
 	margin-top:100px;
 	margin-left:11.5%;
 	width:30%;
-	padding: 20px 0;
-	font-size: 18px;
+	padding: 20px 0 50px;	
 	line-height: 1.3em;
 	text-shadow: 0 2px 10px #000;
 	position: relative;
 }
-#about-me-summary-content #scroll-down{bottom: -23px;font-size: 14px;position: absolute}
 
 
 
@@ -532,13 +540,7 @@ transition: opacity .3s;-webkit-transition: opacity .3s;-moz-transition: opacity
 .skill-meter-wrap .skill-meter-arrow.to-left span{background-position: 0 -211px}
 .skill-meter-wrap .skill-meter-arrow.to-right{right:0}
 .skill-meter-wrap .skill-meter-arrow.to-right span{background-position: 0 -329px}
-
-
-
-
-
-
-
+.about-me #contact{background-color: #000;background-color: rgba(0,0,0,.3)}
 
 
 
