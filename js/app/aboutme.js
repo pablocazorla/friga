@@ -33,44 +33,44 @@ SR.define(function(App){
 		dataTitles = ['My Illustration skills','My Design skills','My skills for Traditional Artwork','Software I use','Technologies I know'],
 		data = [
 			[
-				{'label':'Digital\npainting', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'Matte-painting', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'Fantasy\n& books', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'Characters', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'Concept Art', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'Speed-painting', 'color':'rgba(255,107,27,','val': 30}
+				{'label':'Digital\npainting', 'color':'rgba(255,0,0,','val': 100},
+				{'label':'Matte-painting', 'color':'rgba(255,120,0,','val': 50},
+				{'label':'Fantasy\n& books', 'color':'rgba(222,167,0,','val': 80},
+				{'label':'Characters', 'color':'rgba(58,165,0,','val': 90},
+				{'label':'Concept Art', 'color':'rgba(0,162,255,','val': 70},
+				{'label':'Speed-painting', 'color':'rgba(108,36,255,','val': 60}
 			],
 			[
-				{'label':'Web Design', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'UX Analysis', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'Interactive\napps', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'Infographics', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'3D modeling', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'Icons & logos', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'Advertising', 'color':'rgba(255,107,27,','val': 30}
+				{'label':'Web Design', 'color':'rgba(0,150,255,','val': 100},
+				{'label':'UX Analysis', 'color':'rgba(0,189,116,','val': 60},
+				{'label':'Interactive\napps', 'color':'rgba(104,176,0,','val': 75},
+				{'label':'Infographics', 'color':'rgba(223,184,0,','val': 95},
+				{'label':'3D modeling', 'color':'rgba(255,114,0,','val': 50},
+				{'label':'Icons & logos', 'color':'rgba(255,24,0,','val': 65},
+				{'label':'Advertising', 'color':'rgba(255,0,126,','val': 75}
 			],
 			[
-				{'label':'Oil on canvas', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'Drawing', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'Watercolor', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'Pencils', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'Sketches', 'color':'rgba(255,107,27,','val': 30}
+				{'label':'Oil on canvas', 'color':'rgba(255,48,0,','val': 100},
+				{'label':'Drawing', 'color':'rgba(58,165,0,','val': 90},
+				{'label':'Watercolor', 'color':'rgba(0,144,255,','val': 60},
+				{'label':'Pencils', 'color':'rgba(224,169,0,','val': 40},
+				{'label':'Sketches', 'color':'rgba(255,107,27,','val': 80}
 			],
 			[
-				{'label':'Adobe\nPhotoshop', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'Adobe\nIllustrator', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'Krita', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'Blender 3D', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'SublimeText\n(for coding)', 'color':'rgba(255,107,27,','val': 30}
+				{'label':'Adobe\nPhotoshop', 'color':'rgba(0,70,174,','val': 100},
+				{'label':'Adobe\nIllustrator', 'color':'rgba(255,180,0,','val': 65},
+				{'label':'Krita', 'color':'rgba(210,0,255,','val': 90},
+				{'label':'Blender 3D', 'color':'rgba(255,126,0,','val': 45},
+				{'label':'SublimeText\n(for coding)', 'color':'rgba(47,168,0,','val': 70}
 			],
 			[
-				{'label':'HTML5', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'CSS3', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'Javascript', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'JQuery', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'Wordpress', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'Web Mobile', 'color':'rgba(255,107,27,','val': 30},
-				{'label':'GIT', 'color':'rgba(255,107,27,','val': 30}
+				{'label':'HTML5', 'color':'rgba(255,102,0,','val': 90},
+				{'label':'CSS3', 'color':'rgba(0,162,255,','val': 100},
+				{'label':'Javascript', 'color':'rgba(219,196,0,','val': 80},
+				{'label':'JQuery', 'color':'rgba(0,95,238,','val': 90},
+				{'label':'Wordpress', 'color':'rgba(0,126,179,','val': 50},
+				{'label':'Web Mobile', 'color':'rgba(47,168,0,','val': 75},
+				{'label':'GIT', 'color':'rgba(159,0,241,','val': 30}
 			]
 		];
 		
@@ -78,14 +78,15 @@ SR.define(function(App){
 			init : function(){
 				cnv = document.getElementById('skill-meter');
 				$cnv = $(cnv);
+				console.log('AAA');
 				if(cnv != null && isCanvasSupported()){
 					$wrap = $('.skill-meter-wrap');					
-					$arrows = $('.skill-meter-arrow');
+					$arrows = $('.skill-meter-arrow').show();
 					current = 0;
 					$controls = $('.skill-meter-controls');
 					var spctrl = '';
 					for(var i = 0;i < data.length;i++){
-						spctrl += '<span data-ind="'+i+'" title="'+dataTitles[i]+'"></span>';
+						spctrl += '<div data-ind="'+i+'" class="smc"><span>'+dataTitles[i]+'</span></div>';
 					}
 					$controls.html(spctrl);
 					c = cnv.getContext('2d');
@@ -93,6 +94,8 @@ SR.define(function(App){
 					iconSprite = new Image();
 					iconSprite.src = baseTemplateURL+'/img/skill-sprite.png';
 					this.changeData(0).setEvents(this);
+				}else{
+					$cnv.html('<img style="display:block" src="'+baseTemplateURL+'/img/skillmeter-replace.png"/>');
 				}
 			},
 			onresize : function(){
@@ -120,7 +123,7 @@ SR.define(function(App){
 				current = num;
 				if(current>= data.length){current=0;}
 				if(current < 0){current=data.length-1;}
-				$controls.find('span').removeClass('current').eq(current).addClass('current');
+				$controls.find('.smc').removeClass('current').eq(current).addClass('current');
 				d = data[current];
 				this.onresize();
 				return this;
@@ -243,7 +246,7 @@ SR.define(function(App){
 			},
 			setEvents : function(self){
 				App.$window.resize(function(){self.onresize();});
-				$controls.find('span').click(function(){
+				$controls.find('.smc').click(function(){
 					var n = parseInt($(this).attr('data-ind'));
 					if(n!=current){
 						self.changeData(n);
