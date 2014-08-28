@@ -23,7 +23,7 @@ SR.define(function(App){
 			}
 			c.restore();
 		},
-		cnv,$cnv,c,about,width,height,basex,basey,perc,val,iconSprite,timer,$wrap,mod=90/35,$controls,$arrows,current,
+		cnv,$cnv,c,about,width,height,basex,basey,perc,val,iconSprite,timer,$wrap,mod=90/35,$controls,$arrows,current,autoplay = null,
 		wCurve,amplitude,wCurveMed,wCurveQuart,
 		g = {
 			x : null, y : null, w : null, h : null,
@@ -86,14 +86,14 @@ SR.define(function(App){
 					$controls = $('.skill-meter-controls');
 					var spctrl = '';
 					for(var i = 0;i < data.length;i++){
-						spctrl += '<div data-ind="'+i+'" class="smc"><span>'+dataTitles[i]+'</span></div>';
+						spctrl += '<div data-ind="'+i+'" class="smc bubble"><span class="bubble-msg">'+dataTitles[i]+'</span></div>';
 					}
 					$controls.html(spctrl);
 					c = cnv.getContext('2d');
 					c.lineCap = 'round';
 					iconSprite = new Image();
 					iconSprite.src = baseTemplateURL+'/img/skill-sprite.png';
-					this.changeData(0).setEvents(this);
+					this.changeData(0).setEvents(this);					
 				}else{
 					$cnv.html('<img style="display:block" src="'+baseTemplateURL+'/img/skillmeter-replace.png"/>');
 				}
@@ -247,15 +247,20 @@ SR.define(function(App){
 			setEvents : function(self){
 				App.$window.resize(function(){self.onresize();});
 				$controls.find('.smc').click(function(){
+					if(autoplay != null){clearInterval(autoplay);autoplay = null;}
 					var n = parseInt($(this).attr('data-ind'));
 					if(n!=current){
 						self.changeData(n);
 					}					
 				});
 				$arrows.click(function(){
+					if(autoplay != null){clearInterval(autoplay);autoplay = null;}
 					var n = parseInt($(this).attr('data-ind'));
 					self.changeData(current+n);
 				});
+				autoplay = setInterval(function(){
+					self.changeData(current+1);
+				},10000);
 				return this;
 			}
 		};
@@ -271,9 +276,9 @@ SR.define(function(App){
 			this.timeoutScroll = null;
 			this.autoScrollLimit = 0;
 			this.$contact = $('#contact');
+			this.$contactContent = $('#contact-container');
 			this.contactBlurried = false;
 			this.$imgPablo = $('#about-me-img-pablo');
-
 			var $imgPix = $('#about-me-img-pix'),
 				self = this;
 			setTimeout(function(){
@@ -297,6 +302,9 @@ SR.define(function(App){
 			this.$summary.css('margin-top',summaryMargin+'px');
 			this.autoScrollLimit = Math.round(.28*wh);
 			this.autoScroll(this).detectContactBlurried();
+			var contactMargin = (this.$contact.height() - this.$contactContent.height())/2 - 20;
+			if(contactMargin<20){contactMargin = 20;}
+			this.$contactContent.css('margin-top',contactMargin+'px');
 			return this;
 		},
 		setEvents : function(self){

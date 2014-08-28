@@ -10,7 +10,7 @@ Template Name: About me
 <?php } ?>
 	<script type="text/javascript">pageID = 'about-me';</script>
 	<article class="sub-frame nice-scroll about-me">
-		<section id="about-me-summary" style="xdisplay:none">	
+		<section id="about-me-summary">	
 			<div id="about-me-summary-content">
 				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 				<h1><?php the_title(); ?></h1>
@@ -36,13 +36,32 @@ Template Name: About me
 					<div class="skill-meter-arrow to-left" data-ind="-1" style="display:none"><span></span></div>
 					<div class="skill-meter-arrow to-right" data-ind="1" style="display:none"><span></span></div>
 				</div>
+				<p>This is a very subjective approximation of what my skill-meter could show. I am growing constantly, learning new things all time and sharping my practice to get the best of me.</p>
+				<p>I could say I am essentially a self-taught: most of my knowledge I have achieved through experience and the need to solve issues creatively.</p>
 			</div>
 			<div class="about-tab-wrap">
 				<div class="about-tab first for-contact" title="Get in touch" data-ind="2"><span>Contact</span></div>
 			</div>
 		</section>
-		<section id="contact" >
-			Contact
+		<section id="contact">
+			<div id="contact-container">
+				<div class="contact-email-container">
+					<h2>Get in touch!</h2>
+					<p>Please send me a message via email if you have any questions for me. I'll try my best to get back to you within 2 business days.</p>
+					<p><a class="contact-button" href="mailto:contact@pcazorla.com" target="_blank"><span class="cs-icon"></span>contact@pcazorla.com</a></p>
+				</div>
+				<div class="contact-social-container">
+					<a class="cs-g bubble" href="https://www.google.com/+PabloCazorla" target="_blank"><span class="cs-icon"></span><span class="bubble-msg">Follow me on Google+</span></a>
+					<a class="cs-tw bubble" href="http://twitter.com/pablo_cazorla" target="_blank"><span class="cs-icon"></span><span class="bubble-msg">Follow me on Twitter</span></a>
+					<a class="cs-pin bubble" href="" target="_blank"><span class="cs-icon"></span><span class="bubble-msg">Follow me on Pinterest</span></a>
+					<a class="cs-i bubble" href="http://instagram.com/pablocazorla" target="_blank"><span class="cs-icon"></span><span class="bubble-msg">Follow me on Instagram</span></a>
+					<a class="cs-yt bubble" href="http://www.youtube.com/user/pablocazu" target="_blank"><span class="cs-icon"></span><span class="bubble-msg">Subscribe to my Youtube channel</span></a>
+					<a class="cs-be bubble" href="https://www.behance.net/pablo-cazorla" target="_blank"><span class="cs-icon"></span><span class="bubble-msg">Watch my work on Behance</span></a>
+					<a class="cs-de bubble" href="http://davicazu.deviantart.com/" target="_blank"><span class="cs-icon"></span><span class="bubble-msg">Watch my work on Deviant Art</span></a>
+					<a class="cs-git bubble" href="https://github.com/pablocazorla" target="_blank"><span class="cs-icon"></span><span class="bubble-msg">Fork my projects on GitHub</span></a>
+					<a class="cs-rss bubble" href="<?php bloginfo( 'url' ); ?>/rss" target="_blank"><span class="cs-icon"></span><span class="bubble-msg">RSS blog</span></a>
+				</div>
+			</div>
 		</section>
 		<?php include(TEMPLATEPATH . '/footertemplate.php'); ?>
 	</article>
