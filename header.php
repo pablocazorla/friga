@@ -44,6 +44,11 @@
 	<script type="text/javascript">
 		baseURL = "<?php bloginfo( 'url' ); ?>";
 		baseTemplateURL = "<?php bloginfo('template_url'); ?>";
+		window.onpageshow = function(event) {
+	    if (event.persisted) {
+	      window.location.reload() 
+	    }
+		};
 	</script>
 	
 	<?php wp_head(); ?>	

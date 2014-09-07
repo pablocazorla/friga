@@ -4,6 +4,22 @@
 <?php get_header(); ?>
 <?php } ?>
 	<script type="text/javascript">pageID = 'blog-post';</script>
+	<style type="text/css">
+		.header-blog img {
+			filter: url('#blurfx');
+			-webkit-filter: blur(3px);
+			-moz-filter: blur(3px);
+			-o-filter: blur(3px);
+			-ms-filter: blur(3px);
+			filter: blur(3px);	
+			filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
+		}
+	</style>
+	<svg xmlns="http://www.w3.org/2000/svg" height="0">
+	   <filter height="116%" width="116%" y="-8%" x="-8%" id="blurfx">
+	       <feGaussianBlur stdDeviation="3" in="SourceGraphic"/>
+	   </filter>
+	</svg>	
 	<article class="sub-frame blog-post blog nice-scroll page">
 		<div class="col-blog-row">
 			<div class="col-blog left">
