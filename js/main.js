@@ -100,7 +100,7 @@ function common(App) {
 					}
 				}
 			});
-		}else{
+		} else {
 			callback();
 		}
 	};

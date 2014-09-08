@@ -12,7 +12,8 @@ SR.define(function(App) {
 			var bc = '#' + backColors[++idColor];
 			idColor = (idColor >= (backColors.length - 1)) ? -1 : idColor;
 			return bc;
-		};
+		},
+		timerToScroll = null;
 
 	return {
 		hw: 300,
@@ -31,16 +32,22 @@ SR.define(function(App) {
 			this.$article.scrollTop(0);
 			this.current = 0;
 
-
 			this.$slis.eq(0).addClass('current');
 			this.$slis.eq(1).addClass('next');
 			this.isLtIE8 = (typeof document.attachEvent === "object") ? true : false;
 			this.calculateSize().renderCtrl().setEvents(this);
-			this.$slider.fadeIn(400);
+			this.$slider.fadeIn(400, function() {
+				$('#design-loading').hide();
+			});
+			this.$scrollDown = $('#scroll-down');
 			var self = this;
 			setTimeout(function() {
 				self.calculateSize();
 			}, 50);
+			timerToScroll = setTimeout(function() {
+				self.$scrollDown.fadeIn(400);
+				timerToScroll = 'waitHide';
+			}, 5000);
 			return this;
 		},
 		calculateSizeForContent: function() {
@@ -76,6 +83,10 @@ SR.define(function(App) {
 			if (!this.moving && self.scrollTop == 0) {
 				var gou = this.current + direction;
 				if (gou >= 0 && gou < this.length) {
+					if (timerToScroll != null) {
+						self.$scrollDown.fadeOut(200);
+						timerToScroll = null;
+					}
 					this.moving = true;
 					this.current = gou;
 					if (direction > 0) {
@@ -235,6 +246,8 @@ SR.define(function(App) {
 			}).on('keyup', function(e) {
 				if (keyPressed) keyPressed = false;
 			});
+
+
 
 			return this;
 		}

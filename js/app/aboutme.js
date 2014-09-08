@@ -36,7 +36,7 @@ SR.define(function(App) {
 				pb: 155,
 				pl: 20
 			},
-			d, dataLimit,lengthTotal,
+			d, dataLimit, lengthTotal,
 			dataTitles = ['My Illustration skills', 'My Design skills', 'My skills for Traditional Artwork', 'Software I use', 'Technologies I know'],
 			data = [
 				[{
@@ -196,11 +196,11 @@ SR.define(function(App) {
 					width: width,
 					height: height
 				});
-				if(width < 660){
+				if (width < 660) {
 					dataLimit = 5;
-				}else if(width < 500){
+				} else if (width < 500) {
 					dataLimit = 4;
-				}else{
+				} else {
 					dataLimit = 20;
 				}
 

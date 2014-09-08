@@ -103,6 +103,13 @@ get_header(); ?>
 			<?php include(TEMPLATEPATH . '/footertemplate.php'); ?>	
 		</div>		
 	</article>
+<div id="scroll-down">
+	<div id="scroll-down-inner">
+		Scroll down
+		<span class="scroll-icon"></span>
+	</div>	
+</div>
+<div id="design-loading">Loading beautifull things...</div>
 <?php if (!$async){?>
 <?php get_footer(); ?>
 <?php } ?>
