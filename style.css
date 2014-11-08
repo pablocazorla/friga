@@ -202,7 +202,7 @@ hr{height:0;border:none;border-top:dotted 1px #AAA;background: transparent;}
 .blog-list-gallery{margin: 0 -30px}
 .post-in-list{text-align: center;float: left;width: 33.33333333%;padding: 0 30px 50px;}
 .post-not-found{padding: 0 30px}
-.post-in-list-content{position:relative;background-color: #111;border:solid 1px #DDD;height: 400px;box-shadow: 0 1px 3px rgba(0,0,0,.1);}
+.post-in-list-content{position:relative;background-color: #BBB;border:solid 1px #DDD;height: 400px;box-shadow: 0 1px 3px rgba(0,0,0,.2);}
 .post-in-list-content .post-in-list-link-thumb{position: relative;display: block;max-height: 260px;overflow: hidden;}
 .post-in-list-content .post-in-list-link-thumb img{width:100% !important;height: auto !important;display: block; }
 .post-in-list-content .post-in-list-link-thumb .capt{position: absolute;top:0;bottom: 0;left: 0;right: 0;background-color: rgba(0,0,0,.8);opacity:0;transition:opacity .3s;-webkit-transition:opacity .3s;-moz-transition:opacity .3s;}
@@ -570,7 +570,6 @@ opacity: 1}
   margin: -40px 0 0 -100px;
 }
 
-
 /* ABOUT ME ***********************************/
 .about-me{z-index:2;font-size: 18px;}
 .about-me-img{height:1450px;z-index:1;background-color: #000}
@@ -636,6 +635,103 @@ font-size: 14px;line-height: 1.2em;border-radius:5px;left: -99999px;margin-left:
 transition: opacity .4s,bottom .4s;-moz-transition: opacity .4s,bottom .4s;-webkit-transition: opacity .4s,bottom .4s}
 .bubble-msg:after{position: absolute;width: 0;height: 0;content: '';left:50%;bottom:-16px;border-style: solid; border-width:8px 10px;border-color: #000 transparent transparent;margin:0 0 0 -10px}
 .bubble:not(.current):hover .bubble-msg{left: 50%;bottom: 25px;opacity: 1}
+
+/* HOME ***********************************/
+#home-presentation{
+  height: 1200px;
+  background-color: #222;
+  overflow: hidden;
+  position: relative;
+}
+#home-presentation-content{
+  position: absolute;
+  top:0;left: 0;
+  width:100%;
+}
+#home-presentation video,
+#home-presentation .video-placehoder{
+  position: absolute;
+  top:0;left: 0;
+  width:100%;height:auto;
+}
+.home-section.home-illustration{
+  background-color: #FFF;
+}
+.home-section.home-design{
+  border-top:solid 1px #DDD;
+  background-color: #EEE;
+}
+.home-section.home-blog{
+  border-top:solid 1px #CCC;
+  background-color: #DDD;
+}
+.home-section.home-about{
+  background-color: #2f353a;
+}
+.home-section .home-section-content{
+  padding: 55px 30px 75px;margin:0 auto;
+  max-width: 1260px;
+}
+.home-section h2{
+  font-size: 50px;line-height: 1.3em;
+  margin-bottom: 5px;
+}
+.home-section h2,
+.home-section h2 a{
+  color:#111;
+}
+.home-section h2 a:hover{
+  color:#dd4b39;
+}
+.home-section .home-figure{
+  max-height: 150px;
+  max-height: 650px;
+  overflow: hidden;
+  position: relative;
+  margin-top: 30px;
+}
+.home-section .home-figure figcaption{
+  position: absolute;
+  bottom: 0;left: 0;right: 0;
+  height: 58px;line-height: 58px;
+  padding: 0 24px;
+  background-color: #000;
+  background-color: rgba(0,0,0,.75);
+}
+.home-section .home-figure figcaption .link-in-fig{
+  color:#EEE;
+}
+.home-section .home-subtitle-blog{
+  margin-bottom: 30px;
+}
+.home-section .post-in-list {
+    padding-bottom:15px;
+}
+.home-section .home-about-img{
+  max-width:378px;
+  float: left;
+}
+.home-section .home-about-text{
+  margin-left: 378px;
+  padding-left:20px;
+}
+.home-section .home-about-text h2{
+  font-size: 36px;line-height: 1.3em;
+}
+.home-section .home-about-text h2,
+.home-section .home-about-text h2 a{
+  color: #FFF;
+}
+.home-section .home-about-text p{
+  color: #EEE;
+}
+.home-section .home-figure img,
+.home-section .home-about-img{
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+}
+.home-section .async-illust-link img{display: none}
 
 /* MEDIA QUERIES ************************************************************************************************************/
 /* Notebook */
@@ -705,6 +801,13 @@ transition: opacity .4s,bottom .4s;-moz-transition: opacity .4s,bottom .4s;-webk
 	#design-slider .d-slide-container h2{font-size: 18px;line-height: 1.3em}
 	#design-slider .d-slide-container p{font-size: 12px;line-height: 1.2em}
 	#design-slider .d-slide-text {padding-top: 0}
+
+  .home-section .home-about-img{
+    max-width:200px;
+  }
+  .home-section .home-about-text{
+    margin-left: 200px;
+  }
 }
 /* Phone Landscape */
 @media only screen and (max-width:500px){
@@ -742,4 +845,11 @@ transition: opacity .4s,bottom .4s;-moz-transition: opacity .4s,bottom .4s;-webk
 	#contact-container .contact-button{font-size: 14px}
 	#contact-container .contact-button .cs-icon,.about-tab{display: none}
   .sketchbook .sk-page .sk-face .sk-face-content{font: 9px/1.6em 'Indie Flower', cursive;}
+  .home-section .home-about-img{
+    max-width:100%;
+    float:none;
+  }
+  .home-section .home-about-text{
+    margin-left: 0;
+  }
 }

@@ -4,6 +4,7 @@ SR.config({
 	baseUrl: baseTemplateURL + '/js/',
 	paths: {
 		'nc': 'libs/jquery.nicescroll.min',
+		'ho': 'app/home',
 		'sn': 'app/siteNavigation',
 		'lp': 'app/loadPage',
 		'li': 'app/loadIllustration',
@@ -111,8 +112,30 @@ function common(App) {
 	});
 };
 
-
 switch (pageID) {
+	case 'home':
+		SR.set({
+			'loadIllustration': 'li',
+			'setHome': 'ho'
+		}, function(App) {
+			$('document').ready(function() {
+				common(App);
+				$('.async-link').click(function(e) {
+					e.preventDefault();
+					var url = $(this).attr('href');
+					App.loadPage.load(url);
+				});
+				$('.async-illust-link').click(function(e) {
+					e.preventDefault();
+					var $this = $(this),
+						url = $this.attr('href'),
+						urlImgBig = $this.attr('data-imgbig'),
+						$img = $this.find('img');
+					App.loadIllustration.load(url, urlImgBig, $img[0], 'right');
+				});
+			});
+		});
+		break;
 	case 'illustration-list':
 		SR.set({
 			'loadIllustration': 'li',
