@@ -643,7 +643,9 @@ transition: opacity .4s,bottom .4s;-moz-transition: opacity .4s,bottom .4s;-webk
   overflow: hidden;
   position: relative;
 }
-#home-presentation-content{
+#home-presentation-content,
+#home-presentation-videocontainer,
+#home-presentation #home-presentation-text{
   position: absolute;
   top:0;left: 0;
   width:100%;
@@ -653,6 +655,19 @@ transition: opacity .4s,bottom .4s;-moz-transition: opacity .4s,bottom .4s;-webk
   position: absolute;
   top:0;left: 0;
   width:100%;height:auto;
+}
+#home-presentation #home-presentation-text-wrap{
+  color: #FFF; text-align: center;text-shadow: 0 2px 6px rgba(0,0,0,.3);
+  padding:1px 30px;max-width: 1060px;margin:0 auto;opacity: 0;
+}
+#home-presentation #home-presentation-text-wrap h1{
+  font-size: 60px;line-height: 1.3em;margin:0 0 30px;
+}
+#home-presentation #home-presentation-text-wrap p{
+  font-size: 24px;line-height: 1.3em;margin:0 0 30px;
+}
+#home-presentation #home-presentation-text-wrap a{
+  xfont-weight: bold;
 }
 .home-section.home-illustration{
   background-color: #FFF;
@@ -763,6 +778,13 @@ transition: opacity .4s,bottom .4s;-moz-transition: opacity .4s,bottom .4s;-webk
 	#comment-tabs-label{font-size: 20px;line-height: 20px}
 
 	#design-slider .d-slide-container {max-width: 750px;}
+
+  #home-presentation #home-presentation-text-wrap h1{
+    font-size: 40px;line-height: 1.3em;margin:0 0 20px;
+  }
+  #home-presentation #home-presentation-text-wrap p{
+    font-size: 18px;line-height: 1.3em;margin:0 0 20px;
+  }
 }
 /* Tablet Portrait */
 @media only screen and (max-width:820px){
@@ -808,6 +830,13 @@ transition: opacity .4s,bottom .4s;-moz-transition: opacity .4s,bottom .4s;-webk
   .home-section .home-about-text{
     margin-left: 200px;
   }
+
+   #home-presentation #home-presentation-text-wrap h1{
+    font-size: 30px;line-height: 1.3em;margin:0 0 15px;
+  }
+  #home-presentation #home-presentation-text-wrap p{
+    font-size: 16px;line-height: 1.3em;margin:0 0 15px;
+  }
 }
 /* Phone Landscape */
 @media only screen and (max-width:500px){
@@ -851,5 +880,12 @@ transition: opacity .4s,bottom .4s;-moz-transition: opacity .4s,bottom .4s;-webk
   }
   .home-section .home-about-text{
     margin-left: 0;
+  }
+
+    #home-presentation #home-presentation-text-wrap h1{
+    font-size: 20px;line-height: 1.3em;margin:0 0 10px;
+  }
+  #home-presentation #home-presentation-text-wrap p{
+    font-size: 12px;line-height: 1.3em;margin:0 0 10px;
   }
 }

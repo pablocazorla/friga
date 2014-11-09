@@ -7,14 +7,24 @@
 	<article class="sub-frame nice-scroll page home">
 		<div id="home-presentation">
 			<div id="home-presentation-content">
-				<img class="video-placehoder" src="<?php bloginfo('template_url'); ?>/video/presentation-placeholder.jpg">
-				<video loop="" autoplay="">
-			        <source type="video/webm" src="<?php bloginfo('template_url'); ?>/video/presentation.webm"></source>
-			        <source type="video/mp4" src="<?php bloginfo('template_url'); ?>/video/presentation.mp4"></source>
-			    </video>
+				<div id="home-presentation-videocontainer">
+					<img class="video-placehoder" src="<?php bloginfo('template_url'); ?>/video/presentation-placeholder.jpg">
+					<video loop="" autoplay="">
+				        <source type="video/webm" src="<?php bloginfo('template_url'); ?>/video/presentation.webm"></source>
+				        <source type="video/mp4" src="<?php bloginfo('template_url'); ?>/video/presentation.mp4"></source>
+				    </video>
+			    </div>
+			    <div id="home-presentation-text">
+			    	<div id="home-presentation-text-wrap">
+				    	<h1>I am Illustrator, Designer and Creative</h1>
+				    	<p>My name is <i>Pablo Cazorla</i>, and my job is to create all kind of beautiful things related to the world of the image.</p>
+				    	<p>In my work you will find digital art, web design, concepts and illustrations, javascript development, 3d modeling, oil on canvas, watercolor...</p>
+				    	<p>Just take a look to my <a href="#my-last-works" id="goto-last-work">last works</a>.</p>
+				    </div>
+			    </div>
 		    </div>
 		</div>
-		<section class="home-section home-illustration">
+		<section class="home-section home-illustration" id="my-last-works">
 			<div class="home-section-content">
 				<h2><a class="async-link" href="<?php echo get_post_type_archive_link('illustration');?>">Illustration</a></h2>
 				<?php $list = new WP_Query('post_type=illustration&posts_per_page=1');
@@ -50,7 +60,7 @@
 				        }
 				        ?>
 				        <figcaption>
-				        	<a class="async-link" class="link-in-fig" href="<?php the_permalink(); ?>" rel="<?php the_ID();?>" data-imgbig="<?php if(has_post_thumbnail()){ echo url_thumbnail('illustration-large');} ?>" ><?php the_title(); ?></a> | <a class="async-link" href="<?php echo get_post_type_archive_link('design');?>">Design</a>
+				        	<a class="async-link link-in-fig" href="<?php the_permalink(); ?>" rel="<?php the_ID();?>" data-imgbig="<?php if(has_post_thumbnail()){ echo url_thumbnail('illustration-large');} ?>" ><?php the_title(); ?></a> | <a class="async-link" href="<?php echo get_post_type_archive_link('design');?>">Design</a>
 				        </figcaption>
 			        </figure>
 				<?php endwhile; 
