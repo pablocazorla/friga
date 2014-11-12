@@ -65,7 +65,7 @@ get_header(); ?>
 			        }
 			        ?>					
 				</a>
-				<figcaption><?php the_title(); ?></figcaption>				
+				<figcaption class="gallery-caption"><?php the_title(); ?></figcaption>				
 			</figure>	   
 			<?php endwhile; ?>
 			<?php wp_reset_postdata(); ?>

@@ -8,10 +8,10 @@
 		<div id="home-presentation">
 			<div id="home-presentation-content">
 				<div id="home-presentation-videocontainer">
-					<img class="video-placehoder" src="<?php bloginfo('template_url'); ?>/video/presentation-placeholder.jpg">
+					<img class="video-placehoder" src="<?php bloginfo('template_url'); ?>/video/presentat-placeholder.jpg">
 					<video loop="" autoplay="">
-				        <source type="video/webm" src="<?php bloginfo('template_url'); ?>/video/presentation.webm"></source>
-				        <source type="video/mp4" src="<?php bloginfo('template_url'); ?>/video/presentation.mp4"></source>
+				        <source type="video/webm" src="<?php bloginfo('template_url'); ?>/video/presentat.webm"></source>
+				        <source type="video/mp4" src="<?php bloginfo('template_url'); ?>/video/presentat.mp4"></source>
 				    </video>
 			    </div>
 			    <div id="home-presentation-text">

@@ -1,4 +1,9 @@
-pageID = pageID || 'all';
+if (typeof pageID === 'undefined') {
+	pageID = 'all';
+}
+if (typeof ltIE9 === 'undefined') {
+	ltIE9 = false;
+}
 
 SR.config({
 	baseUrl: baseTemplateURL + '/js/',
@@ -21,9 +26,9 @@ SR.config({
 		'me': 'app/aboutme'
 	},
 	defaults: {
-		'$nc': 'nc',
-		'siteNavigation': 'sn',
 		'loadPage': 'lp',
+		'$nc': 'nc',
+		'siteNavigation': 'sn'
 	}
 });
 
@@ -165,7 +170,9 @@ switch (pageID) {
 		}, function(App) {
 			$('document').ready(function() {
 				common(App);
-				App.socialComments.initLate('.illustration-post-large-image img,.post-navigation img,.content img');
+				if (!ltIE9) {
+					App.socialComments.initLate('.illustration-post-large-image img,.post-navigation img,.content img');
+				}
 				$('a.next-post,a.prev-post').click(function(e) {
 					e.preventDefault();
 					var $this = $(this),
@@ -216,7 +223,9 @@ switch (pageID) {
 		}, function(App) {
 			$('document').ready(function() {
 				common(App);
-				App.socialComments.initLate('.content img');
+				if (!ltIE9) {
+					App.socialComments.initLate('.content img');
+				}
 				$('a.next-post,a.prev-post').click(function(e) {
 					e.preventDefault();
 					var $this = $(this),
@@ -265,7 +274,9 @@ switch (pageID) {
 		}, function(App) {
 			$('document').ready(function() {
 				common(App);
-				App.socialComments.initLate('.content img');
+				if (!ltIE9) {
+					App.socialComments.initLate('.content img');
+				}
 				$('a.next-post,a.prev-post').click(function(e) {
 					e.preventDefault();
 					var $this = $(this),

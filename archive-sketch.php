@@ -12,7 +12,7 @@ get_header(); ?>
 		<header class="panel">
 			<div class="text-box align-center">
 				<h1>Sketchbook</h1>
-				<p>dsf sdfdsf ddfsd</p>								
+				<p>Nunc elementum diam scelerisque, volutpat enim at, dapibus mauris. Sed et metus et magna bibendum congue non id nunc. Donec at augue aliquet, sollicitudin orci non, porta nunc. Integer vitae condimentum felis.</p>								
 			</div>			
 		</header>
 		<section class="sketchbook-container">

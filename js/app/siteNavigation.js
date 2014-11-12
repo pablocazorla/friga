@@ -11,6 +11,11 @@ SR.define(function(App) {
 			if (this.statusEnabled && !this.statusOpen) {
 				App.$body.addClass('open-site-navigation');
 				this.statusOpen = true;
+				this.statusEnabled = false;
+				var self = this;
+				setTimeout(function(){
+					self.statusEnabled = true;
+				},500);
 			}
 			return this;
 		},
@@ -18,6 +23,11 @@ SR.define(function(App) {
 			if (this.statusEnabled && this.statusOpen) {
 				App.$body.removeClass('open-site-navigation');
 				this.statusOpen = false;
+				this.statusEnabled = false;
+				var self = this;
+				setTimeout(function(){
+					self.statusEnabled = true;
+				},500);
 			}
 			return this;
 		},
@@ -39,7 +49,7 @@ SR.define(function(App) {
 		},
 		setEvents: function(self) {
 			$('.to-open-site-navigation').click(function(e) {
-				e.preventDefault();
+				e.preventDefault();				
 				self.toggle();
 			});
 			App.$window.resize(function() {

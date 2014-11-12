@@ -72,7 +72,7 @@
 				<span>Work</span>
 				<a href="<?php echo get_post_type_archive_link('illustration');?>">Illustration</a>
 				<a href="<?php echo get_post_type_archive_link('design');?>">Design</a>
-				<a href="<?php echo get_post_type_archive_link('sketch');?>">Sketches</a>				
+				<a class="hie8" href="<?php echo get_post_type_archive_link('sketch');?>">Sketches</a>				
 			</p>
 			<p>
 				<span>About</span>
