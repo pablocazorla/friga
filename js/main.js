@@ -178,8 +178,8 @@ switch (pageID) {
 					var $this = $(this),
 						direction = ($this.hasClass('prev-post')) ? 'left' : 'right';
 					url = $this.attr('href'),
-					urlImgBig = $this.attr('data-imgbig'),
-					$img = $this.find('img');
+						urlImgBig = $this.attr('data-imgbig'),
+						$img = $this.find('img');
 					App.loadIllustration.load(url, urlImgBig, $img[0], direction);
 				});
 				$('a.back-to-grid').click(function(e) {

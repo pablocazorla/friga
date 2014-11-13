@@ -326,7 +326,7 @@ transition:opacity .3s;-webkit-transition:opacity .3s;-moz-transition:opacity .3
 border-radius: 50px}
 .button:hover{text-decoration: none;opacity: .8}
 .button.green{background-color: #109200;}
-.button.red{background-color: #FB1100;}
+.button.red{background-color: #dd4b39;}
 .button.violet,.button.magenta{background-color: #FB1100;}
 .button.orange{background-color: #F17000;}
 .button.grey{background-color: #888;}
@@ -436,9 +436,18 @@ text-shadow:0 2px 4px rgba(0, 0, 0, 0.2)}
 .sketchbook .sk-page .sketchbook-page-bg{position: relative;width:100% !important;height:auto !important;display: block;}
 .sketchbook .sk-page:first-child{z-index: 41}
 .sketchbook .sk-page:first-child .sk-face:first-child{z-index: 42}
-.sketchbook .sk-page .sk-face{position: absolute;top:1%;left:14%;right:4%;bottom:1%;background: #e6d9c6 url('img/sketchbook/sketchbook-face-bg.jpg');z-index: 41}
+.sketchbook .sk-page .sk-face{position: absolute;top:1%;left:14%;right:4%;bottom:1%;background-color: #FFF;z-index: 41;overflow: hidden}
 .sketchbook .sk-page .sk-face img{display:block;margin:0 auto;max-width:100% !important;width:auto !important;height:auto !important;}
-.sketchbook .sk-page .sk-face .sk-face-content{position:absolute;bottom: 0;left: 0;right: 0;padding:10px 10px 0;background: #e6d9c6 url('img/sketchbook/sketchbook-face-bg.jpg');text-align:center; font: 18px/1.4em 'Indie Flower', cursive;}
+.sketchbook .sk-page .sk-face .sk-face-content{position:absolute;bottom: 0;left: 0;right: 0;padding:10px 10px 0;text-align:center; font: 18px/1.4em 'Indie Flower', cursive;
+background: #FFF;
+background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 15%, rgba(255,255,255,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(15%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 15%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 15%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 15%,rgba(255,255,255,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 15%,rgba(255,255,255,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+}
 /* Shadow Page */
 .sketchbook .sk-page .sk-shadow{position: absolute;top: 0;bottom: 0;left:0;right: 0;display: block;background-color: #000;opacity: 0}
 .sketchbook .sk-page.sk-over.sk-pos-center .sk-shadow{opacity: .6}
@@ -475,11 +484,35 @@ text-shadow:0 2px 4px rgba(0, 0, 0, 0.2)}
 .sketchbook .sk-page.sk-over.sk-left-to-center .sk-face.face-back,
 .sketchbook .sk-page.sk-left .sketchbook-page-bg{-webkit-transform: rotateY(180deg);-moz-transform: rotateY(180deg);transform: rotateY(180deg);}
 /* Controls */
-.sketchbook .sk-btn{position: absolute;z-index:50;top:50%;width:2.8%;height:9%;margin-top:-2.6%;cursor:pointer;background:  url('img/sketchbook/sketchbook-arrows.png') no-repeat;background-size: 62%;opacity: .7}
-.sketchbook .sk-btn:hover{opacity: 1}
+.sketchbook .sk-btn{position: absolute;z-index:50;top:50%;width:2.8%;height:9%;margin-top:-2.6%;cursor:pointer;background:  url('img/sketchbook/sketchbook-arrows.png') no-repeat;background-size: 62%;}
+.sketchbook .sk-btn.ready{opacity: .7}
+.sketchbook .sk-btn.ready:hover{opacity: 1}
 .sketchbook .sk-btn.disabled{display: none}
 .sketchbook .sk-btn.sk-btn-prev{left:-1.4%;border-radius: 5% 55% 55% 5%;background-position: center -103%}
 .sketchbook .sk-btn.sk-btn-next{right:-1.4%;border-radius: 55% 5% 5% 55%;background-position: center 192%}
+.sketchbook .sk-btn.sk-btn-next span{
+  position: absolute;display: block;width:100px;padding: 5px 10px;background-color: #dd4b39;
+  top:50%;right:100%;margin-top: -15px;
+  text-align: center;color: #FFF;font-size: 12px;line-height: 20px;font-weight: bold;
+  box-shadow: 2px 1px 6px rgba(0,0,0,.8);
+  border-radius: 5px;
+}
+.sketchbook .sk-btn.sk-btn-next span:after{
+  position: absolute;display: block;width: 0;
+  height: 0;content: '';border-width: 6px 8px;
+  border-style: solid;border-color: transparent transparent transparent #dd4b39;
+  top:50%;right: -15px;margin:-6px 0 0 0;
+}
+
+.loading-sketch-banner{
+  position: absolute;top:50%;left: 50%;font-weight: bold;
+  width:150px;height: 30px;line-height: 30px;font-size: 16px;color:#999;text-align: center;margin:-30px 0 0 -75px;
+}
+
+#sketchbook-restart{
+   position: absolute;top:50%;left: 75%;margin:-30px 0 0 -90px;
+   box-shadow: 0 2px 6px rgba(0,0,0,.5);
+}
 
 /* DESIGN LIST ***********************************/
 #design-slider{position: relative;width: 100%;min-height: 200px;overflow: hidden;}
@@ -838,6 +871,10 @@ transition: opacity .4s,bottom .4s;-moz-transition: opacity .4s,bottom .4s;-webk
   }
   #home-presentation #home-presentation-text-wrap p{
     font-size: 16px;line-height: 1.3em;margin:0 0 15px;
+  }
+  #sketchbook-restart{
+    font-size: 12px;line-height: 25px;height: 25px;
+     margin:-12px 0 0 -68px;padding:0 15px;
   }
 }
 /* Phone Landscape */

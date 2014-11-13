@@ -21,7 +21,7 @@ get_header(); ?>
 
 			<?php
 			$par = 1;
-			$list = new WP_Query('post_type=sketch&posts_per_page=24');
+			$list = new WP_Query('post_type=sketch&posts_per_page=60');
 			if ($list->have_posts()):
 			while ($list->have_posts()): $list->the_post(); ?>
 
@@ -29,7 +29,10 @@ get_header(); ?>
 				echo '<li class="sk-page">';
 			} ?>
 				<div class="sk-face" id="sketch-<?php the_ID();?>" alt="<?php the_title();?>">
-					<?php if(has_post_thumbnail()){the_post_thumbnail('sketchbook-image');} ?>
+					<div class="loading-sketch-banner">Loading...</div>
+					<?php if(has_post_thumbnail()){
+						echo '<img class="sketchbook-img" src="" srcwait="' . url_thumbnail('sketchbook-image') .'">';
+					} ?>
 					<div class="sk-face-content">
 						<?php the_content(); ?>
 					</div>					

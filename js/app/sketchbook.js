@@ -6,8 +6,10 @@ SR.define(function(App) {
 					$pages = $this.find('>.sk-page'),
 					next = 0,
 					last = $pages.length,
-					$btnPrev = $('<div class="sk-btn sk-btn-prev disabled" title="Previous sketch"></div>'),
-					$btnNext = $('<div class="sk-btn sk-btn-next" title="Next sketch"></div>'),
+					$btnPrev = $('<div class="sk-btn sk-btn-prev ready disabled" title="Previous sketch"></div>'),
+					$btnNext = $('<div class="sk-btn sk-btn-next" title="Next sketch"><span>Turn the page</span></div>'),
+					$btnRestart = $('<div id="sketchbook-restart" class="button red" title="Start the Sketchbook from the beginning">Restart Sketchbook</div>'),
+					btnNextReady = false,
 					transitionEvent = (function() {
 						var t, el = document.createElement('fakeelement');
 						transitions = {
@@ -119,15 +121,58 @@ SR.define(function(App) {
 						}
 					};
 
-				$this.append($btnPrev).append($btnNext);
+				$this.append($btnPrev).append($btnRestart).append($btnNext);
 				$btnPrev.click(function() {
 					change(-1);
 				});
 				$btnNext.click(function() {
 					change(1);
+				}).hover(function() {
+					if (!btnNextReady) {
+						btnNextReady = true;
+						$btnNext.addClass('ready').find('span').animate({
+							'opacity': 0,
+							'right': '300%'
+						}, 250, function() {
+							$(this).hide();
+						});
+					}
 				});
+
+				$btnRestart.click(function() {
+					$pages.fadeOut(300, function() {
+						$pages.removeClass('sk-left sk-visible').addClass('sk-right').eq(0).addClass('sk-visible');
+						$btnNext.removeClass('disabled');
+						$btnPrev.addClass('disabled');
+						next = 0;
+						$pages.fadeIn(300);
+					});
+				});
+
 				setupPages();
 			});
+			this.loadImages();
+		},
+		loadImages: function() {
+			var $images = $('.sketchbook-img'),
+				length = $images.length,
+				current = 0,
+				setScr = function() {
+
+					if (current < length) {
+						var $i = $images.eq(current),
+							s = $i.attr('srcwait');
+						$i.attr('src', s);
+						console.log(current + ' : ' + s);
+					}
+				},
+				loadNext = function() {
+					$images.eq(current).siblings('.loading-sketch-banner').hide();
+					++current;
+					setScr();
+				};
+			$images.load(loadNext).error(loadNext);
+			setScr();
 		}
 	}
 });
