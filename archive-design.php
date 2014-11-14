@@ -86,13 +86,11 @@ get_header(); ?>
 			
 			<figure>						
 				<a href="<?php the_permalink(); ?>" class="alink">	
-					<?php
-					if(has_post_thumbnail()){
-			           	the_post_thumbnail('illustration-thumb');
-			        }
-			        ?>					
+					<?php if(has_post_thumbnail()){
+						echo '<img style="opacity:1" src="' . url_thumbnail('illustration-thumb') .'">';
+					} ?>				
 				</a>
-				<figcaption><?php the_title(); ?></figcaption>				
+				<figcaption class="gallery-caption for-design"><?php the_title(); ?></figcaption>				
 			</figure>	   
 			<?php endwhile; ?>
 			<?php wp_reset_postdata(); ?>

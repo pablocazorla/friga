@@ -58,12 +58,10 @@ get_header(); ?>
 				}
 			?>
 			<figure class="<?php echo $classType;?>">						
-				<a href="<?php the_permalink(); ?>" rel="<?php the_ID();?>" data-imgbig="<?php if(has_post_thumbnail()){ echo url_thumbnail('illustration-large');} ?>" >	
-					<?php
-					if(has_post_thumbnail()){
-			           	the_post_thumbnail('illustration-thumb');
-			        }
-			        ?>					
+				<a href="<?php the_permalink(); ?>" rel="<?php the_ID();?>" data-imgbig="<?php if(has_post_thumbnail()){ echo url_thumbnail('illustration-large');} ?>" >
+			        <?php if(has_post_thumbnail()){
+						echo '<img class="illustration-thumb-img" src="" srcwait="' . url_thumbnail('illustration-thumb') .'">';
+					} ?>
 				</a>
 				<figcaption class="gallery-caption"><?php the_title(); ?></figcaption>				
 			</figure>	   

@@ -10,7 +10,9 @@ SR.define(function(App) {
 			return this;
 		},
 		load: function(url, fromLeftOrRight) {
-			if (!ltIE9) {
+			//if (!ltIE9) {
+			var comun = true;
+			if (!comun) {
 				App.siteNavigation.close();
 				var self = this,
 					from = fromLeftOrRight || 'right',
@@ -50,7 +52,7 @@ SR.define(function(App) {
 					},
 					error: go
 				});
-			}else{
+			} else {
 				window.location.href = url;
 			}
 		}

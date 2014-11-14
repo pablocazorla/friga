@@ -163,7 +163,6 @@ SR.define(function(App) {
 						var $i = $images.eq(current),
 							s = $i.attr('srcwait');
 						$i.attr('src', s);
-						console.log(current + ' : ' + s);
 					}
 				},
 				loadNext = function() {

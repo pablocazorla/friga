@@ -11,13 +11,13 @@ SR.config({
 		'nc': 'libs/jquery.nicescroll.min',
 		'ho': 'app/home',
 		'sn': 'app/siteNavigation',
-		'lp': 'app/loadPage',
-		'li': 'app/loadIllustration',
+		//	'lp': 'app/loadPage',
+		//	'li': 'app/loadIllustration',
 		'gi': 'app/galleryIllustration',
 		'ip': 'app/illustrationPost',
 		'cv': 'app/commentValidation',
 		'sc': 'app/socialComments',
-		'sb': 'app/sidebar',
+		//	'sb': 'app/sidebar',
 		'pp': 'app/prettyprint',
 		'ss': 'app/socialShare',
 		'csl': 'app/contentSlider',
@@ -26,7 +26,7 @@ SR.config({
 		'me': 'app/aboutme'
 	},
 	defaults: {
-		'loadPage': 'lp',
+		//	'loadPage': 'lp',
 		'$nc': 'nc',
 		'siteNavigation': 'sn'
 	}
@@ -120,12 +120,12 @@ function common(App) {
 switch (pageID) {
 	case 'home':
 		SR.set({
-			'loadIllustration': 'li',
+			//'loadIllustration': 'li',
 			'setHome': 'ho'
 		}, function(App) {
 			$('document').ready(function() {
 				common(App);
-				$('.async-link').click(function(e) {
+				/*$('.async-link').click(function(e) {
 					e.preventDefault();
 					var url = $(this).attr('href');
 					App.loadPage.load(url);
@@ -137,32 +137,32 @@ switch (pageID) {
 						urlImgBig = $this.attr('data-imgbig'),
 						$img = $this.find('img');
 					App.loadIllustration.load(url, urlImgBig, $img[0], 'right');
-				});
+				});*/
 			});
 		});
 		break;
 	case 'illustration-list':
 		SR.set({
-			'loadIllustration': 'li',
+			//	'loadIllustration': 'li',
 			'galleryIllustration': 'gi'
 		}, function(App) {
 			$('document').ready(function() {
 				common(App);
-				$('.gallery figure a').click(function(e) {
+				/*$('.gallery figure a').click(function(e) {
 					e.preventDefault();
 					var $this = $(this),
 						url = $this.attr('href'),
 						urlImgBig = $this.attr('data-imgbig'),
 						$img = $this.find('img');
 					App.loadIllustration.load(url, urlImgBig, $img[0], 'right');
-				});
+				});*/
 			});
 		});
 		break;
 	case 'illustration-post':
 		SR.set({
 			'illustrationPost': 'ip',
-			'loadIllustration': 'li',
+			//	'loadIllustration': 'li',
 			'commentValidation': 'cv',
 			'socialComments': 'sc',
 			'socialShare': 'ss',
@@ -173,31 +173,31 @@ switch (pageID) {
 				if (!ltIE9) {
 					App.socialComments.initLate('.illustration-post-large-image img,.post-navigation img,.content img');
 				}
-				$('a.next-post,a.prev-post').click(function(e) {
-					e.preventDefault();
-					var $this = $(this),
-						direction = ($this.hasClass('prev-post')) ? 'left' : 'right';
-					url = $this.attr('href'),
-						urlImgBig = $this.attr('data-imgbig'),
-						$img = $this.find('img');
-					App.loadIllustration.load(url, urlImgBig, $img[0], direction);
-				});
-				$('a.back-to-grid').click(function(e) {
-					e.preventDefault();
-					var url = $(this).attr('href');
-					App.loadPage.load(url, 'left');
-				});
+				/*	$('a.next-post,a.prev-post').click(function(e) {
+						e.preventDefault();
+						var $this = $(this),
+							direction = ($this.hasClass('prev-post')) ? 'left' : 'right';
+						url = $this.attr('href'),
+							urlImgBig = $this.attr('data-imgbig'),
+							$img = $this.find('img');
+						App.loadIllustration.load(url, urlImgBig, $img[0], direction);
+					});
+					$('a.back-to-grid').click(function(e) {
+						e.preventDefault();
+						var url = $(this).attr('href');
+						App.loadPage.load(url, 'left');
+					});*/
 			});
 		});
 		break;
 	case 'blog-list':
 		SR.set({
-			'sidebar': 'sb',
+			//'sidebar': 'sb',
 			'socialShare': 'ss'
 		}, function(App) {
 			$('document').ready(function() {
 				common(App);
-				$('a.alink,.alink-content a,.blog-list-nav a').click(function(e) {
+				/*	$('a.alink,.alink-content a,.blog-list-nav a').click(function(e) {
 					e.preventDefault();
 					var url = $(this).attr('href');
 					App.loadPage.load(url);
@@ -209,12 +209,13 @@ switch (pageID) {
 					url = $this.attr('href');
 					App.loadPage.load(url, direction);
 				});
+	*/
 			});
 		});
 		break;
 	case 'blog-post':
 		SR.set({
-			'sidebar': 'sb',
+			//	'sidebar': 'sb',
 			'contentSlider': 'csl',
 			'commentValidation': 'cv',
 			'socialComments': 'sc',
@@ -226,7 +227,13 @@ switch (pageID) {
 				if (!ltIE9) {
 					App.socialComments.initLate('.content img');
 				}
-				$('a.next-post,a.prev-post').click(function(e) {
+				var $wip = $('.wipSlider');
+				if ($wip.length > 0) {
+					$.getScript(baseTemplateURL + '/js/app/jquery.wipSlider.min.js', function() {
+						$wip.wipSlider();
+					});
+				}
+				/*	$('a.next-post,a.prev-post').click(function(e) {
 					e.preventDefault();
 					var $this = $(this),
 						direction = ($this.hasClass('prev-post')) ? 'left' : 'right';
@@ -238,6 +245,7 @@ switch (pageID) {
 					var url = $(this).attr('href');
 					App.loadPage.load(url, 'left');
 				});
+	*/
 			});
 		});
 		break;
@@ -256,11 +264,11 @@ switch (pageID) {
 		}, function(App) {
 			$('document').ready(function() {
 				common(App);
-				$('a.alink').click(function(e) {
-					e.preventDefault();
-					var url = $(this).attr('href');
-					App.loadPage.load(url);
-				});
+				/*	$('a.alink').click(function(e) {
+						e.preventDefault();
+						var url = $(this).attr('href');
+						App.loadPage.load(url);
+					});*/
 			});
 		});
 		break;
@@ -277,24 +285,24 @@ switch (pageID) {
 				if (!ltIE9) {
 					App.socialComments.initLate('.content img');
 				}
-				$('a.next-post,a.prev-post').click(function(e) {
-					e.preventDefault();
-					var $this = $(this),
-						direction = ($this.hasClass('prev-post')) ? 'left' : 'right';
-					url = $this.attr('href');
-					App.loadPage.load(url, direction);
-				});
-				$('a.back-to-grid').click(function(e) {
-					e.preventDefault();
-					var url = $(this).attr('href');
-					App.loadPage.load(url, 'left');
-				});
+				/*	$('a.next-post,a.prev-post').click(function(e) {
+						e.preventDefault();
+						var $this = $(this),
+							direction = ($this.hasClass('prev-post')) ? 'left' : 'right';
+						url = $this.attr('href');
+						App.loadPage.load(url, direction);
+					});
+					$('a.back-to-grid').click(function(e) {
+						e.preventDefault();
+						var url = $(this).attr('href');
+						App.loadPage.load(url, 'left');
+					});*/
 			});
 		});
 		break;
 	case 'page':
 		SR.set({
-			'socialShare': 'ss',
+			'socialShare': 'ss'
 		}, function(App) {
 			$('document').ready(function() {
 				common(App);
@@ -304,7 +312,7 @@ switch (pageID) {
 	case 'about-me':
 		SR.set({
 			'socialShare': 'ss',
-			'aboutMe': 'me',
+			'aboutMe': 'me'
 		}, function(App) {
 			$('document').ready(function() {
 				common(App);
@@ -314,7 +322,7 @@ switch (pageID) {
 		break;
 	default:
 		SR.set({
-			'socialShare': 'ss',
+			'socialShare': 'ss'
 		}, function(App) {
 			$('document').ready(function() {
 				common(App);

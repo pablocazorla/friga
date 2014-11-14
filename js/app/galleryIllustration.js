@@ -8,7 +8,7 @@ SR.define(function(App) {
 			this.$figures = this.$gallery.find('figure');
 			this.$a = $('.gallery-menu a');
 
-			this.draw().setEvents(this);
+			this.draw().setEvents(this).loadImages();
 			return this;
 		},
 		draw: function() {
@@ -30,6 +30,7 @@ SR.define(function(App) {
 			this.$figures.not('.hidden').each(function() {
 				$(this).css({
 					'width': stepX + '%',
+					'height': stepY + 'px',
 					'left': posX + '%',
 					'top': posY + 'px'
 				});
@@ -81,6 +82,34 @@ SR.define(function(App) {
 				}
 				self.select(cl, $this);
 			});
+			return this;
+		},
+		loadImages: function() {
+			var $images = $('.illustration-thumb-img'),
+				length = $images.length,
+				current = 0,
+				setScr = function() {
+
+					if (current < length) {
+						var $i = $images.eq(current),
+							s = $i.attr('srcwait');
+						$i.attr('src', s);
+					}
+				},
+				loadNext = function($i) {
+					if($i !== null){
+						$i.css('opacity','1');
+					}
+					++current;
+					setScr();
+				};
+			$images.load(function(){
+				loadNext($(this));
+			}).error(function(){
+				loadNext(null);
+			});
+			setScr();
+			return this;
 		}
 	}
 });

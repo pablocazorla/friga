@@ -58,11 +58,11 @@ SR.define(function(App) {
 			return this;
 		},
 		setPageLoading: function() {
-			this.$siteNavigation.find('a').click(function(e) {
+			/*this.$siteNavigation.find('a').click(function(e) {
 				e.preventDefault();
 				var url = $(this).attr('href');
 				App.loadPage.load(url);
-			});
+			});*/
 			return this;
 		}
 	}

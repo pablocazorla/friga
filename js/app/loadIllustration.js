@@ -25,7 +25,9 @@ SR.define(function(App) {
 			return this;
 		},
 		load: function(url, urlImgBig, imgThumb, fromLeftOrRight) {
-			if (!ltIE9) {
+			//if (!ltIE9) {
+			var comun = true;
+			if (!comun) {
 				App.siteNavigation.close();
 				this.$imgSquared.attr('src', this._draw(imgThumb));
 				var self = this,

@@ -50,8 +50,10 @@ SR.define(function(App) {
 			this.$figure.css('top', '-' + this.fTop + 'px');
 			return this;
 		},
-		calculateSize: function() {
+		calculateSize: function(heightImage) {
 			if (this.ready) {
+				var hf = heightImage || 5000;
+				this.$figure.height(hf);
 				this.difHeight = this.$figure.height() - App.$window.height();
 				this.marginTop = (this.difHeight > 0) ? Math.round(this.$wpSummaryContent.height() * .8 * this.r) : 10;
 				this.$wpSummary.height(this.$figure.height() + this.marginTop);
@@ -64,20 +66,21 @@ SR.define(function(App) {
 			return this;
 		},
 		setEvents: function(self) {
+			var $img = this.$figure.find('img').eq(0);
 			this.$wp.scroll(function() {
 				self.calculatePosition();
 			});
 			App.$window.resize(function() {
-				self.calculateSize();
+				self.calculateSize($img.height());
 			});
-			var $img = this.$figure.find('img').eq(0);
+			
 			if ($img[0].complete) {
 				this.ready = true;
-				this.calculateSize();
+				this.calculateSize($img.height());
 			} else {
 				$img.load(function() {
 					self.ready = true;
-					self.calculateSize();
+					self.calculateSize($img.height());
 				});
 			}
 			return this;
