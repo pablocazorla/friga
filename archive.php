@@ -1,11 +1,7 @@
 <?php get_header(); ?>
-<?php $async = $_GET['async']; ?>
-<?php if (!$async){?>
-<?php get_header(); ?>
-<?php } ?>
 <?php $cat_name = single_cat_title('',false);?>
 	<script type="text/javascript">pageID = 'blog-list';</script>
-	<article class="sub-frame blog-list blog nice-scroll page">
+	<article class="blog-list blog  page">
 		<div class="col-blog-row">
 			<div class="col-blog left">	
 				<section class="blog-container">
@@ -76,14 +72,18 @@
 				</section>
 			</div>
 			<div class="col-blog right"></div>
-			<div class="col-blog right-nav"></div>
 		</div>
-		<?php include(TEMPLATEPATH . '/footertemplate.php'); ?>
 	</article>
 	<aside class="aside-sidebar">
 		<?php get_sidebar(); ?>
-	</aside>
-	<nav class="post-navigation in-blog">
+	</aside>	
+	<nav class="post-navigation in-left">
+		<a href="" class="share link-facebook" data-share="{'on':'facebook'}"><span class="link-title">Share on Facebook</span></a>
+		<a href="" class="share link-twitter" data-share="{'on':'twitter','description':'I want to share |<?php echo $titleShare; ?>|'}"><span class="link-title">Share on Twitter</span></a>
+		<a href="" class="share link-google" data-share="{'on':'google'}"><span class="link-title">Share on Google+</span></a>
+		<a href="" class="share link-pinterest" data-share="{'on':'pinterest','media':'<?php echo $urlImageShare; ?>','description':'|<?php echo $titleShare; ?>|: <?php echo $descriptionShare; ?>'}"><span class="link-title">Share on Pinterest</span></a>
+	</nav>
+	<nav class="post-navigation">
 		<?php 
 			if($cat_name != 'Blog'){
 				echo '<a href="'. pc_category_link('Blog',true) .'" class="back-to-grid"><span class="link-title">All the Blog</span></a>';
@@ -91,11 +91,6 @@
 			next_posts_link('<span class="link-title">Next Posts</span>');
 			previous_posts_link('<span class="link-title">Previous Posts</span>');
 		?>
-		<a href="" class="share link-facebook" data-share="{'on':'facebook'}"><span class="link-title">Share on Facebook</span></a>
-		<a href="" class="share link-twitter" data-share="{'on':'twitter','description':'I want to share |<?php echo $titleShare; ?>|'}"><span class="link-title">Share on Twitter</span></a>
-		<a href="" class="share link-google" data-share="{'on':'google'}"><span class="link-title">Share on Google+</span></a>
-		<a href="" class="share link-pinterest" data-share="{'on':'pinterest','media':'<?php echo $urlImageShare; ?>','description':'|<?php echo $titleShare; ?>|: <?php echo $descriptionShare; ?>'}"><span class="link-title">Share on Pinterest</span></a>
 	</nav>
-<?php if (!$async){?>
+
 <?php get_footer(); ?>
-<?php } ?>

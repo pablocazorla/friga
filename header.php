@@ -26,7 +26,7 @@
 	
 	
 	<link href='http://fonts.googleapis.com/css?family=Raleway:400,600' rel='stylesheet' type='text/css'>
-	<link href="<?php bloginfo('template_url'); ?>/style.css" rel="stylesheet" type="text/css" />
+	<link href="<?php bloginfo('template_url'); ?>/style.php" rel="stylesheet" type="text/css" />
 	<noscript>
 		<link href="<?php bloginfo('template_url'); ?>/noscript.css" rel="stylesheet" type="text/css" />
 	</noscript>
@@ -56,32 +56,31 @@
 </head>
 <body>	
 <div id="site-navigation">
-	<div class="site-navigation-icon to-open-site-navigation">
-		<span class="lineIconNav lineIconNav1"></span><span class="lineIconNav lineIconNav2"></span><span class="lineIconNav lineIconNav3"></span>
-	</div>
-	<div class="site-navigation-content">
+	<div class="site-navigation-content clearfix">
 		<a href="<?php bloginfo( 'url' ); ?>" class="brand clearfix">
-			<img src="<?php bloginfo('template_url'); ?>/img/pablocazorla.jpg" class="pablocazorla"/>
+			<img src="<?php bloginfo('template_url'); ?>/img/brand.png" width="184" height="43" class="brand-img"/>
 			<div class="pablocazorla-title">
-				<span class="brand-name"><?php bloginfo( 'name' ); ?></span>
-				<span class="brand-description"><?php bloginfo( 'description' ); ?></span>
+				<div class="brand-name"><?php bloginfo( 'name' ); ?></div>
+				<div class="brand-description"><?php bloginfo( 'description' ); ?></div>
 			</div>			
 		</a>
-		<nav class="site-nav">
-			<p>
-				<span>Work</span>
-				<a href="<?php echo get_post_type_archive_link('illustration');?>">Illustration</a>
-				<a href="<?php echo get_post_type_archive_link('design');?>">Design</a>
-				<a class="hie8" href="<?php echo get_post_type_archive_link('sketch');?>">Sketches</a>				
-			</p>
-			<p>
-				<span>About</span>
-				<a href="<?php bloginfo( 'url' ); ?>/me">Me</a>				
-				<a href="<?php bloginfo( 'url' ); ?>/me#contact">Contact</a>
-				<a href="<?php echo pc_category_link('Blog'); ?>">Blog</a>
-			</p>
-		</nav>
+		<menu class="site-menu clearfix not-js">			
+			<nav class="site-menu-nav">
+				<div class="site-menu-cat">About <span></span></div>
+				<div class="site-menu-drop">
+					<a href="<?php bloginfo( 'url' ); ?>/me">Me</a>				
+					<a href="<?php bloginfo( 'url' ); ?>/me#contact-me">Contact</a>
+					<a href="<?php echo pc_category_link('Blog'); ?>">Blog</a>
+				</div>
+			</nav>
+			<nav class="site-menu-nav">
+				<div class="site-menu-cat">Work <span></span></div>
+				<div class="site-menu-drop">
+					<a href="<?php echo get_post_type_archive_link('illustration');?>">Illustration</a>
+					<a href="<?php echo get_post_type_archive_link('design');?>">Design</a>
+					<a class="hie8" href="<?php echo get_post_type_archive_link('sketch');?>">Sketches</a>
+				</div>			
+			</nav>
+		</menu>
 	</div>
 </div>
-<div id="shell">
-	<div class="frame current">

@@ -4,12 +4,8 @@ Template Name: About me
 */
 ?>
 <?php get_header(); ?>
-<?php $async = $_GET['async']; ?>
-<?php if (!$async){?>
-<?php get_header(); ?>
-<?php } ?>
 	<script type="text/javascript">pageID = 'about-me';</script>
-	<article class="sub-frame nice-scroll about-me">
+	<article class="about-me">
 		<section id="about-me-summary">	
 			<div id="about-me-summary-content">
 				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
@@ -43,7 +39,9 @@ Template Name: About me
 				<div class="about-tab first for-contact" title="Get in touch" data-ind="2"><span>Contact</span></div>
 			</div>
 		</section>
+
 		<section id="contact">
+			<a id="contact-me" name="contact-me" style="position:relative;height:0;"></a>
 			<div id="contact-container">
 				<div class="contact-email-container">
 					<h2>Get in touch!</h2>
@@ -63,7 +61,6 @@ Template Name: About me
 				</div>
 			</div>
 		</section>
-		<?php include(TEMPLATEPATH . '/footertemplate.php'); ?>
 	</article>
 	<style type="text/css">
 		img.blur {
@@ -76,22 +73,19 @@ Template Name: About me
 			filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='8');
 		}
 	</style>
-	<svg xmlns="http://www.w3.org/2000/svg" height="0">
+	<svg xmlns="http://www.w3.org/2000/svg" height="0" style="position:absolute">
 	   <filter height="116%" width="116%" y="-8%" x="-8%" id="blurfx">
 	       <feGaussianBlur stdDeviation="8" in="SourceGraphic"/>
 	   </filter>
 	</svg>	
-	<div class="sub-frame about-me-img">
-		<img data-src="<?php echo $urlImageShare; ?>" src="" id="about-me-img-pablo"/>
-		<img src="<?php bloginfo('template_url'); ?>/img/about.png" id="about-me-img-pix"/>		
+	<div class="about-me-img">
+		<img src="<?php echo $urlImageShare; ?>" id="about-me-img-pablo"/>	
 	</div>
-	<nav class="post-navigation">
+	<nav class="post-navigation in-left">
 		<a href="" class="share link-facebook" data-share="{'on':'facebook'}"><span class="link-title">Share on Facebook</span></a>
 		<a href="" class="share link-twitter" data-share="{'on':'twitter','description':'I want to share |<?php echo $titleShare; ?>|'}"><span class="link-title">Share on Twitter</span></a>
 		<a href="" class="share link-google" data-share="{'on':'google'}"><span class="link-title">Share on Google+</span></a>
 		<a href="" class="share link-pinterest" data-share="{'on':'pinterest','media':'<?php echo $urlImageShare; ?>','description':'|<?php echo $titleShare; ?>|: <?php echo $descriptionShare; ?>'}"><span class="link-title">Share on Pinterest</span></a>			
 	</nav>
 
-<?php if (!$async){?>
 <?php get_footer(); ?>
-<?php } ?>

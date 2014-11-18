@@ -1,29 +1,26 @@
 <?php get_header(); ?>
-<?php $async = $_GET['async']; ?>
-<?php if (!$async){?>
-<?php get_header(); ?>
-<?php } ?>
 	<script type="text/javascript">pageID = 'home';</script>
-	<article class="sub-frame nice-scroll page home">
-		<div id="home-presentation">
-			<div id="home-presentation-content">
-				<div id="home-presentation-videocontainer">
-					<img class="video-placehoder" src="<?php bloginfo('template_url'); ?>/video/presentat-placeholder.jpg">
-					<video loop="" autoplay="">
-				        <source type="video/webm" src="<?php bloginfo('template_url'); ?>/video/presentat.webm"></source>
-				        <source type="video/mp4" src="<?php bloginfo('template_url'); ?>/video/presentat.mp4"></source>
-				    </video>
-			    </div>
-			    <div id="home-presentation-text">
-			    	<div id="home-presentation-text-wrap">
-				    	<h1>I am Illustrator, Designer and Creative</h1>
-				    	<p>My name is <i>Pablo Cazorla</i>, and my job is to create all kind of beautiful things related to the world of the image.</p>
-				    	<p>In my work you will find digital art, web design, concepts and illustrations, javascript development, 3d modeling, oil on canvas, watercolor...</p>
-				    	<p>Just take a look to my <a href="#my-last-works" id="goto-last-work">last works</a>.</p>
-				    </div>
+	<div id="home-presentation">
+		<div id="home-presentation-content">
+			<div id="home-presentation-videocontainer">
+				<img class="video-placehoder" src="<?php bloginfo('template_url'); ?>/video/presentate-placeholder.jpg">
+				<video loop="" autoplay="">
+			        <source type="video/mp4" src="<?php bloginfo('template_url'); ?>/video/presentate.mp4"></source>
+			        <source type="video/webm" src="<?php bloginfo('template_url'); ?>/video/presentate.webm"></source>			        
+			    </video>
+			    <div class="velo"></div>
+		    </div>
+		    
+		    <div id="home-presentation-text">
+		    	<div id="home-presentation-text-wrap">
+			    	<h1>I am Illustrator, Designer and Creative</h1>
+			    	<p>My name is <i>Pablo Cazorla</i>, and my job is to create all kind of beautiful things related to the world of the image.</p>
+			    	<p><a href="#my-last-works" id="goto-last-work" class="button">See my last work</a></p>
 			    </div>
 		    </div>
-		</div>
+	    </div>
+	</div>
+	<article class="page home">		
 		<section class="home-section home-illustration" id="my-last-works">
 			<div class="home-section-content">
 				<h2><a class="async-link" href="<?php echo get_post_type_archive_link('illustration');?>">Illustration</a></h2>
@@ -131,8 +128,5 @@
 				</div>
 			</div>
 		</section>		
-		<?php include(TEMPLATEPATH . '/footertemplate.php'); ?>
 	</article>
-<?php if (!$async){?>
 <?php get_footer(); ?>
-<?php } ?>

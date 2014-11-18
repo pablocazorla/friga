@@ -1,10 +1,6 @@
 <?php get_header(); ?>
-<?php $async = $_GET['async']; ?>
-<?php if (!$async){?>
-<?php get_header(); ?>
-<?php } ?>
 	<script type="text/javascript">pageID = 'blog-list';</script>
-	<article class="sub-frame blog-list blog nice-scroll page" data-id="blog-list">
+	<article class="blog-list blog  page" data-id="blog-list">
 		<div class="col-blog-row">
 			<div class="col-blog left">	
 				<section class="blog-container">
@@ -59,20 +55,16 @@
 				</section>
 			</div>
 			<div class="col-blog right"></div>
-			<div class="col-blog right-nav"></div>
 		</div>
-		<?php include(TEMPLATEPATH . '/footertemplate.php'); ?>
 	</article>
 	<aside class="aside-sidebar">
 		<?php get_sidebar(); ?>
 	</aside>
-	<nav class="post-navigation in-blog">
+	<nav class="post-navigation">
 		<?php 
 			echo '<a href="'. pc_category_link('Blog',true) .'" class="back-to-grid"><span class="link-title">All the Blog</span></a>';					
 			next_posts_link('<span class="link-title">Next Posts</span>');
 			previous_posts_link('<span class="link-title">Previous Posts</span>');
 		?>
 	</nav>
-<?php if (!$async){?>
 <?php get_footer(); ?>
-<?php } ?>

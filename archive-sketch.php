@@ -2,13 +2,14 @@
  /*Template Name: Illustration
  */
 get_header(); ?>
-<?php $async = $_GET['async']; ?>
-<?php if (!$async){?>
-<?php get_header(); ?>
-<?php } ?>
+	<?php
+	 	$titleShare = 'Sketchbook';
+	 	$descriptionShare = 'Some ideas, some drawings. Many of them fail to materialize into a final work, others do. But they are almost always the first and essential step in my workflow.';
+	 	$urlImageShare = url_thumbnail('sketchbook-image');
+	 ?>
 	<link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
 	<script type="text/javascript">pageID = 'sketch-list';</script>
-	<article class="sub-frame sketch-list <?php echo $flavor;?> nice-scroll page">
+	<article class="sketch-list <?php echo $flavor;?>  page">
 		<header class="panel">
 			<div class="text-box align-center">
 				<h1>Sketchbook</h1>
@@ -66,8 +67,11 @@ get_header(); ?>
 				<img class="sketchbook-fold-bg" src="<?php bloginfo('template_url'); ?>/img/sketchbook/sketchbook-fold-bg.jpg">
 			</div>	
 		</section>
-		<?php include(TEMPLATEPATH . '/footertemplate.php'); ?>	
 	</article>
-<?php if (!$async){?>
+	<nav class="post-navigation in-left">
+		<a href="" class="share link-facebook" data-share="{'on':'facebook'}"><span class="link-title">Share on Facebook</span></a>
+		<a href="" class="share link-twitter" data-share="{'on':'twitter','description':'I want to share |<?php echo $titleShare; ?>|'}"><span class="link-title">Share on Twitter</span></a>
+		<a href="" class="share link-google" data-share="{'on':'google'}"><span class="link-title">Share on Google+</span></a>
+		<a href="" class="share link-pinterest" data-share="{'on':'pinterest','media':'<?php echo $urlImageShare; ?>','description':'|<?php echo $titleShare; ?>|: <?php echo $descriptionShare; ?>'}"><span class="link-title">Share on Pinterest</span></a>
+	</nav>
 <?php get_footer(); ?>
-<?php } ?>

@@ -1,8 +1,4 @@
 <?php get_header(); ?>
-<?php $async = $_GET['async']; ?>
-<?php if (!$async){?>
-<?php get_header(); ?>
-<?php } ?>
 	<script type="text/javascript">pageID = 'design-post';</script>
 	<style type="text/css">
 		.header-blog img {
@@ -15,12 +11,12 @@
 			filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
 		}
 	</style>
-	<svg xmlns="http://www.w3.org/2000/svg" height="0">
+	<svg xmlns="http://www.w3.org/2000/svg" height="0" style="position:absolute">
 	   <filter height="116%" width="116%" y="-8%" x="-8%" id="blurfx">
 	       <feGaussianBlur stdDeviation="3" in="SourceGraphic"/>
 	   </filter>
 	</svg>	
-	<article class="sub-frame blog-post design-post blog nice-scroll page">
+	<article class="blog-post design-post blog  page">
 		<div class="col-blog-row">
 			<div class="col-blog left">
 				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
@@ -58,20 +54,18 @@
 				 ?>
 				<?php endwhile; endif; ?>
 			</div>
-			<div class="col-blog right-nav"></div>
 		</div>
-		<?php include(TEMPLATEPATH . '/footertemplate.php'); ?>
 	</article>
-
-	<nav class="post-navigation in-blog">
-		<a href="<?php echo get_post_type_archive_link('design'); ?>" class="back-to-grid"><span class="link-title">All Design</span></a>
-		<?php previous_post_link('%link', '<span class="link-title"><b>Next:</b> %title </span>', FALSE); ?>
-		<?php next_post_link('%link', '<span class="link-title"><b>Previous:</b> %title </span>', FALSE); ?>
+	<nav class="post-navigation in-left">
 		<a href="" class="share link-facebook" data-share="{'on':'facebook'}"><span class="link-title">Share on Facebook</span></a>
 		<a href="" class="share link-twitter" data-share="{'on':'twitter','description':'I want to share |<?php echo $titleShare; ?>|'}"><span class="link-title">Share on Twitter</span></a>
 		<a href="" class="share link-google" data-share="{'on':'google'}"><span class="link-title">Share on Google+</span></a>
-		<a href="" class="share link-pinterest" data-share="{'on':'pinterest','media':'<?php echo $urlImageShare; ?>','description':'|<?php echo $titleShare; ?>|: <?php echo $descriptionShare; ?>'}"><span class="link-title">Share on Pinterest</span></a>			
+		<a href="" class="share link-pinterest" data-share="{'on':'pinterest','media':'<?php echo $urlImageShare; ?>','description':'|<?php echo $titleShare; ?>|: <?php echo $descriptionShare; ?>'}"><span class="link-title">Share on Pinterest</span></a>				
 	</nav>
-<?php if (!$async){?>
+	<nav class="post-navigation">
+		<a href="<?php echo get_post_type_archive_link('design'); ?>" class="back-to-grid"><span class="link-title">All Design</span></a>
+		<?php previous_post_link('%link', '<span class="link-title"><b>Next:</b> %title </span>', FALSE); ?>
+		<?php next_post_link('%link', '<span class="link-title"><b>Previous:</b> %title </span>', FALSE); ?>
+	</nav>
+
 <?php get_footer(); ?>
-<?php } ?>

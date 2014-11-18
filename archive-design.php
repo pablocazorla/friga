@@ -2,12 +2,13 @@
  /*Template Name: Illustration
  */
 get_header(); ?>
-<?php $async = $_GET['async']; ?>
-<?php if (!$async){?>
-<?php get_header(); ?>
-<?php } ?>
 	<script type="text/javascript">pageID = 'design-list';</script>
-	<article class="sub-frame design-list nice-scroll page">
+	<?php
+	 	$titleShare = 'Design';
+	 	$descriptionShare = 'Elegant design, useful interfaces, beautiful things...';
+	 	$urlImageShare = url_thumbnail('design-thumb');
+	 ?>
+	<article class="design-list  page">
 		
 		<section id="design-slider" style="display:none">
 			<?php
@@ -77,7 +78,6 @@ get_header(); ?>
 			<?php endif; ?>
 		</section>
 		<div id="design-more" style="display:none">
-			<div class="design-more-separator"></div>
 			<section class="gallery clearfix">
 			<?php
 			$list = new WP_Query('post_type=design&posts_per_page=58&offset=6');
@@ -98,7 +98,6 @@ get_header(); ?>
 			<h2>Sorry, works not found</h2>
 			<?php endif; ?>
 		</section>
-			<?php include(TEMPLATEPATH . '/footertemplate.php'); ?>	
 		</div>		
 	</article>
 <div id="scroll-down">
@@ -108,6 +107,13 @@ get_header(); ?>
 	</div>	
 </div>
 <div id="design-loading">Loading beautifull things...</div>
-<?php if (!$async){?>
+<style>
+#footer-main{display: none;}
+</style>
+<nav class="post-navigation in-left">
+	<a href="" class="share link-facebook" data-share="{'on':'facebook'}"><span class="link-title">Share on Facebook</span></a>
+	<a href="" class="share link-twitter" data-share="{'on':'twitter','description':'I want to share |<?php echo $titleShare; ?>|'}"><span class="link-title">Share on Twitter</span></a>
+	<a href="" class="share link-google" data-share="{'on':'google'}"><span class="link-title">Share on Google+</span></a>
+	<a href="" class="share link-pinterest" data-share="{'on':'pinterest','media':'<?php echo $urlImageShare; ?>','description':'|<?php echo $titleShare; ?>|: <?php echo $descriptionShare; ?>'}"><span class="link-title">Share on Pinterest</span></a>
+</nav>
 <?php get_footer(); ?>
-<?php } ?>
