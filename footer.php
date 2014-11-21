@@ -7,7 +7,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>window.$ || document.write('<script src="<?php bloginfo('template_url'); ?>/js/libs/jquery-1.9.1.min.js"><\/script>')</script>
 <script src="<?php bloginfo('template_url'); ?>/js/libs/jquery.nicescroll.min.js" type="text/javascript"></script>
-<script src="<?php bloginfo('template_url'); ?>/js/app.js" type="text/javascript"></script>
+<script src="<?php bloginfo('template_url'); ?>/js/app.php" type="text/javascript"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

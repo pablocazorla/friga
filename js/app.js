@@ -2,15 +2,27 @@
 ;
 (function() {
 	var browser = {},
-		ua = navigator.userAgent.toLowerCase();
+		uAgent = navigator.userAgent || navigator.vendor || window.opera,
+		ua = uAgent.toLowerCase();
 	browser.mozilla = /mozilla/.test(ua) && !/webkit/.test(ua);
 	browser.webkit = /webkit/.test(ua);
 	browser.opera = /opera/.test(ua);
 	browser.msie = /msie/.test(ua);
+	browser.ios = (ua.match(/ipad/i) || ua.match(/iphone/i) || ua.match(/ipod/i));
+	browser.android = ua.match(/android/i);
+
 	if (typeof pageID === 'undefined') {
 		pageID = 'all';
 	}
 	var PC = {};
+	PC.tryMobile = function() {
+		if (browser.ios) {
+			PC.$body.addClass('mobile').addClass('mobile-ios');
+		}
+		if (browser.android) {
+			PC.$body.addClass('mobile').addClass('mobile-android');
+		}
+	};
 	PC.header = function() {
 		var $header = $('#site-navigation'),
 			$sidebar = $('.aside-sidebar'),
@@ -1578,6 +1590,7 @@
 		PC.$body = $('body');
 
 		// COMMON
+		PC.tryMobile();
 		PC.nicescroll();
 		$('.post-navigation').each(function() {
 			var $this = $(this),
